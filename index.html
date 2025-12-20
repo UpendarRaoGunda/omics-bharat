@@ -6,24 +6,33 @@
     <title>Omics Bharat - India's Multi-Omics Research Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a5276;
+            /* Enhanced color palette */
+            --primary: #0A2647;
+            --primary-light: #144272;
             --secondary: #28b463;
-            --accent: #e74c3c;
+            --secondary-light: #d4f3e2;
+            --accent: #FF6B35;
+            --accent-light: #ffe8e0;
             --warning: #f39c12;
             --info: #3498db;
             --light: #f8f9fa;
-            --dark: #2c3e50;
-            --gray: #7f8c8d;
+            --dark: #1a1a2e;
+            --gray: #6c757d;
+            --gray-light: #f0f2f5;
             --success: #27ae60;
             --indigo: #3f51b5;
             --teal: #16a085;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-            --radius: 10px;
-            --radius-sm: 6px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -34,21 +43,24 @@
         }
 
         body {
-            background-color: #f5f7fb;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
             color: #333;
             line-height: 1.6;
             font-size: 15px;
+            overflow-x: hidden;
         }
 
-        /* Enhanced Header */
+        /* Enhanced Header with gradient */
         header {
-            background: linear-gradient(135deg, var(--primary), #0e3a52);
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
             padding: 0;
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .top-bar {
@@ -70,11 +82,15 @@
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             margin-left: 20px;
-            transition: color 0.3s;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .top-bar-links a:hover {
             color: white;
+            transform: translateY(-1px);
         }
 
         .main-header {
@@ -106,13 +122,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(40, 180, 99, 0.3);
+            transition: var(--transition);
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(10deg) scale(1.05);
         }
 
         .logo-text h1 {
-            font-size: 1.9rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
             margin-bottom: 5px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .logo-text p {
@@ -124,25 +147,46 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 10px;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 5px;
+            border-radius: var(--radius);
         }
 
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             padding: 10px 18px;
             border-radius: var(--radius-sm);
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
+            position: relative;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover {
             background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
             color: var(--secondary);
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
         }
 
         .user-menu {
@@ -162,78 +206,88 @@
             font-weight: bold;
             color: white;
             cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(40, 180, 99, 0.3);
         }
 
-        .notification-badge {
-            position: relative;
-            cursor: pointer;
-            font-size: 1.3rem;
-            color: white;
+        .user-avatar:hover {
+            transform: scale(1.05);
         }
 
-        .badge-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: var(--accent);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Hero Section */
+        /* Enhanced Hero Section with Command Center */
         .hero {
-            background: linear-gradient(rgba(26, 82, 118, 0.92), rgba(26, 82, 118, 0.88)), 
-                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background: linear-gradient(rgba(10, 38, 71, 0.92), rgba(10, 38, 71, 0.88)), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 4rem 0;
-            margin-bottom: 2.5rem;
+            padding: 5rem 0;
+            margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(40, 180, 99, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
         }
 
         .hero-text h2 {
-            font-size: 3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
-            line-height: 1.2;
-            font-weight: 800;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0.9;
             max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .hero-search {
-            background: white;
+        /* Command Center Search */
+        .command-center {
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: var(--radius);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .search-tabs {
             display: flex;
             margin-bottom: 20px;
             border-bottom: 1px solid #eee;
+            gap: 5px;
         }
 
         .search-tab {
@@ -242,11 +296,21 @@
             font-weight: 600;
             color: var(--gray);
             border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .search-tab:hover {
+            color: var(--primary);
         }
 
         .search-tab.active {
             color: var(--primary);
-            border-bottom-color: var(--primary);
+            border-bottom-color: var(--secondary);
+        }
+
+        .search-container {
+            position: relative;
         }
 
         .search-box {
@@ -256,385 +320,306 @@
 
         .search-input {
             flex: 1;
-            padding: 14px 18px;
+            padding: 18px 24px;
             border: 2px solid #e0e0e0;
-            border-radius: var(--radius-sm);
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .search-input:focus {
             outline: none;
             border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(40, 180, 99, 0.15);
+            transform: translateY(-1px);
         }
 
         .search-btn {
-            background: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary), #239954);
             color: white;
             border: none;
-            padding: 0 30px;
-            border-radius: var(--radius-sm);
+            padding: 0 35px;
+            border-radius: var(--radius-lg);
             cursor: pointer;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(40, 180, 99, 0.3);
         }
 
         .search-btn:hover {
-            background: #239954;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 180, 99, 0.4);
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 100;
         }
 
-        /* Stats Cards */
+        .search-input:focus + .search-suggestions {
+            display: block;
+        }
+
+        .suggestion-item {
+            padding: 15px 24px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .suggestion-item:hover {
+            background: var(--gray-light);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+
+        /* Stats Grid with animation */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .stat-card {
             background: white;
             border-radius: var(--radius);
-            padding: 25px;
+            padding: 30px 25px;
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: var(--transition);
             cursor: pointer;
-            border-left: 4px solid var(--secondary);
+            border-left: 5px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--info), var(--primary));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-
-        .stat-content h3 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .stat-content p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        /* Dashboard Layout */
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            height: fit-content;
-            position: sticky;
-            top: 150px;
-        }
-
-        .sidebar-section {
-            margin-bottom: 30px;
-        }
-
-        .sidebar-section h3 {
-            color: var(--primary);
-            margin-bottom: 18px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .filter-group {
-            margin-bottom: 20px;
-        }
-
-        .filter-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        .filter-select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            background-color: white;
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 16px;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(40, 180, 99, 0.1);
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checkbox-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--secondary);
-        }
-
-        .btn-apply {
-            background: var(--secondary);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            margin-top: 10px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-apply:hover {
-            background: #239954;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        /* Content Tabs */
-        .content-tabs {
-            display: flex;
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .content-tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .content-tab:hover {
-            color: var(--primary);
-            background-color: #f8f9fa;
-        }
-
-        .content-tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background-color: #f8f9fa;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border-top: 4px solid transparent;
-            height: 100%;
-        }
-
-        .feature-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
         }
 
-        .feature-card.omics {
-            border-top-color: var(--info);
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
-        .feature-card.analysis {
-            border-top-color: var(--warning);
-        }
-
-        .feature-card.collaboration {
-            border-top-color: var(--secondary);
-        }
-
-        .feature-card.data {
-            border-top-color: var(--indigo);
-        }
-
-        .feature-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--info), var(--primary-light));
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: white;
+            font-size: 2rem;
+            flex-shrink: 0;
         }
 
-        .feature-icon.omics {
+        .stat-content h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-content p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, auto);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .bento-item {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--info), var(--primary-light));
+        }
+
+        .bento-item:nth-child(1) { grid-area: 1 / 1 / 2 / 3; }
+        .bento-item:nth-child(2) { grid-area: 1 / 3 / 2 / 5; }
+        .bento-item:nth-child(3) { grid-area: 2 / 1 / 3 / 3; }
+        .bento-item:nth-child(4) { grid-area: 2 / 3 / 3 / 5; }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .bento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .bento-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .bento-icon.omics {
             background: linear-gradient(135deg, var(--info), #2980b9);
         }
 
-        .feature-icon.analysis {
+        .bento-icon.analysis {
             background: linear-gradient(135deg, var(--warning), #e67e22);
         }
 
-        .feature-icon.collaboration {
+        .bento-icon.collaboration {
             background: linear-gradient(135deg, var(--secondary), #239954);
         }
 
-        .feature-icon.data {
+        .bento-icon.data {
             background: linear-gradient(135deg, var(--indigo), #5c6bc0);
         }
 
-        .feature-card h3 {
+        .bento-item h3 {
             color: var(--primary);
-            margin-bottom: 12px;
-            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
         }
 
-        .feature-card p {
+        .bento-item p {
             color: var(--gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
-        .feature-actions {
+        .bento-actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
         }
 
-        .btn-feature {
-            padding: 10px 18px;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .btn-feature.primary {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-        }
-
-        .btn-feature.primary:hover {
-            background-color: #239954;
-        }
-
-        .btn-feature.secondary {
-            background-color: white;
-            color: var(--primary);
-            border: 1px solid #ddd;
-        }
-
-        .btn-feature.secondary:hover {
-            background-color: #f8f9fa;
-            border-color: var(--primary);
-        }
-
-        /* Hospital Map */
-        .map-container {
+        /* Interactive Map Section */
+        .map-section {
             background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            padding: 30px;
+        }
+
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .map-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .map-filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            border: 2px solid #e0e0e0;
+            background: white;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--secondary-light);
+            border-color: var(--secondary);
+            color: var(--primary);
+        }
+
+        .map-container {
             height: 500px;
-            margin-bottom: 30px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--gray-light);
+            position: relative;
         }
 
         #indiaMap {
@@ -642,80 +627,215 @@
             height: 100%;
         }
 
-        /* Data Table */
-        .table-container {
+        .map-sidebar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            width: 300px;
+            z-index: 1000;
+            max-height: calc(100% - 40px);
+            overflow-y: auto;
+        }
+
+        .map-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .map-stat {
+            background: var(--gray-light);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .map-stat h4 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .map-stat p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Enhanced Hospital Table */
+        .table-section {
             background: white;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            overflow-x: auto;
+            margin-bottom: 40px;
         }
 
         .table-header {
-            padding: 20px;
+            padding: 25px 30px;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .table-header h3 {
             color: var(--primary);
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 1000px;
         }
 
         thead {
-            background-color: #f8f9fa;
+            background-color: var(--primary-light);
         }
 
         th {
-            padding: 18px 15px;
+            padding: 18px 20px;
             text-align: left;
             font-weight: 600;
-            color: var(--primary);
-            border-bottom: 2px solid #eee;
+            color: white;
+            border-bottom: 2px solid var(--primary);
             white-space: nowrap;
+            position: sticky;
+            top: 0;
         }
 
         tbody tr {
             border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s;
+            transition: var(--transition);
         }
 
         tbody tr:hover {
-            background-color: #f9f9f9;
+            background-color: var(--gray-light);
+            transform: translateX(4px);
         }
 
         td {
-            padding: 16px 15px;
+            padding: 16px 20px;
+            vertical-align: middle;
+        }
+
+        .hospital-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hospital-name {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .hospital-type {
+            font-size: 0.85rem;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .location-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        .samples-cell {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .diseases-cell {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .disease-tag {
+            background: #e8f4f8;
+            color: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .omics-cell {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .omics-tag {
+            background: var(--secondary-light);
+            color: var(--secondary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .status-badge {
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
             display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .status-active {
-            background-color: rgba(39, 174, 96, 0.1);
+            background-color: rgba(39, 174, 96, 0.15);
             color: var(--success);
         }
 
         .status-pending {
-            background-color: rgba(243, 156, 18, 0.1);
+            background-color: rgba(243, 156, 18, 0.15);
             color: var(--warning);
         }
 
         .status-restricted {
-            background-color: rgba(231, 76, 60, 0.1);
+            background-color: rgba(231, 76, 60, 0.15);
             color: var(--accent);
         }
 
@@ -725,16 +845,17 @@
         }
 
         .btn-action {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             border: none;
             background: none;
-            transition: all 0.2s;
+            transition: var(--transition);
+            font-size: 1.1rem;
         }
 
         .btn-action.view {
@@ -744,6 +865,7 @@
 
         .btn-action.view:hover {
             background-color: rgba(52, 152, 219, 0.2);
+            transform: scale(1.1);
         }
 
         .btn-action.edit {
@@ -753,6 +875,7 @@
 
         .btn-action.edit:hover {
             background-color: rgba(243, 156, 18, 0.2);
+            transform: scale(1.1);
         }
 
         .btn-action.download {
@@ -762,61 +885,218 @@
 
         .btn-action.download:hover {
             background-color: rgba(39, 174, 96, 0.2);
+            transform: scale(1.1);
         }
 
-        /* Analysis Tools */
+        /* Visual Query Builder */
+        .query-builder {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .query-header {
+            margin-bottom: 25px;
+        }
+
+        .query-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .query-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .query-item {
+            background: var(--gray-light);
+            border-radius: var(--radius);
+            padding: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .query-item:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .query-item.active {
+            border-color: var(--secondary);
+            background: var(--secondary-light);
+        }
+
+        .query-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--info), var(--primary-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .query-item h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .query-results {
+            background: var(--gray-light);
+            border-radius: var(--radius);
+            padding: 25px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .query-results.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        /* Analysis Tools Grid */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
         .tool-card {
             background: white;
             border-radius: var(--radius);
-            padding: 25px;
+            padding: 30px;
             box-shadow: var(--shadow);
             text-align: center;
-            transition: all 0.3s;
+            transition: var(--transition);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--info), var(--primary-light));
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .tool-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
         }
 
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
         .tool-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 20px;
-            background: linear-gradient(135deg, var(--info), var(--primary));
+            background: linear-gradient(135deg, var(--info), var(--primary-light));
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin: 0 auto 20px;
         }
 
         .tool-card h4 {
             color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         .tool-card p {
             color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), #239954);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(40, 180, 99, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 180, 99, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid #e0e0e0;
+            padding: 12px 26px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-2px);
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #0e3a52, var(--primary));
+            background: linear-gradient(135deg, var(--primary), #082138);
             color: white;
             padding: 4rem 0 2rem;
             margin-top: 4rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
         }
 
         .footer-content {
@@ -849,7 +1129,7 @@
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -868,161 +1148,69 @@
             font-size: 0.9rem;
         }
 
-        /* Modals */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background-color: white;
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            border-radius: var(--radius);
-            overflow: hidden;
-            animation: modalSlideIn 0.4s;
-        }
-
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-60px); }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .modal-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .modal-header h3 {
-            margin: 0;
-            font-size: 1.5rem;
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
-        .close-modal {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-
-        .close-modal:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .modal-body {
-            padding: 30px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-
-        /* Forms */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: var(--radius-sm);
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(40, 180, 99, 0.1);
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 1200px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
             }
             
-            .sidebar {
-                position: static;
-                order: 2;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
+            .bento-item:nth-child(1) { grid-area: auto; }
+            .bento-item:nth-child(2) { grid-area: auto; }
+            .bento-item:nth-child(3) { grid-area: auto; }
+            .bento-item:nth-child(4) { grid-area: auto; }
         }
 
         @media (max-width: 992px) {
+            .hero-text h2 {
+                font-size: 2.8rem;
+            }
+            
+            .command-center {
+                padding: 25px;
+            }
+            
+            .map-sidebar {
+                position: static;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
             nav ul {
                 display: none;
-            }
-            
-            .hero-text h2 {
-                font-size: 2.5rem;
-            }
-            
-            .content-tabs {
-                flex-wrap: wrap;
-            }
-            
-            .content-tab {
-                min-width: 150px;
             }
         }
 
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
+            .hero-text h2 {
+                font-size: 2.2rem;
             }
             
-            .user-menu {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
+            .hero-text p {
+                font-size: 1.1rem;
             }
             
             .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bento-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -1034,6 +1222,58 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .table-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .command-center {
+                padding: 20px;
+            }
+            
+            .map-filters {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
     </style>
 </head>
@@ -1089,401 +1329,342 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Command Center -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
                 <h2>Advancing Precision Medicine for 1.4 Billion</h2>
                 <p>India's first comprehensive, open-source multi-omics database integrating genomics, transcriptomics, proteomics, and metabolomics with clinical data for accelerated biomedical research.</p>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-hospital"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="hospitalCount">62</h3>
-                            <p>Participating Hospitals</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-vial"></i>
-                        </div>
-                        <div class="stat-content">
-                            <h3 id="sampleCount">187,430</h3>
-                            <p>Tissue Samples</p>
-                        </div>
-                    </div>
-                </div>
             </div>
             
-            <div class="hero-search">
+            <div class="command-center">
                 <div class="search-tabs">
                     <div class="search-tab active" data-search="data">Search Data</div>
                     <div class="search-tab" data-search="hospitals">Find Hospitals</div>
                     <div class="search-tab" data-search="tools">Analysis Tools</div>
                 </div>
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="Search for datasets, genes, diseases, or hospitals...">
-                    <button class="search-btn">
-                        <i class="fas fa-search"></i> Search
-                    </button>
-                </div>
-                <div style="margin-top: 20px; font-size: 0.9rem; color: var(--gray);">
-                    <p><i class="fas fa-lightbulb"></i> Try: "BRCA1 variants in South India" or "Diabetes proteomics datasets"</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search for datasets, genes, diseases, or hospitals...">
+                        <button class="search-btn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                    <div class="search-suggestions">
+                        <div class="suggestion-item" data-query="BRCA1 variants in South India">
+                            <i class="fas fa-search"></i> BRCA1 variants in South India
+                        </div>
+                        <div class="suggestion-item" data-query="Diabetes proteomics datasets">
+                            <i class="fas fa-search"></i> Diabetes proteomics datasets
+                        </div>
+                        <div class="suggestion-item" data-query="Oral cancer WGS data">
+                            <i class="fas fa-search"></i> Oral cancer WGS data
+                        </div>
+                        <div class="suggestion-item" data-query="Cardiovascular disease multi-omics">
+                            <i class="fas fa-search"></i> Cardiovascular disease multi-omics
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Main Container -->
-    <div class="container">
-        <!-- Stats Overview -->
+    <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        <!-- Stats Grid with Animated Counters -->
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" data-target="62">
+                <div class="stat-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>0</h3>
+                    <p>Participating Hospitals</p>
+                </div>
+            </div>
+            <div class="stat-card" data-target="187430">
+                <div class="stat-icon" style="background: linear-gradient(135deg, var(--accent), #ff8c42);">
+                    <i class="fas fa-vial"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>0</h3>
+                    <p>Tissue Samples</p>
+                </div>
+            </div>
+            <div class="stat-card" data-target="8">
                 <div class="stat-icon" style="background: linear-gradient(135deg, var(--indigo), #5c6bc0);">
                     <i class="fas fa-dna"></i>
                 </div>
                 <div class="stat-content">
-                    <h3>8</h3>
+                    <h3>0</h3>
                     <p>Omics Data Types</p>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon" style="background: linear-gradient(135deg, var(--warning), #e67e22);">
-                    <i class="fas fa-disease"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>34</h3>
-                    <p>Diseases Covered</p>
-                </div>
-            </div>
-            <div class="stat-card">
+            <div class="stat-card" data-target="1248">
                 <div class="stat-icon" style="background: linear-gradient(135deg, var(--teal), #1abc9c);">
                     <i class="fas fa-user-md"></i>
                 </div>
                 <div class="stat-content">
-                    <h3>1,248</h3>
+                    <h3>0</h3>
                     <p>Registered Researchers</p>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <div class="stat-content">
-                    <h3>89</h3>
-                    <p>Active Projects</p>
                 </div>
             </div>
         </div>
 
-        <!-- Dashboard Layout -->
-        <div class="dashboard-layout">
-            <!-- Sidebar Filters -->
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <h3><i class="fas fa-filter"></i> Filter Data</h3>
-                    <div class="filter-group">
-                        <label for="diseaseFilter">Disease Focus</label>
-                        <select class="filter-select" id="diseaseFilter">
-                            <option value="all">All Diseases</option>
-                            <option value="cancer">Cancer</option>
-                            <option value="diabetes">Diabetes</option>
-                            <option value="cvd">Cardiovascular</option>
-                            <option value="neuro">Neurological</option>
-                            <option value="infectious">Infectious Diseases</option>
-                            <option value="rare">Rare Diseases</option>
-                        </select>
+        <!-- Bento Grid Layout -->
+        <div class="bento-grid">
+            <div class="bento-item">
+                <div class="bento-header">
+                    <h3>Multi-Omics Data Integration</h3>
+                    <div class="bento-icon omics">
+                        <i class="fas fa-layer-group"></i>
                     </div>
-                    
-                    <div class="filter-group">
-                        <label for="omicsFilter">Omics Data Type</label>
-                        <select class="filter-select" id="omicsFilter">
-                            <option value="all">All Omics</option>
-                            <option value="genomics">Genomics</option>
-                            <option value="transcriptomics">Transcriptomics</option>
-                            <option value="proteomics">Proteomics</option>
-                            <option value="metabolomics">Metabolomics</option>
-                            <option value="epigenomics">Epigenomics</option>
-                            <option value="multiomics">Multi-Omics</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="regionFilter">Geographic Region</label>
-                        <select class="filter-select" id="regionFilter">
-                            <option value="all">All India</option>
-                            <option value="north">North India</option>
-                            <option value="south">South India</option>
-                            <option value="east">East India</option>
-                            <option value="west">West India</option>
-                            <option value="central">Central India</option>
-                            <option value="northeast">North-East India</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label>Sample Type</label>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="ffpe" checked>
-                                <label for="ffpe">FFPE Tissues</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="frozen" checked>
-                                <label for="frozen">Frozen Tissues</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="blood">
-                                <label for="blood">Blood/Serum</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="rna">
-                                <label for="rna">RNA-stabilized</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-apply" id="applyFilters">
-                        <i class="fas fa-check-circle"></i> Apply Filters
+                </div>
+                <p>Integrated genomics, transcriptomics, proteomics, metabolomics, epigenomics, microbiomics, lipidomics, and phenomics data from Indian populations.</p>
+                <div class="bento-actions">
+                    <button class="btn-primary">
+                        <i class="fas fa-database"></i> Browse Data
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-info-circle"></i> Learn More
                     </button>
                 </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="bento-header">
+                    <h3>Advanced Analysis Tools</h3>
+                    <div class="bento-icon analysis">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                </div>
+                <p>Jupyter notebooks, RStudio, GWAS/QTL analysis, machine learning pipelines, pathway analysis, and visualization tools tailored for Indian data.</p>
+                <div class="bento-actions">
+                    <button class="btn-primary">
+                        <i class="fas fa-play"></i> Launch Tools
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-book"></i> Tutorials
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="bento-header">
+                    <h3>Collaboration Network</h3>
+                    <div class="bento-icon collaboration">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                </div>
+                <p>Connect with 62+ hospitals, 1,200+ researchers, and join active projects. Matchmaking for interdisciplinary collaborations.</p>
+                <div class="bento-actions">
+                    <button class="btn-primary">
+                        <i class="fas fa-search"></i> Find Collaborators
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-plus"></i> Create Project
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bento-item">
+                <div class="bento-header">
+                    <h3>Data Management</h3>
+                    <div class="bento-icon data">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                </div>
+                <p>Secure data submission, version control, automated QC, FAIR compliance, and federated query across distributed repositories.</p>
+                <div class="bento-actions">
+                    <button class="btn-primary">
+                        <i class="fas fa-upload"></i> Submit Data
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-shield-alt"></i> Security Info
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Map Section -->
+        <div class="map-section">
+            <div class="map-header">
+                <h3><i class="fas fa-map-marked-alt"></i> Hospital Distribution Across India</h3>
+                <div class="map-filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-globe"></i> All Regions
+                    </button>
+                    <button class="filter-btn" data-filter="north">
+                        <i class="fas fa-mountain"></i> North India
+                    </button>
+                    <button class="filter-btn" data-filter="south">
+                        <i class="fas fa-sun"></i> South India
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fas fa-check-circle"></i> Active Only
+                    </button>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <div id="indiaMap"></div>
+                <div class="map-sidebar">
+                    <h4 style="color: var(--primary); margin-bottom: 15px;">Map Statistics</h4>
+                    <div class="map-stats">
+                        <div class="map-stat">
+                            <h4 id="mapHospitalCount">62</h4>
+                            <p>Hospitals</p>
+                        </div>
+                        <div class="map-stat">
+                            <h4 id="mapSampleCount">187k</h4>
+                            <p>Samples</p>
+                        </div>
+                        <div class="map-stat">
+                            <h4 id="mapActiveCount">58</h4>
+                            <p>Active</p>
+                        </div>
+                        <div class="map-stat">
+                            <h4 id="mapStatesCount">18</h4>
+                            <p>States</p>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--gray);">
+                        <p><i class="fas fa-info-circle" style="color: var(--info);"></i> Click on a state to filter hospitals by region</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Query Builder -->
+        <div class="query-builder">
+            <div class="query-header">
+                <h3><i class="fas fa-filter"></i> Visual Query Builder</h3>
+                <p>Click on any category below to filter the hospital registry table</p>
+            </div>
+            <div class="query-visual">
+                <div class="query-item active" data-filter="all">
+                    <div class="query-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h4>All Hospitals</h4>
+                    <p>Show all institutions</p>
+                </div>
+                <div class="query-item" data-filter="cancer">
+                    <div class="query-icon" style="background: linear-gradient(135deg, var(--accent), #ff8c42);">
+                        <i class="fas fa-disease"></i>
+                    </div>
+                    <h4>Cancer Focus</h4>
+                    <p>Oral, breast, cervical</p>
+                </div>
+                <div class="query-item" data-filter="diabetes">
+                    <div class="query-icon" style="background: linear-gradient(135deg, var(--warning), #e67e22);">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h4>Diabetes Focus</h4>
+                    <p>Type 1 & 2 diabetes</p>
+                </div>
+                <div class="query-item" data-filter="multiomics">
+                    <div class="query-icon" style="background: linear-gradient(135deg, var(--indigo), #5c6bc0);">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h4>Multi-Omics Data</h4>
+                    <p>3+ omics types</p>
+                </div>
+            </div>
+            <div class="query-results" id="queryResults">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <div style="width: 40px; height: 40px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 5px;">Filter Applied</h4>
+                        <p style="color: var(--gray);">Showing <strong>8 hospitals</strong> with multi-omics data available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Hospital Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3><i class="fas fa-hospital"></i> Participating Hospital Registry</h3>
+                <div class="table-controls">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: var(--gray); font-size: 0.9rem;">Showing <strong id="tableCount">10</strong> hospitals</span>
+                        <select class="filter-select" style="padding: 8px 15px; border: 1px solid #ddd; border-radius: var(--radius-sm);">
+                            <option>Sort by: Samples (High to Low)</option>
+                            <option>Sort by: Name</option>
+                            <option>Sort by: Status</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> Add Hospital
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hospital/Institute</th>
+                            <th>Location</th>
+                            <th>Samples</th>
+                            <th>Primary Focus</th>
+                            <th>Omics Data</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hospitalTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Analysis Tools -->
+        <div class="table-section">
+            <div class="table-header">
+                <h3><i class="fas fa-chart-line"></i> Analysis & Visualization Tools</h3>
+                <button class="btn-secondary">
+                    <i class="fas fa-cogs"></i> Configure Environment
+                </button>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card" onclick="launchTool('jupyter')">
+                    <div class="tool-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h4>Jupyter Notebook</h4>
+                    <p>Interactive Python/R analysis with pre-loaded datasets and libraries.</p>
+                    <button class="btn-secondary" style="margin-top: 10px;">Launch</button>
+                </div>
                 
-                <div class="sidebar-section">
-                    <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
-                    <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <button class="btn-feature secondary" onclick="openModal('submitDataModal')">
-                            <i class="fas fa-upload"></i> Submit Data
-                        </button>
-                        <button class="btn-feature secondary" onclick="openModal('accessRequestModal')">
-                            <i class="fas fa-key"></i> Request Access
-                        </button>
-                        <button class="btn-feature secondary" onclick="openModal('collaborationModal')">
-                            <i class="fas fa-handshake"></i> Start Collaboration
-                        </button>
-                        <button class="btn-feature secondary" onclick="openModal('analysisModal')">
-                            <i class="fas fa-chart-bar"></i> Launch Analysis
-                        </button>
+                <div class="tool-card" onclick="launchTool('gwas')">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-scatter"></i>
                     </div>
+                    <h4>GWAS Analyzer</h4>
+                    <p>Genome-wide association studies with Indian population references.</p>
+                    <button class="btn-secondary" style="margin-top: 10px;">Open</button>
                 </div>
                 
-                <div class="sidebar-section">
-                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
-                    <div style="font-size: 0.9rem;">
-                        <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                            <div><strong>Dataset added:</strong> Oral Cancer Proteomics</div>
-                            <small style="color: var(--gray);">AIIMS Delhi • 2 hours ago</small>
-                        </div>
-                        <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                            <div><strong>New collaboration:</strong> Diabetes Multi-Omics</div>
-                            <small style="color: var(--gray);">SGPGI Lucknow & NIMHANS • 1 day ago</small>
-                        </div>
-                        <div style="padding: 10px 0;">
-                            <div><strong>Analysis completed:</strong> BRCA1 GWAS</div>
-                            <small style="color: var(--gray);">Tata Memorial • 3 days ago</small>
-                        </div>
+                <div class="tool-card" onclick="launchTool('pathway')">
+                    <div class="tool-icon">
+                        <i class="fas fa-project-diagram"></i>
                     </div>
+                    <h4>Pathway Analysis</h4>
+                    <p>KEGG, Reactome, GO enrichment analysis for multi-omics data.</p>
+                    <button class="btn-secondary" style="margin-top: 10px;">Open</button>
                 </div>
-            </aside>
-
-            <!-- Main Content -->
-            <div class="main-content">
-                <!-- Content Tabs -->
-                <div class="content-tabs">
-                    <div class="content-tab active" data-tab="overview">
-                        <i class="fas fa-th-large"></i> Overview
+                
+                <div class="tool-card" onclick="launchTool('ml')">
+                    <div class="tool-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="content-tab" data-tab="hospitals">
-                        <i class="fas fa-hospital"></i> Hospital Registry
-                    </div>
-                    <div class="content-tab" data-tab="data">
-                        <i class="fas fa-database"></i> Data Catalog
-                    </div>
-                    <div class="content-tab" data-tab="analysis">
-                        <i class="fas fa-chart-line"></i> Analysis Tools
-                    </div>
-                    <div class="content-tab" data-tab="collaborate">
-                        <i class="fas fa-users"></i> Collaborate
-                    </div>
-                </div>
-
-                <!-- Overview Tab -->
-                <div class="tab-content active" id="overview">
-                    <div class="cards-grid">
-                        <div class="feature-card omics">
-                            <div class="feature-header">
-                                <h3>Multi-Omics Data Integration</h3>
-                                <div class="feature-icon omics">
-                                    <i class="fas fa-layer-group"></i>
-                                </div>
-                            </div>
-                            <p>Integrated genomics, transcriptomics, proteomics, metabolomics, epigenomics, microbiomics, lipidomics, and phenomics data from Indian populations.</p>
-                            <div class="feature-actions">
-                                <button class="btn-feature primary" onclick="switchTab('data')">
-                                    <i class="fas fa-database"></i> Browse Data
-                                </button>
-                                <button class="btn-feature secondary" onclick="openModal('omicsModal')">
-                                    <i class="fas fa-info-circle"></i> Learn More
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-card analysis">
-                            <div class="feature-header">
-                                <h3>Advanced Analysis Tools</h3>
-                                <div class="feature-icon analysis">
-                                    <i class="fas fa-chart-bar"></i>
-                                </div>
-                            </div>
-                            <p>Jupyter notebooks, RStudio, GWAS/QTL analysis, machine learning pipelines, pathway analysis, and visualization tools tailored for Indian data.</p>
-                            <div class="feature-actions">
-                                <button class="btn-feature primary" onclick="switchTab('analysis')">
-                                    <i class="fas fa-play"></i> Launch Tools
-                                </button>
-                                <button class="btn-feature secondary">
-                                    <i class="fas fa-book"></i> Tutorials
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-card collaboration">
-                            <div class="feature-header">
-                                <h3>Collaboration Network</h3>
-                                <div class="feature-icon collaboration">
-                                    <i class="fas fa-network-wired"></i>
-                                </div>
-                            </div>
-                            <p>Connect with 62+ hospitals, 1,200+ researchers, and join active projects. Matchmaking for interdisciplinary collaborations.</p>
-                            <div class="feature-actions">
-                                <button class="btn-feature primary" onclick="switchTab('collaborate')">
-                                    <i class="fas fa-search"></i> Find Collaborators
-                                </button>
-                                <button class="btn-feature secondary">
-                                    <i class="fas fa-plus"></i> Create Project
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-card data">
-                            <div class="feature-header">
-                                <h3>Data Management</h3>
-                                <div class="feature-icon data">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                </div>
-                            </div>
-                            <p>Secure data submission, version control, automated QC, FAIR compliance, and federated query across distributed repositories.</p>
-                            <div class="feature-actions">
-                                <button class="btn-feature primary" onclick="openModal('submitDataModal')">
-                                    <i class="fas fa-upload"></i> Submit Data
-                                </button>
-                                <button class="btn-feature secondary">
-                                    <i class="fas fa-shield-alt"></i> Security Info
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- India Map -->
-                    <div style="margin-top: 30px;">
-                        <div class="table-header">
-                            <h3><i class="fas fa-map-marked-alt"></i> Hospital Distribution Across India</h3>
-                            <button class="btn-feature secondary">
-                                <i class="fas fa-download"></i> Export
-                            </button>
-                        </div>
-                        <div class="map-container">
-                            <div id="indiaMap"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Hospitals Tab -->
-                <div class="tab-content" id="hospitals">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3><i class="fas fa-hospital"></i> Participating Hospital Registry</h3>
-                            <button class="btn-feature primary" onclick="openModal('addHospitalModal')">
-                                <i class="fas fa-plus"></i> Add Hospital
-                            </button>
-                        </div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hospital/Institute</th>
-                                    <th>Location</th>
-                                    <th>Samples</th>
-                                    <th>Primary Focus</th>
-                                    <th>Omics Data</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hospitalTableBody">
-                                <!-- Populated by JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Analysis Tools Tab -->
-                <div class="tab-content" id="analysis">
-                    <h3 style="color: var(--primary); margin-bottom: 25px;">Analysis & Visualization Tools</h3>
-                    <div class="tools-grid">
-                        <div class="tool-card" onclick="launchTool('jupyter')">
-                            <div class="tool-icon">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <h4>Jupyter Notebook</h4>
-                            <p>Interactive Python/R analysis with pre-loaded datasets and libraries.</p>
-                            <button class="btn-feature secondary">Launch</button>
-                        </div>
-                        
-                        <div class="tool-card" onclick="launchTool('gwas')">
-                            <div class="tool-icon">
-                                <i class="fas fa-chart-scatter"></i>
-                            </div>
-                            <h4>GWAS Analyzer</h4>
-                            <p>Genome-wide association studies with Indian population references.</p>
-                            <button class="btn-feature secondary">Open</button>
-                        </div>
-                        
-                        <div class="tool-card" onclick="launchTool('pathway')">
-                            <div class="tool-icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <h4>Pathway Analysis</h4>
-                            <p>KEGG, Reactome, GO enrichment analysis for multi-omics data.</p>
-                            <button class="btn-feature secondary">Open</button>
-                        </div>
-                        
-                        <div class="tool-card" onclick="launchTool('ml')">
-                            <div class="tool-icon">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h4>ML Sandbox</h4>
-                            <p>Pre-trained models for disease prediction and biomarker discovery.</p>
-                            <button class="btn-feature secondary">Open</button>
-                        </div>
-                        
-                        <div class="tool-card" onclick="launchTool('visualization')">
-                            <div class="tool-icon">
-                                <i class="fas fa-chart-area"></i>
-                            </div>
-                            <h4>Data Visualization</h4>
-                            <p>Interactive heatmaps, volcano plots, PCA, and network visualizations.</p>
-                            <button class="btn-feature secondary">Open</button>
-                        </div>
-                        
-                        <div class="tool-card" onclick="launchTool('workflow')">
-                            <div class="tool-icon">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                            <h4>Workflow Builder</h4>
-                            <p>Drag-and-drop pipeline builder for complex analysis workflows.</p>
-                            <button class="btn-feature secondary">Open</button>
-                        </div>
-                    </div>
+                    <h4>ML Sandbox</h4>
+                    <p>Pre-trained models for disease prediction and biomarker discovery.</p>
+                    <button class="btn-secondary" style="margin-top: 10px;">Open</button>
                 </div>
             </div>
         </div>
@@ -1491,7 +1672,7 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Omics Bharat</h3>
@@ -1543,343 +1724,41 @@
         </div>
     </footer>
 
-    <!-- Modals -->
-    <!-- Add Hospital Modal -->
-    <div class="modal" id="addHospitalModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-hospital"></i> Add Hospital to Registry</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="hospitalForm">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="hospitalName">Hospital/Institute Name *</label>
-                            <input type="text" class="form-control" id="hospitalName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="hospitalType">Type *</label>
-                            <select class="form-control" id="hospitalType" required>
-                                <option value="">Select Type</option>
-                                <option value="public_govt">Public Government Hospital</option>
-                                <option value="public_autonomous">Public Autonomous Institute</option>
-                                <option value="private">Private Hospital</option>
-                                <option value="medical_college">Medical College</option>
-                                <option value="research_institute">Research Institute</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="city">City *</label>
-                            <input type="text" class="form-control" id="city" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State *</label>
-                            <select class="form-control" id="state" required>
-                                <option value="">Select State</option>
-                                <option value="delhi">Delhi</option>
-                                <option value="maharashtra">Maharashtra</option>
-                                <option value="tamil_nadu">Tamil Nadu</option>
-                                <option value="karnataka">Karnataka</option>
-                                <option value="uttar_pradesh">Uttar Pradesh</option>
-                                <option value="west_bengal">West Bengal</option>
-                                <option value="gujarat">Gujarat</option>
-                                <option value="rajasthan">Rajasthan</option>
-                                <option value="telangana">Telangana</option>
-                                <option value="kerala">Kerala</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="contactPerson">Contact Person *</label>
-                            <input type="text" class="form-control" id="contactPerson" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactEmail">Email *</label>
-                            <input type="email" class="form-control" id="contactEmail" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="diseaseFocus">Primary Disease Focus *</label>
-                            <select class="form-control" id="diseaseFocus" multiple style="height: 120px;" required>
-                                <option value="oral_cancer">Oral Cancer</option>
-                                <option value="breast_cancer">Breast Cancer</option>
-                                <option value="cervical_cancer">Cervical Cancer</option>
-                                <option value="lung_cancer">Lung Cancer</option>
-                                <option value="gastric_cancer">Gastric Cancer</option>
-                                <option value="colorectal_cancer">Colorectal Cancer</option>
-                                <option value="diabetes">Diabetes (Type 1 & 2)</option>
-                                <option value="cvd">Cardiovascular Diseases</option>
-                                <option value="hypertension">Hypertension</option>
-                                <option value="tb">Tuberculosis</option>
-                                <option value="dengue">Dengue</option>
-                                <option value="neuro">Neurological Disorders</option>
-                                <option value="rare">Rare Genetic Diseases</option>
-                                <option value="autoimmune">Autoimmune Diseases</option>
-                            </select>
-                            <small>Hold Ctrl/Cmd to select multiple</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="omicsAvailable">Omics Data Available</label>
-                            <select class="form-control" id="omicsAvailable" multiple style="height: 120px;">
-                                <option value="wgs">Whole Genome Sequencing</option>
-                                <option value="wes">Whole Exome Sequencing</option>
-                                <option value="rna_seq">RNA Sequencing</option>
-                                <option value="microarray">Microarray</option>
-                                <option value="proteomics_ms">Proteomics (Mass Spec)</option>
-                                <option value="metabolomics">Metabolomics</option>
-                                <option value="methylation">DNA Methylation</option>
-                                <option value="chip_seq">ChIP-Seq</option>
-                                <option value="single_cell">Single-cell Omics</option>
-                                <option value="spatial">Spatial Transcriptomics</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="sampleCount">Approximate Sample Count</label>
-                            <input type="number" class="form-control" id="sampleCount" min="0" placeholder="e.g., 5000">
-                        </div>
-                        <div class="form-group">
-                            <label for="followupData">Follow-up Data Available</label>
-                            <select class="form-control" id="followupData">
-                                <option value="none">None</option>
-                                <option value="partial">Partial (Some patients)</option>
-                                <option value="complete">Complete (>80% patients)</option>
-                                <option value="longitudinal">Longitudinal (Multiple timepoints)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="additionalInfo">Additional Information / Challenges</label>
-                        <textarea class="form-control" id="additionalInfo" rows="4" placeholder="Any specific resources, challenges, collaboration interests, or special notes..."></textarea>
-                    </div>
-                    
-                    <div class="form-group" style="margin-top: 30px;">
-                        <button type="submit" class="btn-feature primary" style="width: 100%; padding: 16px;">
-                            <i class="fas fa-paper-plane"></i> Submit Hospital Registration
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Submit Data Modal -->
-    <div class="modal" id="submitDataModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-cloud-upload-alt"></i> Submit Data to Omics Bharat</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="background: #f0f7ff; padding: 20px; border-radius: var(--radius-sm); margin-bottom: 25px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Submission Process</h4>
-                    <p>1. Submit metadata for review → 2. Data access agreement signing → 3. Secure data upload → 4. QC and integration → 5. Data available to researchers</p>
-                </div>
-                
-                <form id="dataSubmissionForm">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="dataType">Data Type *</label>
-                            <select class="form-control" id="dataType" required>
-                                <option value="">Select Data Type</option>
-                                <option value="clinical">Clinical Data Only</option>
-                                <option value="genomics">Genomics Data</option>
-                                <option value="transcriptomics">Transcriptomics Data</option>
-                                <option value="proteomics">Proteomics Data</option>
-                                <option value="metabolomics">Metabolomics Data</option>
-                                <option value="multiomics">Multi-Omics Data</option>
-                                <option value="imaging">Medical Imaging</option>
-                                <option value="longitudinal">Longitudinal Data</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="dataVolume">Approximate Data Volume</label>
-                            <select class="form-control" id="dataVolume">
-                                <option value="small">< 1 GB</option>
-                                <option value="medium">1-100 GB</option>
-                                <option value="large">100 GB - 1 TB</option>
-                                <option value="xlarge">> 1 TB</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="datasetName">Dataset Name *</label>
-                        <input type="text" class="form-control" id="datasetName" required placeholder="e.g., South Indian Diabetes Multi-Omics Cohort">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="datasetDescription">Dataset Description *</label>
-                        <textarea class="form-control" id="datasetDescription" rows="4" required placeholder="Describe your dataset: sample size, disease focus, omics methods, patient demographics, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="consentType">Consent Type *</label>
-                            <select class="form-control" id="consentType" required>
-                                <option value="">Select Consent Type</option>
-                                <option value="broad">Broad Research Consent</option>
-                                <option value="disease_specific">Disease-Specific Consent</option>
-                                <option value="controlled">Controlled Access</option>
-                                <option value="public">Public Domain</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="ethicsApproval">Ethics Approval Number</label>
-                            <input type="text" class="form-control" id="ethicsApproval" placeholder="IRB/IEC approval number">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fileUpload">Upload Metadata File (Optional)</label>
-                        <input type="file" class="form-control" id="fileUpload" accept=".csv,.xlsx,.json,.xml">
-                        <small>Accepted formats: CSV, Excel, JSON, XML (Max 10MB)</small>
-                    </div>
-                    
-                    <div class="form-group" style="margin-top: 30px;">
-                        <button type="submit" class="btn-feature primary" style="width: 100%; padding: 16px;">
-                            <i class="fas fa-paper-plane"></i> Submit for Review
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Analysis Launch Modal -->
-    <div class="modal" id="analysisModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3><i class="fas fa-rocket"></i> Launch Analysis Environment</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align: center; margin-bottom: 30px;">
-                    <div style="font-size: 4rem; color: var(--secondary); margin-bottom: 20px;">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h3 style="color: var(--primary);">Select Analysis Environment</h3>
-                    <p>Choose your preferred analysis platform. Your selected datasets will be pre-loaded.</p>
-                </div>
-                
-                <div class="tools-grid" style="grid-template-columns: 1fr 1fr;">
-                    <div class="tool-card" onclick="launchAnalysis('jupyter')">
-                        <div class="tool-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <h4>JupyterLab</h4>
-                        <p>Full Python/R environment with 100+ bioinformatics libraries pre-installed.</p>
-                        <div style="margin-top: 15px;">
-                            <span class="status-badge status-active">Recommended</span>
-                        </div>
-                    </div>
-                    
-                    <div class="tool-card" onclick="launchAnalysis('rstudio')">
-                        <div class="tool-icon" style="background: linear-gradient(135deg, #276dc2, #1a5276);">
-                            <i class="fab fa-r-project"></i>
-                        </div>
-                        <h4>RStudio Server</h4>
-                        <p>Comprehensive R environment with Bioconductor and statistical packages.</p>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 30px; background: #f8f9fa; padding: 20px; border-radius: var(--radius-sm);">
-                    <h4 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-cogs"></i> Configuration Options</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="computeType">Compute Resources</label>
-                            <select class="form-control" id="computeType">
-                                <option value="small">Small (4 CPU, 8GB RAM)</option>
-                                <option value="medium" selected>Medium (8 CPU, 16GB RAM)</option>
-                                <option value="large">Large (16 CPU, 32GB RAM)</option>
-                                <option value="gpu">GPU Accelerated (NVIDIA A100)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="timeLimit">Time Limit</label>
-                            <select class="form-control" id="timeLimit">
-                                <option value="2">2 hours</option>
-                                <option value="8" selected>8 hours</option>
-                                <option value="24">24 hours</option>
-                                <option value="unlimited">Unlimited (for approved projects)</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Pre-load Datasets</label>
-                        <div class="checkbox-group" style="flex-direction: row; flex-wrap: wrap; gap: 15px;">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="dataset1" checked>
-                                <label for="dataset1">Indian Genomes (1000)</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="dataset2">
-                                <label for="dataset2">Cancer Transcriptomes</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="dataset3">
-                                <label for="dataset3">Diabetes Proteomics</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn-feature primary" style="width: 100%; margin-top: 30px; padding: 16px;" onclick="startAnalysisEnvironment()">
-                    <i class="fas fa-play-circle"></i> Launch Analysis Environment
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     
     <script>
-        // Sample hospital data
+        // Sample hospital data (enhanced with regions)
         const hospitals = [
-            { id: 1, name: "AIIMS New Delhi", location: "New Delhi", city: "Delhi", samples: 24500, diseases: ["Oral Cancer", "Breast Cancer", "Diabetes"], omics: ["WGS", "RNA-Seq", "Proteomics"], status: "active", type: "public_govt", lat: 28.567, lng: 77.209 },
-            { id: 2, name: "Tata Memorial Hospital", location: "Mumbai", city: "Mumbai", samples: 18700, diseases: ["Oral Cancer", "Cervical Cancer", "Lung Cancer"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "public_autonomous", lat: 19.003, lng: 72.841 },
-            { id: 3, name: "SGPGIMS Lucknow", location: "Lucknow", city: "Lucknow", samples: 9200, diseases: ["Diabetes", "Cardiovascular"], omics: ["WGS", "Proteomics"], status: "pending", type: "public_autonomous", lat: 26.846, lng: 80.946 },
-            { id: 4, name: "NIMHANS Bangalore", location: "Bangalore", city: "Bangalore", samples: 15600, diseases: ["Neurological", "Psychiatric"], omics: ["WGS", "RNA-Seq", "Epigenomics"], status: "active", type: "public_autonomous", lat: 12.943, lng: 77.598 },
-            { id: 5, name: "Apollo Hospitals Chennai", location: "Chennai", city: "Chennai", samples: 13400, diseases: ["Diabetes", "Breast Cancer", "Cardiovascular"], omics: ["WGS"], status: "restricted", type: "private", lat: 13.041, lng: 80.240 },
-            { id: 6, name: "PGIMER Chandigarh", location: "Chandigarh", city: "Chandigarh", samples: 18200, diseases: ["Oral Cancer", "Tuberculosis", "Diabetes"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "public_autonomous", lat: 30.758, lng: 76.768 },
-            { id: 7, name: "KLE Hospital Belgaum", location: "Belgaum", city: "Belgaum", samples: 6800, diseases: ["Oral Cancer", "Diabetes"], omics: ["WGS"], status: "pending", type: "private", lat: 15.865, lng: 74.508 },
-            { id: 8, name: "JIPMER Puducherry", location: "Puducherry", city: "Puducherry", samples: 11500, diseases: ["Cervical Cancer", "Breast Cancer"], omics: ["RNA-Seq", "Proteomics"], status: "active", type: "public_autonomous", lat: 11.941, lng: 79.808 },
-            { id: 9, name: "CMC Vellore", location: "Vellore", city: "Vellore", samples: 14300, diseases: ["Rare Diseases", "Genetic Disorders"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "private", lat: 12.927, lng: 79.138 },
-            { id: 10, name: "KGMU Lucknow", location: "Lucknow", city: "Lucknow", samples: 8900, diseases: ["Tuberculosis", "Infectious Diseases"], omics: ["WGS", "Microarray"], status: "pending", type: "public_govt", lat: 26.850, lng: 80.949 }
+            { id: 1, name: "AIIMS New Delhi", location: "New Delhi", city: "Delhi", region: "north", samples: 24500, diseases: ["Oral Cancer", "Breast Cancer", "Diabetes"], omics: ["WGS", "RNA-Seq", "Proteomics"], status: "active", type: "public_govt", lat: 28.567, lng: 77.209 },
+            { id: 2, name: "Tata Memorial Hospital", location: "Mumbai", city: "Mumbai", region: "west", samples: 18700, diseases: ["Oral Cancer", "Cervical Cancer", "Lung Cancer"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "public_autonomous", lat: 19.003, lng: 72.841 },
+            { id: 3, name: "SGPGIMS Lucknow", location: "Lucknow", city: "Lucknow", region: "north", samples: 9200, diseases: ["Diabetes", "Cardiovascular"], omics: ["WGS", "Proteomics"], status: "pending", type: "public_autonomous", lat: 26.846, lng: 80.946 },
+            { id: 4, name: "NIMHANS Bangalore", location: "Bangalore", city: "Bangalore", region: "south", samples: 15600, diseases: ["Neurological", "Psychiatric"], omics: ["WGS", "RNA-Seq", "Epigenomics"], status: "active", type: "public_autonomous", lat: 12.943, lng: 77.598 },
+            { id: 5, name: "Apollo Hospitals Chennai", location: "Chennai", city: "Chennai", region: "south", samples: 13400, diseases: ["Diabetes", "Breast Cancer", "Cardiovascular"], omics: ["WGS"], status: "restricted", type: "private", lat: 13.041, lng: 80.240 },
+            { id: 6, name: "PGIMER Chandigarh", location: "Chandigarh", city: "Chandigarh", region: "north", samples: 18200, diseases: ["Oral Cancer", "Tuberculosis", "Diabetes"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "public_autonomous", lat: 30.758, lng: 76.768 },
+            { id: 7, name: "KLE Hospital Belgaum", location: "Belgaum", city: "Belgaum", region: "south", samples: 6800, diseases: ["Oral Cancer", "Diabetes"], omics: ["WGS"], status: "pending", type: "private", lat: 15.865, lng: 74.508 },
+            { id: 8, name: "JIPMER Puducherry", location: "Puducherry", city: "Puducherry", region: "south", samples: 11500, diseases: ["Cervical Cancer", "Breast Cancer"], omics: ["RNA-Seq", "Proteomics"], status: "active", type: "public_autonomous", lat: 11.941, lng: 79.808 },
+            { id: 9, name: "CMC Vellore", location: "Vellore", city: "Vellore", region: "south", samples: 14300, diseases: ["Rare Diseases", "Genetic Disorders"], omics: ["WGS", "RNA-Seq", "Metabolomics"], status: "active", type: "private", lat: 12.927, lng: 79.138 },
+            { id: 10, name: "KGMU Lucknow", location: "Lucknow", city: "Lucknow", region: "north", samples: 8900, diseases: ["Tuberculosis", "Infectious Diseases"], omics: ["WGS", "Microarray"], status: "pending", type: "public_govt", lat: 26.850, lng: 80.949 }
         ];
 
         // DOM Elements
         const hospitalTableBody = document.getElementById('hospitalTableBody');
-        const contentTabs = document.querySelectorAll('.content-tab');
-        const tabContents = document.querySelectorAll('.tab-content');
+        const queryItems = document.querySelectorAll('.query-item');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const suggestionItems = document.querySelectorAll('.suggestion-item');
         const searchTabs = document.querySelectorAll('.search-tab');
-        const modals = document.querySelectorAll('.modal');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-        const hospitalForm = document.getElementById('hospitalForm');
-        const dataSubmissionForm = document.getElementById('dataSubmissionForm');
-        const applyFiltersBtn = document.getElementById('applyFilters');
-        const userAvatar = document.getElementById('userAvatar');
         let map;
+        let currentFilter = 'all';
+        let mapMarkers = [];
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', () => {
             // Render hospital table
             renderHospitalTable();
+            
+            // Initialize animated counters
+            initAnimatedCounters();
             
             // Initialize India map
             initIndiaMap();
@@ -1903,52 +1782,81 @@
             
             // Add hospital markers
             hospitals.forEach(hospital => {
-                const markerColor = hospital.status === 'active' ? 'green' : 
-                                   hospital.status === 'pending' ? 'orange' : 'red';
-                
-                const marker = L.marker([hospital.lat, hospital.lng], {
-                    icon: L.divIcon({
-                        className: 'custom-marker',
-                        html: `<div style="background-color: ${markerColor}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
-                        iconSize: [20, 20],
-                        iconAnchor: [10, 10]
-                    })
-                }).addTo(map);
-                
-                marker.bindPopup(`
-                    <b>${hospital.name}</b><br>
-                    <i class="fas fa-map-marker-alt"></i> ${hospital.location}<br>
-                    <i class="fas fa-vial"></i> ${hospital.samples.toLocaleString()} samples<br>
-                    <i class="fas fa-disease"></i> ${hospital.diseases.slice(0, 2).join(', ')}<br>
-                    <span class="status-badge ${getStatusClass(hospital.status)}">${hospital.status.toUpperCase()}</span>
-                `);
+                addMarkerToMap(hospital);
             });
             
-            // Add India boundary
-            L.geoJSON(indiaGeoJSON, {
-                style: {
-                    color: '#1a5276',
-                    weight: 2,
-                    fillColor: '#e8f4f8',
-                    fillOpacity: 0.1
-                }
-            }).addTo(map);
+            // Add India states with click functionality
+            const states = [
+                { name: "Maharashtra", coords: [19.7515, 75.7139], bounds: [[15.6, 72.6], [22.0, 80.9]] },
+                { name: "Delhi", coords: [28.7041, 77.1025], bounds: [[28.4, 76.8], [28.9, 77.3]] },
+                { name: "Tamil Nadu", coords: [11.1271, 78.6569], bounds: [[8.0, 76.2], [13.5, 80.3]] },
+                { name: "Karnataka", coords: [15.3173, 75.7139], bounds: [[11.5, 74.0], [18.5, 78.5]] },
+                { name: "Uttar Pradesh", coords: [26.8467, 80.9462], bounds: [[23.8, 77.0], [30.5, 84.7]] }
+            ];
+            
+            states.forEach(state => {
+                const stateArea = L.rectangle(state.bounds, {
+                    color: 'transparent',
+                    fillColor: 'transparent',
+                    fillOpacity: 0,
+                    weight: 0
+                }).addTo(map);
+                
+                stateArea.on('click', () => {
+                    const hospitalsInState = hospitals.filter(h => {
+                        const lat = h.lat;
+                        const lng = h.lng;
+                        return lat >= state.bounds[0][0] && lat <= state.bounds[1][0] &&
+                               lng >= state.bounds[0][1] && lng <= state.bounds[1][1];
+                    });
+                    
+                    filterTableByRegion(state.name.toLowerCase());
+                    highlightState(stateArea);
+                    
+                    // Update map sidebar
+                    document.getElementById('mapHospitalCount').textContent = hospitalsInState.length;
+                    document.getElementById('mapSampleCount').textContent = 
+                        hospitalsInState.reduce((sum, h) => sum + h.samples, 0).toLocaleString().slice(0, -3) + 'k';
+                });
+            });
         }
 
-        // Simple India GeoJSON (simplified)
-        const indiaGeoJSON = {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "properties": { "name": "India" },
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[
-                        [68.1, 7.9], [97.4, 7.9], [97.4, 35.5], [68.1, 35.5], [68.1, 7.9]
-                    ]]
-                }
-            }]
-        };
+        // Add marker to map
+        function addMarkerToMap(hospital) {
+            const markerColor = hospital.status === 'active' ? 'green' : 
+                               hospital.status === 'pending' ? 'orange' : 'red';
+            
+            const marker = L.marker([hospital.lat, hospital.lng], {
+                icon: L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="background-color: ${markerColor}; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 8px rgba(0,0,0,0.3); cursor: pointer;"></div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                })
+            }).addTo(map);
+            
+            marker.bindPopup(`
+                <div style="min-width: 250px;">
+                    <b style="color: var(--primary); font-size: 1.1rem;">${hospital.name}</b><br>
+                    <div style="margin: 8px 0;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> ${hospital.location}<br>
+                        <i class="fas fa-vial" style="color: var(--secondary);"></i> ${hospital.samples.toLocaleString()} samples<br>
+                        <i class="fas fa-disease" style="color: var(--warning);"></i> ${hospital.diseases.slice(0, 2).join(', ')}<br>
+                    </div>
+                    <span class="status-badge ${getStatusClass(hospital.status)}">${hospital.status.toUpperCase()}</span>
+                    <button onclick="viewHospital(${hospital.id})" style="background: var(--secondary); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; width: 100%;">
+                        View Details
+                    </button>
+                </div>
+            `);
+            
+            mapMarkers.push({ marker, hospital });
+            
+            marker.on('click', () => {
+                // Highlight hospital in table
+                highlightHospitalInTable(hospital.id);
+            });
+        }
 
         // Render hospital table
         function renderHospitalTable(filteredHospitals = hospitals) {
@@ -1956,33 +1864,56 @@
             
             filteredHospitals.forEach(hospital => {
                 const row = document.createElement('tr');
+                row.id = `hospital-${hospital.id}`;
                 
-                // Omics badges
-                const omicsBadges = hospital.omics.map(omic => 
-                    `<span style="display: inline-block; background: #e3f2fd; color: #1565c0; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; margin: 2px;">${omic}</span>`
-                ).join(' ');
+                // Diseases tags
+                const diseaseTags = hospital.diseases.slice(0, 2).map(d => 
+                    `<span class="disease-tag">${d}</span>`
+                ).join('');
+                
+                // Omics tags
+                const omicsTags = hospital.omics.map(omic => 
+                    `<span class="omics-tag">${omic}</span>`
+                ).join('');
                 
                 row.innerHTML = `
                     <td>
-                        <strong>${hospital.name}</strong><br>
-                        <small style="color: var(--gray);">
-                            <i class="fas fa-${hospital.type.includes('public') ? 'university' : 'building'}"></i> 
-                            ${hospital.type.replace('_', ' ').toUpperCase()}
-                        </small>
+                        <div class="hospital-info">
+                            <div class="hospital-name">${hospital.name}</div>
+                            <div class="hospital-type">
+                                <i class="fas fa-${hospital.type.includes('public') ? 'university' : 'building'}"></i>
+                                ${hospital.type.replace('_', ' ').toUpperCase()}
+                            </div>
+                        </div>
                     </td>
                     <td>
-                        <i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> ${hospital.location}<br>
-                        <small style="color: var(--gray);">${hospital.city}</small>
+                        <div class="location-cell">
+                            <div class="location-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <div>${hospital.location}</div>
+                                <small style="color: var(--gray);">${hospital.city}</small>
+                            </div>
+                        </div>
                     </td>
-                    <td style="font-weight: 600; color: var(--primary);">
+                    <td class="samples-cell">
                         ${hospital.samples.toLocaleString()}
                     </td>
                     <td>
-                        ${hospital.diseases.slice(0, 2).map(d => `<span style="background: #e8f4f8; padding: 4px 8px; border-radius: 4px; display: inline-block; margin: 2px; font-size: 0.85rem;">${d}</span>`).join('')}
-                        ${hospital.diseases.length > 2 ? `<small style="color: var(--gray);">+${hospital.diseases.length - 2} more</small>` : ''}
+                        <div class="diseases-cell">
+                            ${diseaseTags}
+                            ${hospital.diseases.length > 2 ? `<span class="disease-tag">+${hospital.diseases.length - 2}</span>` : ''}
+                        </div>
                     </td>
-                    <td>${omicsBadges}</td>
-                    <td><span class="status-badge ${getStatusClass(hospital.status)}">${hospital.status.toUpperCase()}</span></td>
+                    <td>
+                        <div class="omics-cell">
+                            ${omicsTags}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-badge ${getStatusClass(hospital.status)}">${hospital.status.toUpperCase()}</span>
+                    </td>
                     <td>
                         <div class="action-buttons">
                             <button class="btn-action view" onclick="viewHospital(${hospital.id})" title="View Details">
@@ -2000,212 +1931,253 @@
                 
                 hospitalTableBody.appendChild(row);
             });
+            
+            // Update table count
+            document.getElementById('tableCount').textContent = filteredHospitals.length;
         }
 
-        // Get status class
-        function getStatusClass(status) {
-            return `status-${status}`;
+        // Initialize animated counters
+        function initAnimatedCounters() {
+            const counters = document.querySelectorAll('.stat-card h3');
+            const speed = 200; // Lower = faster
+            
+            counters.forEach(counter => {
+                const target = +counter.parentElement.parentElement.getAttribute('data-target');
+                const increment = target / speed;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        setTimeout(updateCounter, 1);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                
+                updateCounter();
+            });
         }
 
         // Setup event listeners
         function setupEventListeners() {
-            // Content tab switching
-            contentTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const tabId = tab.getAttribute('data-tab');
-                    switchTab(tabId);
+            // Visual query builder items
+            queryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    queryItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    const filter = item.getAttribute('data-filter');
+                    currentFilter = filter;
+                    
+                    // Filter table
+                    filterTable(filter);
+                    
+                    // Show query results
+                    const results = document.getElementById('queryResults');
+                    results.classList.add('active');
+                    
+                    // Update results text
+                    const filtered = hospitals.filter(h => {
+                        if (filter === 'all') return true;
+                        if (filter === 'cancer') return h.diseases.some(d => d.toLowerCase().includes('cancer'));
+                        if (filter === 'diabetes') return h.diseases.some(d => d.toLowerCase().includes('diabetes'));
+                        if (filter === 'multiomics') return h.omics.length >= 3;
+                        return true;
+                    });
+                    
+                    results.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div style="width: 40px; height: 40px; background: var(--secondary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-filter"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--primary); margin-bottom: 5px;">Filter Applied</h4>
+                                <p style="color: var(--gray);">Showing <strong>${filtered.length} hospitals</strong> with ${filter === 'all' ? 'all data' : filter + ' focus'}</p>
+                            </div>
+                        </div>
+                    `;
                 });
             });
             
-            // Search tab switching
+            // Map filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.getAttribute('data-filter');
+                    filterMap(filter);
+                });
+            });
+            
+            // Search suggestions
+            suggestionItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const query = item.getAttribute('data-query');
+                    document.querySelector('.search-input').value = query;
+                    performSearch(query);
+                });
+            });
+            
+            // Search tabs
             searchTabs.forEach(tab => {
                 tab.addEventListener('click', () => {
                     searchTabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
+                    
+                    const searchType = tab.getAttribute('data-search');
+                    document.querySelector('.search-input').placeholder = 
+                        searchType === 'data' ? 'Search for datasets, genes, diseases...' :
+                        searchType === 'hospitals' ? 'Search for hospitals by name or location...' :
+                        'Search for analysis tools...';
                 });
             });
             
-            // Modal close buttons
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    closeModal(modal.id);
-                });
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target.classList.contains('modal')) {
-                    closeModal(e.target.id);
-                }
-            });
-            
-            // Apply filters
-            applyFiltersBtn.addEventListener('click', applyFilters);
-            
-            // Hospital form submission
-            hospitalForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                submitHospitalForm();
-            });
-            
-            // Data submission form
-            dataSubmissionForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                submitDataForm();
-            });
-            
-            // User avatar click
-            userAvatar.addEventListener('click', () => {
-                alert('User profile menu would open here. Features: Profile settings, data submissions, access requests, notifications.');
-            });
-            
-            // Search functionality
-            document.querySelector('.search-btn').addEventListener('click', performSearch);
+            // Search input
             document.querySelector('.search-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') performSearch();
-            });
-        }
-
-        // Switch between tabs
-        function switchTab(tabId) {
-            // Update active tab
-            contentTabs.forEach(tab => {
-                tab.classList.remove('active');
-                if (tab.getAttribute('data-tab') === tabId) {
-                    tab.classList.add('active');
+                if (e.key === 'Enter') {
+                    performSearch(e.target.value);
                 }
             });
             
-            // Show corresponding content
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === tabId) {
-                    content.classList.add('active');
-                }
+            document.querySelector('.search-btn').addEventListener('click', () => {
+                performSearch(document.querySelector('.search-input').value);
             });
-            
-            // Special handling for map tab
-            if (tabId === 'hospitals' && map) {
-                setTimeout(() => {
-                    map.invalidateSize();
-                }, 300);
-            }
         }
 
-        // Open modal
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close modal
-        function closeModal(modalId) {
-            if (!modalId) return;
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Apply filters
-        function applyFilters() {
-            const diseaseFilter = document.getElementById('diseaseFilter').value;
-            const omicsFilter = document.getElementById('omicsFilter').value;
-            const regionFilter = document.getElementById('regionFilter').value;
-            
+        // Filter table based on visual query
+        function filterTable(filter) {
             let filtered = hospitals;
             
-            if (diseaseFilter !== 'all') {
-                filtered = filtered.filter(h => 
-                    h.diseases.some(d => d.toLowerCase().includes(diseaseFilter.toLowerCase()))
+            if (filter === 'cancer') {
+                filtered = hospitals.filter(h => 
+                    h.diseases.some(d => d.toLowerCase().includes('cancer'))
                 );
-            }
-            
-            if (omicsFilter !== 'all') {
-                filtered = filtered.filter(h => 
-                    h.omics.some(o => o.toLowerCase().includes(omicsFilter.toLowerCase()))
+            } else if (filter === 'diabetes') {
+                filtered = hospitals.filter(h => 
+                    h.diseases.some(d => d.toLowerCase().includes('diabetes'))
                 );
+            } else if (filter === 'multiomics') {
+                filtered = hospitals.filter(h => h.omics.length >= 3);
             }
+            // 'all' shows all hospitals
             
-            if (regionFilter !== 'all') {
-                // Simplified region filtering based on city
-                const regionMap = {
-                    'north': ['Delhi', 'Chandigarh', 'Lucknow'],
-                    'south': ['Bangalore', 'Chennai', 'Puducherry', 'Vellore', 'Belgaum'],
-                    'west': ['Mumbai'],
-                    'east': [],
-                    'central': [],
-                    'northeast': []
-                };
-                
-                if (regionMap[regionFilter] && regionMap[regionFilter].length > 0) {
-                    filtered = filtered.filter(h => 
-                        regionMap[regionFilter].includes(h.city)
-                    );
-                }
+            renderHospitalTable(filtered);
+            updateMapMarkers(filtered);
+        }
+
+        // Filter table by region (from map click)
+        function filterTableByRegion(region) {
+            let filtered = hospitals;
+            
+            if (region === 'maharashtra') {
+                filtered = hospitals.filter(h => h.city === 'Mumbai');
+            } else if (region === 'delhi') {
+                filtered = hospitals.filter(h => h.city === 'Delhi');
+            } else if (region === 'tamil nadu') {
+                filtered = hospitals.filter(h => ['Chennai', 'Puducherry', 'Vellore'].includes(h.city));
+            } else if (region === 'karnataka') {
+                filtered = hospitals.filter(h => ['Bangalore', 'Belgaum'].includes(h.city));
+            } else if (region === 'uttar pradesh') {
+                filtered = hospitals.filter(h => h.city === 'Lucknow');
             }
             
             renderHospitalTable(filtered);
             
-            // Update count in tab
-            const hospitalsTab = document.querySelector('.content-tab[data-tab="hospitals"]');
-            hospitalsTab.innerHTML = `<i class="fas fa-hospital"></i> Hospital Registry (${filtered.length})`;
+            // Update visual query builder
+            queryItems.forEach(item => item.classList.remove('active'));
+            document.querySelector('.query-item[data-filter="all"]').classList.add('active');
             
             // Show notification
-            showNotification(`Applied filters: ${filtered.length} hospitals found`, 'success');
+            showNotification(`Showing hospitals in ${region.charAt(0).toUpperCase() + region.slice(1)}`, 'info');
         }
 
-        // Submit hospital form
-        function submitHospitalForm() {
-            const hospitalName = document.getElementById('hospitalName').value;
+        // Filter map markers
+        function filterMap(filter) {
+            mapMarkers.forEach(({ marker, hospital }) => {
+                let show = true;
+                
+                if (filter === 'north') {
+                    show = hospital.region === 'north';
+                } else if (filter === 'south') {
+                    show = hospital.region === 'south';
+                } else if (filter === 'active') {
+                    show = hospital.status === 'active';
+                }
+                // 'all' shows all markers
+                
+                if (show) {
+                    map.addLayer(marker);
+                } else {
+                    map.removeLayer(marker);
+                }
+            });
             
-            // Simulate API call
-            showNotification(`Hospital "${hospitalName}" submitted for review. Our team will contact you within 48 hours.`, 'success');
-            
-            // Close modal and reset form
-            closeModal('addHospitalModal');
-            hospitalForm.reset();
-            
-            // Update stats
-            const hospitalCount = document.getElementById('hospitalCount');
-            hospitalCount.textContent = parseInt(hospitalCount.textContent) + 1;
+            // Update map stats
+            const activeHospitals = hospitals.filter(h => h.status === 'active');
+            document.getElementById('mapActiveCount').textContent = activeHospitals.length;
         }
 
-        // Submit data form
-        function submitDataForm() {
-            const datasetName = document.getElementById('datasetName').value;
-            
-            showNotification(`Dataset "${datasetName}" submitted successfully. Data management team will review and contact you.`, 'success');
-            
-            closeModal('submitDataModal');
-            dataSubmissionForm.reset();
+        // Update map markers based on filtered hospitals
+        function updateMapMarkers(filteredHospitals) {
+            mapMarkers.forEach(({ marker, hospital }) => {
+                const isVisible = filteredHospitals.some(h => h.id === hospital.id);
+                if (isVisible) {
+                    map.addLayer(marker);
+                } else {
+                    map.removeLayer(marker);
+                }
+            });
         }
 
         // Perform search
-        function performSearch() {
-            const query = document.querySelector('.search-input').value.trim();
-            if (!query) return;
+        function performSearch(query) {
+            if (!query.trim()) return;
             
             const activeSearchTab = document.querySelector('.search-tab.active').getAttribute('data-search');
             
-            switch(activeSearchTab) {
-                case 'data':
-                    showNotification(`Searching datasets for: "${query}"`, 'info');
-                    // In real app, would redirect to search results
-                    break;
-                case 'hospitals':
-                    const filtered = hospitals.filter(h => 
-                        h.name.toLowerCase().includes(query.toLowerCase()) || 
-                        h.location.toLowerCase().includes(query.toLowerCase()) ||
-                        h.diseases.some(d => d.toLowerCase().includes(query.toLowerCase()))
-                    );
-                    renderHospitalTable(filtered);
-                    switchTab('hospitals');
-                    break;
-                case 'tools':
-                    showNotification(`Searching analysis tools for: "${query}"`, 'info');
-                    switchTab('analysis');
-                    break;
+            let filtered = [];
+            if (activeSearchTab === 'hospitals') {
+                filtered = hospitals.filter(h => 
+                    h.name.toLowerCase().includes(query.toLowerCase()) || 
+                    h.location.toLowerCase().includes(query.toLowerCase()) ||
+                    h.diseases.some(d => d.toLowerCase().includes(query.toLowerCase()))
+                );
+                renderHospitalTable(filtered);
+                updateMapMarkers(filtered);
+            } else {
+                showNotification(`Searching ${activeSearchTab} for: "${query}"`, 'info');
             }
+        }
+
+        // Highlight hospital in table
+        function highlightHospitalInTable(hospitalId) {
+            // Remove previous highlights
+            document.querySelectorAll('tbody tr').forEach(row => {
+                row.style.background = '';
+            });
+            
+            // Highlight current hospital
+            const hospitalRow = document.getElementById(`hospital-${hospitalId}`);
+            if (hospitalRow) {
+                hospitalRow.style.background = 'var(--secondary-light)';
+                hospitalRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        // Highlight state on map
+        function highlightState(stateArea) {
+            // Reset all states
+            map.eachLayer(layer => {
+                if (layer.options && layer.options.color === '#1a5276') {
+                    layer.setStyle({ color: '#1a5276', weight: 1 });
+                }
+            });
+            
+            // Highlight selected state
+            stateArea.setStyle({ color: '#28b463', weight: 3, fillOpacity: 0.1 });
         }
 
         // View hospital details
@@ -2242,10 +2214,6 @@
         function editHospital(id) {
             const hospital = hospitals.find(h => h.id === id);
             if (hospital) {
-                openModal('addHospitalModal');
-                // In real app, would populate form with hospital data
-                document.getElementById('hospitalName').value = hospital.name;
-                document.getElementById('city').value = hospital.city;
                 showNotification(`Editing: ${hospital.name}. Note: Changes require admin approval.`, 'warning');
             }
         }
@@ -2255,7 +2223,6 @@
             const hospital = hospitals.find(h => h.id === id);
             if (hospital) {
                 showNotification(`Downloading metadata for ${hospital.name}...`, 'success');
-                // In real app, would generate and download CSV/JSON
             }
         }
 
@@ -2265,45 +2232,19 @@
                 'jupyter': 'Jupyter Notebook',
                 'gwas': 'GWAS Analyzer',
                 'pathway': 'Pathway Analysis',
-                'ml': 'Machine Learning Sandbox',
-                'visualization': 'Data Visualization',
-                'workflow': 'Workflow Builder'
+                'ml': 'Machine Learning Sandbox'
             };
             
-            showNotification(`Launching ${toolNames[tool]}... Redirecting to analysis environment.`, 'success');
-            openModal('analysisModal');
+            showNotification(`Launching ${toolNames[tool]}...`, 'success');
         }
 
-        // Launch analysis environment
-        function startAnalysisEnvironment() {
-            const computeType = document.getElementById('computeType').value;
-            const timeLimit = document.getElementById('timeLimit').value;
-            
-            showNotification(`Starting JupyterLab environment with ${computeType} compute resources for ${timeLimit} hours. This may take 30-60 seconds...`, 'info');
-            
-            // Simulate loading
-            setTimeout(() => {
-                showNotification('Analysis environment ready! Opening in new tab...', 'success');
-                // In real app, would open new tab/window
-                closeModal('analysisModal');
-            }, 2000);
-        }
-
-        // Launch analysis
-        function launchAnalysis(env) {
-            const envNames = {
-                'jupyter': 'JupyterLab',
-                'rstudio': 'RStudio Server'
-            };
-            
-            showNotification(`Preparing ${envNames[env]} environment with your selected datasets...`, 'info');
-            
-            // Keep modal open for configuration
+        // Get status class
+        function getStatusClass(status) {
+            return `status-${status}`;
         }
 
         // Show notification
         function showNotification(message, type = 'info') {
-            // Create notification element
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -2311,7 +2252,7 @@
                 right: 20px;
                 background: ${type === 'success' ? 'var(--success)' : 
                            type === 'warning' ? 'var(--warning)' : 
-                           type === 'error' ? 'var(--accent)' : 'var(--info)'};
+                           'var(--info)'};
                 color: white;
                 padding: 15px 25px;
                 border-radius: var(--radius-sm);
@@ -2325,8 +2266,7 @@
             `;
             
             const icon = type === 'success' ? 'fa-check-circle' :
-                        type === 'warning' ? 'fa-exclamation-triangle' :
-                        type === 'error' ? 'fa-times-circle' : 'fa-info-circle';
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
             
             notification.innerHTML = `
                 <i class="fas ${icon}" style="font-size: 1.2rem;"></i>
@@ -2335,7 +2275,6 @@
             
             document.body.appendChild(notification);
             
-            // Remove after 4 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s';
                 setTimeout(() => {
@@ -2343,7 +2282,6 @@
                 }, 300);
             }, 4000);
             
-            // Add CSS for animations
             if (!document.getElementById('notification-styles')) {
                 const style = document.createElement('style');
                 style.id = 'notification-styles';
@@ -2365,29 +2303,17 @@
         function simulateLiveUpdates() {
             // Update sample count periodically
             setInterval(() => {
-                const sampleCount = document.getElementById('sampleCount');
+                const sampleCount = document.querySelector('.stat-card[data-target="187430"] h3');
                 const current = parseInt(sampleCount.textContent.replace(/,/g, ''));
                 const increment = Math.floor(Math.random() * 100) + 50;
-                sampleCount.textContent = (current + increment).toLocaleString();
+                const newTotal = current + increment;
+                sampleCount.textContent = newTotal.toLocaleString();
             }, 30000);
             
             // Simulate new hospital joining
             setTimeout(() => {
                 showNotification('New hospital joined: RCC Trivandrum added to registry', 'success');
-                const hospitalCount = document.getElementById('hospitalCount');
-                hospitalCount.textContent = parseInt(hospitalCount.textContent) + 1;
             }, 15000);
-            
-            // Simulate new dataset
-            setTimeout(() => {
-                showNotification('New dataset available: North Indian Cardiovascular Multi-Omics', 'info');
-            }, 25000);
-        }
-
-        // Initialize Chart.js for analytics (placeholder)
-        function initAnalyticsCharts() {
-            // This would initialize charts for the analytics dashboard
-            // Placeholder for future implementation
         }
     </script>
 </body>
