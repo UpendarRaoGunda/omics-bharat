@@ -7,23 +7,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
     <style>
-        /* ===== IMPROVED CSS VARIABLES ===== */
+        /* ===== CSS VARIABLES ===== */
         :root {
-            /* Enhanced Primary Colors */
+            /* Primary Colors */
             --primary: #1a5276;
             --primary-light: #2c82b9;
             --primary-dark: #0e3a52;
             --primary-gradient: linear-gradient(135deg, #1a5276, #0e3a52);
-            --primary-glow: 0 0 20px rgba(26, 82, 118, 0.3);
             
-            /* Enhanced Secondary Colors */
+            /* Secondary Colors */
             --secondary: #28b463;
             --secondary-light: #52be80;
             --secondary-dark: #239954;
             --secondary-gradient: linear-gradient(135deg, #28b463, #239954);
-            --secondary-glow: 0 0 20px rgba(40, 180, 99, 0.3);
             
-            /* Enhanced Accent Colors */
+            /* Accent Colors */
             --accent: #e74c3c;
             --warning: #f39c12;
             --info: #3498db;
@@ -31,7 +29,7 @@
             --purple: #8e44ad;
             --teal: #16a085;
             
-            /* Enhanced Neutral Colors */
+            /* Neutral Colors */
             --light: #ffffff;
             --lighter: #f8f9fa;
             --dark: #2c3e50;
@@ -41,41 +39,41 @@
             --border: #eef2f7;
             --shadow: rgba(0, 0, 0, 0.08);
             
-            /* Enhanced Shadows */
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 15px 48px rgba(0, 0, 0, 0.12);
-            --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+            /* Shadows */
+            --shadow-sm: 0 2px 4px var(--shadow);
+            --shadow-md: 0 4px 12px var(--shadow);
+            --shadow-lg: 0 8px 24px var(--shadow);
+            --shadow-xl: 0 15px 35px var(--shadow);
+            --shadow-inner: inset 0 2px 4px var(--shadow);
             
-            /* Enhanced Border Radius */
-            --radius-sm: 8px;
-            --radius: 12px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius: 10px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
             --radius-full: 9999px;
             
-            /* Enhanced Transitions */
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             
-            /* Enhanced Spacing */
+            /* Spacing */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
-            --space-md: 1.75rem;
-            --space-lg: 2.5rem;
-            --space-xl: 3.5rem;
-            --space-2xl: 5rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
             
             /* Layout */
-            --header-height: 80px;
-            --header-height-mobile: 70px;
-            --container-max: 1400px;
+            --header-height: 70px;
+            --header-height-mobile: 60px;
+            --container-max: 1280px;
         }
 
-        /* ===== ENHANCED BASE STYLES ===== */
+        /* ===== BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -90,7 +88,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--dark);
             background: var(--lighter);
             overflow-x: hidden;
@@ -98,6 +96,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* ===== LAYOUT UTILITIES ===== */
         .container {
             width: 100%;
             max-width: var(--container-max);
@@ -109,62 +108,113 @@
             padding: var(--space-xl) 0;
         }
 
-        /* ===== ENHANCED BUTTONS ===== */
+        .section-sm {
+            padding: var(--space-lg) 0;
+        }
+
+        .section-lg {
+            padding: var(--space-2xl) 0;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--darker);
+            margin-bottom: var(--space-sm);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 1.75rem);
+        }
+
+        p {
+            margin-bottom: var(--space-sm);
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .text-lead {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        .text-muted {
+            color: var(--gray);
+            font-size: 0.9375rem;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        /* ===== BUTTONS ===== */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            padding: 0.875rem 2rem;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--radius);
             font-weight: 600;
             font-size: 1rem;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: all var(--transition);
+            transition: var(--transition);
             white-space: nowrap;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
             position: relative;
             overflow: hidden;
-            letter-spacing: 0.01em;
-            box-shadow: var(--shadow-sm);
         }
 
-        .btn::before {
+        .btn::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0));
+            background: rgba(255, 255, 255, 0.1);
             opacity: 0;
             transition: opacity var(--transition);
         }
 
-        .btn:hover::before {
+        .btn:hover::after {
             opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
         }
 
         .btn-primary {
             background: var(--secondary-gradient);
             color: var(--light);
-            box-shadow: 0 4px 20px rgba(40, 180, 99, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(40, 180, 99, 0.25);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(40, 180, 99, 0.4);
-            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 20px rgba(40, 180, 99, 0.35);
         }
 
         .btn-secondary {
             background: var(--light);
             color: var(--primary);
-            border: 1px solid var(--primary-light);
+            border: 2px solid var(--primary-light);
             box-shadow: var(--shadow-sm);
         }
 
@@ -185,10 +235,30 @@
             background: var(--primary);
             color: var(--light);
             border-color: var(--primary);
-            transform: translateY(-2px);
         }
 
-        /* ===== ENHANCED HEADER WITH VISIBLE HAMBURGER ===== */
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border-radius: var(--radius-full);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* ===== HEADER ===== */
         .header {
             position: fixed;
             top: 0;
@@ -196,11 +266,11 @@
             right: 0;
             height: var(--header-height);
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .header-container {
@@ -209,27 +279,20 @@
             justify-content: space-between;
             height: 100%;
             gap: var(--space-md);
-            position: relative;
         }
 
-        /* Enhanced Logo */
+        /* Logo */
         .logo {
             display: flex;
             align-items: center;
             gap: var(--space-sm);
             text-decoration: none;
             min-width: 0;
-            flex-shrink: 0;
-            transition: transform var(--transition);
-        }
-
-        .logo:hover {
-            transform: translateY(-1px);
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             background: var(--primary-gradient);
             border-radius: var(--radius-md);
             display: flex;
@@ -238,13 +301,6 @@
             color: var(--light);
             font-size: 1.5rem;
             flex-shrink: 0;
-            box-shadow: var(--shadow-sm);
-            transition: all var(--transition);
-        }
-
-        .logo:hover .logo-icon {
-            transform: rotate(-5deg) scale(1.05);
-            box-shadow: var(--shadow-md);
         }
 
         .logo-text {
@@ -253,214 +309,137 @@
         }
 
         .logo-text h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.375rem;
+            font-weight: 700;
             color: var(--primary);
             margin: 0;
             line-height: 1.2;
-            letter-spacing: -0.01em;
         }
 
         .logo-text p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray);
             margin: 0;
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        /* Enhanced Mobile Menu Toggle - ALWAYS VISIBLE ON MOBILE */
-        .mobile-menu-toggle {
-            display: none; /* Hidden on desktop by default */
-            flex-direction: column;
-            justify-content: space-between;
-            width: 44px;
-            height: 44px;
-            background: var(--primary);
-            border: none;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            padding: 0.75rem;
-            z-index: 1001;
-            position: relative;
-            transition: all var(--transition);
-            box-shadow: var(--shadow-md);
-            margin-left: auto;
-        }
-
-        .mobile-menu-toggle:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .mobile-menu-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .mobile-menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 2.5px;
-            background: var(--light);
-            border-radius: 3px;
-            transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            transform-origin: center;
-        }
-
-        .mobile-menu-toggle.active {
-            background: var(--accent);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-        }
-
-        /* Enhanced Navigation */
+        /* Navigation */
         .nav {
             display: flex;
             align-items: center;
             gap: var(--space-xs);
-            margin-left: auto;
         }
 
         .nav-list {
             display: flex;
             list-style: none;
-            gap: 0.5rem;
+            gap: 0.25rem;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.25rem;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
             text-decoration: none;
             color: var(--dark);
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 500;
+            font-size: 0.9375rem;
             border-radius: var(--radius);
-            transition: all var(--transition);
+            transition: var(--transition-fast);
             white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background: var(--secondary-gradient);
-            border-radius: 3px;
-            transition: width var(--transition);
         }
 
         .nav-link:hover {
-            background: rgba(26, 82, 118, 0.05);
+            background: var(--lighter);
             color: var(--primary);
-            transform: translateY(-1px);
-        }
-
-        .nav-link:hover::after {
-            width: 60%;
         }
 
         .nav-link.active {
             background: var(--primary-gradient);
             color: var(--light);
             box-shadow: var(--shadow-sm);
-            transform: translateY(-1px);
         }
 
-        .nav-link.active::after {
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
             display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 32px;
+            height: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
         }
 
-        /* Enhanced User Actions */
+        .mobile-menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* User Actions */
         .user-actions {
             display: flex;
             align-items: center;
             gap: var(--space-sm);
-            margin-left: var(--space-md);
+            margin-left: auto;
         }
 
         .notification-btn {
             position: relative;
-            background: var(--lighter);
+            background: none;
             border: none;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: var(--dark);
-            transition: all var(--transition);
-            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
         }
 
         .notification-btn:hover {
-            background: var(--light);
+            background: var(--lighter);
             color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
         }
 
         .notification-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 10px;
-            height: 10px;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
             background: var(--accent);
             border-radius: 50%;
             border: 2px solid var(--light);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         .user-avatar {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: var(--radius-full);
             background: var(--secondary-gradient);
             color: var(--light);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            border: 3px solid var(--light);
-            box-shadow: var(--shadow-md);
-            font-size: 1rem;
-            flex-shrink: 0;
-            transition: all var(--transition);
+            border: 2px solid var(--light);
+            box-shadow: var(--shadow-sm);
+            font-size: 0.875rem;
         }
 
-        .user-avatar:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* ===== ENHANCED HERO SECTION ===== */
+        /* ===== HERO SECTION ===== */
         .hero {
             padding-top: calc(var(--header-height) + var(--space-xl));
             padding-bottom: var(--space-xl);
@@ -470,13 +449,9 @@
                 url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             color: var(--light);
             position: relative;
             overflow: hidden;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
         }
 
         .hero::before {
@@ -485,7 +460,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 150px;
+            height: 100px;
             background: linear-gradient(to bottom, transparent, var(--lighter));
             z-index: 1;
         }
@@ -493,7 +468,8 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .hero-main {
@@ -505,104 +481,59 @@
 
         .hero-text {
             text-align: center;
-            padding: 0 var(--space-sm);
         }
 
         .hero-title {
-            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             line-height: 1.1;
             color: var(--light);
-            margin-bottom: var(--space-md);
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            letter-spacing: -0.02em;
+            margin-bottom: var(--space-sm);
         }
 
         .hero-title span {
             display: block;
-            font-size: clamp(1.75rem, 5vw, 3rem);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
             color: var(--secondary-light);
-            margin-top: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(45deg, var(--secondary-light), #a8ff78);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-top: 0.25rem;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.125rem, 3vw, 1.375rem);
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
             color: rgba(255, 255, 255, 0.95);
             margin-bottom: var(--space-lg);
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.6;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            font-weight: 400;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: var(--space-md);
-            align-items: center;
-            justify-content: center;
-            margin-top: var(--space-lg);
-            flex-wrap: wrap;
         }
 
         /* Hero Stats */
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-md);
-            margin: var(--space-xl) 0;
-            padding: 0 var(--space-xs);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: var(--radius-lg);
             padding: var(--space-md);
             text-align: center;
-            transition: all var(--transition);
-            min-height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-
-        .stat-card:hover::before {
-            transform: translateX(100%);
+            transition: var(--transition);
         }
 
         .stat-card:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
         }
 
         .stat-icon {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             border-radius: var(--radius-md);
             background: rgba(255, 255, 255, 0.2);
             display: flex;
@@ -610,29 +541,21 @@
             justify-content: center;
             margin: 0 auto var(--space-sm);
             color: var(--light);
-            font-size: 1.5rem;
-            transition: all var(--transition);
-        }
-
-        .stat-card:hover .stat-icon {
-            transform: scale(1.1) rotate(5deg);
-            background: rgba(255, 255, 255, 0.3);
+            font-size: 1.25rem;
         }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: 800;
+            font-size: 1.75rem;
+            font-weight: 700;
             color: var(--light);
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-xs);
             line-height: 1;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             color: rgba(255, 255, 255, 0.9);
             font-weight: 500;
-            line-height: 1.2;
         }
 
         /* Hero Search */
@@ -641,22 +564,17 @@
             border-radius: var(--radius-xl);
             padding: var(--space-lg);
             box-shadow: var(--shadow-xl);
-            margin: 0 auto;
-            max-width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
         }
 
         .search-tabs {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: var(--space-lg);
-            padding-bottom: var(--space-md);
+            gap: 0.25rem;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
             border-bottom: 2px solid var(--border);
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch;
         }
 
         .search-tabs::-webkit-scrollbar {
@@ -664,8 +582,8 @@
         }
 
         .search-tab {
-            flex: 0 0 auto;
-            min-width: 140px;
+            flex: 1;
+            min-width: 120px;
             padding: var(--space-sm) var(--space-md);
             background: none;
             border: none;
@@ -673,94 +591,57 @@
             font-weight: 600;
             color: var(--gray);
             cursor: pointer;
-            transition: all var(--transition);
+            transition: var(--transition);
             white-space: nowrap;
             text-align: center;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .search-tab::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 3px;
-            transition: width var(--transition);
-        }
-
-        .search-tab:hover {
-            color: var(--primary);
-            background: var(--lighter);
+            font-size: 0.9375rem;
         }
 
         .search-tab.active {
+            background: var(--lighter);
             color: var(--primary);
-            font-weight: 700;
-        }
-
-        .search-tab.active::after {
-            width: 100%;
         }
 
         .search-box {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
-        }
-
-        .search-input-wrapper {
-            position: relative;
-            width: 100%;
+            gap: var(--space-sm);
         }
 
         .search-input {
             width: 100%;
-            padding: 1.125rem 1.25rem 1.125rem 3.5rem;
+            padding: 1rem 1rem 1rem 3rem;
             border: 2px solid var(--border);
             border-radius: var(--radius-lg);
-            font-size: 1.1rem;
-            transition: all var(--transition);
+            font-size: 1rem;
+            transition: var(--transition);
             background: var(--lighter);
-            font-family: inherit;
-            box-shadow: var(--shadow-inner);
         }
 
         .search-input:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 4px rgba(40, 180, 99, 0.15);
+            box-shadow: 0 0 0 3px rgba(40, 180, 99, 0.1);
             background: var(--light);
-            transform: translateY(-1px);
         }
 
         .search-icon {
             position: absolute;
-            left: 1.25rem;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray);
-            font-size: 1.25rem;
-            transition: color var(--transition);
-        }
-
-        .search-input:focus + .search-icon {
-            color: var(--secondary);
+            font-size: 1.125rem;
         }
 
         .search-actions {
             display: flex;
             gap: var(--space-sm);
-            flex-direction: column;
         }
 
         .search-tips {
-            margin-top: var(--space-lg);
-            padding-top: var(--space-md);
+            margin-top: var(--space-md);
+            padding-top: var(--space-sm);
             border-top: 1px solid var(--border);
             text-align: center;
         }
@@ -768,332 +649,317 @@
         .search-tips p {
             margin: 0;
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-header h2 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .feature-content h3 {
+            margin-bottom: var(--space-sm);
+        }
+
+        /* ===== HOSPITALS SECTION ===== */
+        .hospitals {
+            background: var(--lighter);
+        }
+
+        .section-tabs {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: var(--space-lg);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .section-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .section-tab {
+            padding: var(--space-sm) var(--space-lg);
+            background: none;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.9375rem;
+        }
+
+        .section-tab.active {
+            background: var(--light);
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hospitals-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        .hospital-card {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .hospital-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hospital-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-md);
+        }
+
+        .hospital-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .hospital-location {
+            color: var(--gray);
+            font-size: 0.9375rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hospital-stats {
+            display: flex;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+
+        .hospital-stat {
+            text-align: center;
+        }
+
+        .hospital-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .hospital-stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        .hospital-tags {
+            display: flex;
             flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
         }
 
-        .search-tips i {
-            color: var(--secondary);
-            font-size: 1.1rem;
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--lighter);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            color: var(--primary);
+            font-weight: 500;
         }
 
-        /* ===== MOBILE RESPONSIVE STYLES ===== */
-        @media (max-width: 1024px) {
-            .mobile-menu-toggle {
-                display: flex !important; /* FORCE VISIBLE ON MOBILE */
-            }
-            
-            .nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: var(--space-xl) var(--space-lg);
-                transform: translateX(100%);
-                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                overflow-y: auto;
-                z-index: 999;
-                box-shadow: var(--shadow-xl);
-                margin-left: 0;
-                justify-content: flex-start;
-                opacity: 0;
-                visibility: hidden;
-            }
-            
-            .nav.active {
-                transform: translateX(0);
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            .nav-list {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.5rem;
-                margin-top: var(--space-2xl);
-            }
-            
-            .nav-link {
-                padding: var(--space-md) var(--space-lg);
-                justify-content: flex-start;
-                width: 100%;
-                border-radius: var(--radius-lg);
-                font-size: 1.1rem;
-                border: 1px solid transparent;
-                transition: all var(--transition);
-            }
-            
-            .nav-link:hover {
-                border-color: var(--border);
-                transform: translateX(5px);
-            }
-            
-            .nav-link i {
-                width: 24px;
-                text-align: center;
-                font-size: 1.2rem;
-            }
-            
-            .user-actions {
-                margin-top: auto;
-                padding-top: var(--space-xl);
-                border-top: 1px solid var(--border);
-                width: 100%;
-                justify-content: center;
-                gap: var(--space-lg);
-                margin-left: 0;
-            }
-            
-            .notification-btn, .user-avatar {
-                width: 56px;
-                height: 56px;
-            }
-            
-            /* Hero adjustments for mobile */
-            .hero {
-                padding-top: calc(var(--header-height) + var(--space-lg));
-                padding-bottom: var(--space-lg);
-                min-height: auto;
-                align-items: flex-start;
-            }
-            
-            .hero-main {
-                gap: var(--space-lg);
-                margin-bottom: var(--space-lg);
-            }
-            
-            .hero-text {
-                padding: 0;
-            }
-            
-            .hero-title {
-                font-size: clamp(1.75rem, 5vw, 2.5rem);
-                margin-bottom: var(--space-sm);
-            }
-            
-            .hero-title span {
-                font-size: clamp(1.5rem, 4vw, 2rem);
-                margin-top: 0.25rem;
-            }
-            
-            .hero-subtitle {
-                font-size: clamp(1rem, 2.5vw, 1.25rem);
-                margin-bottom: var(--space-md);
-                padding: 0;
-            }
-            
-            .hero-cta {
-                flex-direction: column;
-                gap: var(--space-sm);
-                margin-top: var(--space-md);
-            }
-            
-            .hero-cta .btn {
-                width: 100%;
-                max-width: 300px;
-                padding: 1rem 2rem;
-            }
-            
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-sm);
-                margin: var(--space-lg) 0;
-            }
-            
-            .stat-card {
-                padding: var(--space-sm);
-                min-height: 120px;
-            }
-            
-            .stat-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.25rem;
-            }
-            
-            .stat-value {
-                font-size: 1.75rem;
-            }
-            
-            .stat-label {
-                font-size: 0.85rem;
-            }
-            
-            .hero-search {
-                padding: var(--space-md);
-                border-radius: var(--radius-lg);
-            }
-            
-            .search-tab {
-                min-width: 120px;
-                padding: 0.875rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .search-input {
-                padding: 1rem 1rem 1rem 3rem;
-                font-size: 1rem;
-            }
-            
-            .search-icon {
-                left: 1rem;
-                font-size: 1.1rem;
-            }
-            
-            .search-actions {
-                flex-direction: row;
-            }
-            
-            .search-actions .btn-primary {
-                flex: 1;
-            }
-            
-            .search-tips p {
-                font-size: 0.9rem;
-                text-align: center;
-                line-height: 1.5;
-            }
+        /* ===== TOOLS SECTION ===== */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
         }
 
-        /* Extra small mobile devices */
-        @media (max-width: 480px) {
-            :root {
-                --header-height: 70px;
-            }
-            
-            .header {
-                height: var(--header-height);
-            }
-            
-            .logo-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.25rem;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.25rem;
-            }
-            
-            .logo-text p {
-                font-size: 0.75rem;
-            }
-            
-            .mobile-menu-toggle {
-                width: 40px;
-                height: 40px;
-                padding: 0.625rem;
-            }
-            
-            .hero {
-                padding-top: calc(var(--header-height) + var(--space-md));
-            }
-            
-            .hero-title {
-                font-size: 1.75rem;
-            }
-            
-            .hero-title span {
-                font-size: 1.5rem;
-            }
-            
-            .hero-cta .btn {
-                max-width: 100%;
-            }
-            
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: var(--space-xs);
-            }
-            
-            .stat-card {
-                min-height: 100px;
-                padding: var(--space-xs);
-            }
-            
-            .search-tabs {
-                gap: 0.25rem;
-            }
-            
-            .search-tab {
-                min-width: 110px;
-                font-size: 0.85rem;
-                padding: 0.75rem 0.5rem;
-            }
-            
-            .search-actions {
-                flex-direction: column;
-            }
-            
-            .search-actions .btn {
-                width: 100%;
-            }
-            
-            .nav {
-                padding: var(--space-lg) var(--space-md);
-            }
+        .tool-card {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
         }
 
-        /* Desktop styles */
-        @media (min-width: 1025px) {
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-lg);
+            background: var(--secondary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.75rem;
+            margin: 0 auto var(--space-md);
+        }
+
+        /* ===== MAP SECTION ===== */
+        .map-container {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            height: 400px;
+            margin-bottom: var(--space-xl);
+        }
+
+        #indiaMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--light);
+            padding: var(--space-2xl) 0 var(--space-xl);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xl);
+        }
+
+        .footer-section h3 {
+            color: var(--light);
+            margin-bottom: var(--space-md);
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-1 { gap: 0.5rem; }
+        .gap-2 { gap: 1rem; }
+        .gap-3 { gap: 1.5rem; }
+
+        .w-full { width: 100%; }
+        .text-truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        
+        /* Tablet (768px and up) */
+        @media (min-width: 768px) {
             .hero {
                 padding-top: calc(var(--header-height) + var(--space-2xl));
                 padding-bottom: var(--space-2xl);
-                min-height: 90vh;
             }
             
             .hero-main {
                 grid-template-columns: 1fr 1fr;
                 align-items: center;
-                gap: var(--space-2xl);
             }
             
             .hero-text {
                 text-align: left;
-                padding: 0;
             }
             
             .hero-subtitle {
                 margin-left: 0;
                 margin-right: 0;
-                text-align: left;
-            }
-            
-            .hero-cta {
-                justify-content: flex-start;
-                flex-direction: row;
-            }
-            
-            .hero-stats {
-                grid-template-columns: repeat(4, 1fr);
-                gap: var(--space-lg);
-                margin: var(--space-2xl) 0;
-            }
-            
-            .stat-card {
-                padding: var(--space-lg);
-                min-height: 160px;
-            }
-            
-            .search-actions {
-                flex-direction: row;
-            }
-        }
-
-        /* Medium tablets */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .hero-main {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
             }
             
             .hero-stats {
@@ -1101,8 +967,149 @@
                 gap: var(--space-md);
             }
             
+            .stat-card {
+                padding: var(--space-lg);
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hospitals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Desktop (1024px and up) */
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 3.25rem;
+            }
+            
+            .hero-title span {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .hospitals-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .tools-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Mobile (767px and down) */
+        @media (max-width: 767px) {
+            :root {
+                --header-height: 60px;
+            }
+            
+            .header {
+                height: var(--header-height);
+            }
+            
+            .hero {
+                padding-top: calc(var(--header-height) + var(--space-lg));
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--light);
+                flex-direction: column;
+                padding: var(--space-lg);
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                overflow-y: auto;
+                z-index: 999;
+                box-shadow: var(--shadow-lg);
+            }
+            
+            .nav.active {
+                transform: translateX(0);
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.25rem;
+            }
+            
+            .nav-link {
+                padding: var(--space-md);
+                justify-content: flex-start;
+                width: 100%;
+            }
+            
+            .user-actions {
+                margin-top: auto;
+                padding-top: var(--space-lg);
+                border-top: 1px solid var(--border);
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
             .search-actions {
-                flex-direction: row;
+                flex-direction: column;
+            }
+        }
+
+        /* Small Mobile (480px and down) */
+        @media (max-width: 480px) {
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                padding: var(--space-sm);
+            }
+            
+            .hero-search {
+                padding: var(--space-md);
+                margin: 0 -1rem;
+                border-radius: var(--radius-lg);
+            }
+            
+            .search-tab {
+                min-width: 100px;
+                padding: var(--space-sm);
+                font-size: 0.875rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.125rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.6875rem;
             }
         }
     </style>
@@ -1122,15 +1129,15 @@
                 </div>
             </a>
 
-            <!-- Mobile Menu Toggle - ALWAYS VISIBLE ON MOBILE -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
 
             <!-- Navigation -->
-            <nav class="nav" id="mainNav" aria-label="Main navigation">
+            <nav class="nav" id="mainNav">
                 <ul class="nav-list">
                     <li><a href="#" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="#data-catalog" class="nav-link"><i class="fas fa-database"></i> Data Catalog</a></li>
@@ -1142,11 +1149,11 @@
 
                 <!-- User Actions -->
                 <div class="user-actions">
-                    <button class="notification-btn" aria-label="View notifications">
+                    <button class="notification-btn">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge"></span>
                     </button>
-                    <div class="user-avatar" id="userAvatar" role="button" aria-label="User menu">
+                    <div class="user-avatar" id="userAvatar">
                         RS
                     </div>
                 </div>
@@ -1155,7 +1162,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero section" aria-label="Main hero section">
+    <section class="hero section">
         <div class="container hero-content">
             <div class="hero-main">
                 <div class="hero-text">
@@ -1167,8 +1174,7 @@
                         India's first comprehensive, open-source multi-omics database integrating genomics, 
                         transcriptomics, proteomics, and metabolomics with clinical data for accelerated biomedical research.
                     </p>
-                    
-                    <div class="hero-cta">
+                    <div class="flex gap-2">
                         <button class="btn btn-primary btn-lg">
                             <i class="fas fa-database"></i> Explore Data
                         </button>
@@ -1179,24 +1185,22 @@
                 </div>
 
                 <div class="hero-search">
-                    <div class="search-tabs" role="tablist">
-                        <button class="search-tab active" data-search="data" role="tab">Search Data</button>
-                        <button class="search-tab" data-search="hospitals" role="tab">Find Hospitals</button>
-                        <button class="search-tab" data-search="tools" role="tab">Analysis Tools</button>
+                    <div class="search-tabs">
+                        <button class="search-tab active" data-search="data">Search Data</button>
+                        <button class="search-tab" data-search="hospitals">Find Hospitals</button>
+                        <button class="search-tab" data-search="tools">Analysis Tools</button>
                     </div>
                     
                     <div class="search-box">
-                        <div class="search-input-wrapper">
+                        <div class="relative w-full">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" class="search-input" 
-                                   placeholder="Search for datasets, genes, diseases, or hospitals..."
-                                   aria-label="Search input">
+                            <input type="text" class="search-input" placeholder="Search for datasets, genes, diseases, or hospitals...">
                         </div>
                         <div class="search-actions">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary btn-full">
                                 <i class="fas fa-search"></i> Search
                             </button>
-                            <button class="btn btn-icon btn-secondary" aria-label="Advanced search options">
+                            <button class="btn btn-icon btn-secondary">
                                 <i class="fas fa-sliders-h"></i>
                             </button>
                         </div>
@@ -1242,165 +1246,565 @@
         </div>
     </section>
 
-    <!-- Rest of your content (Features, Hospitals, Tools, Map, Footer) remains the same -->
-    
+    <!-- Features Section -->
+    <section class="features section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Integrated Multi-Omics Platform</h2>
+                <p class="text-lead">Everything you need for omics research in one unified platform</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Data Integration</h3>
+                        <p>Unified access to genomics, transcriptomics, proteomics, and metabolomics data from Indian populations.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Advanced Analytics</h3>
+                        <p>Built-in tools for GWAS, pathway analysis, machine learning, and visualization.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Collaboration</h3>
+                        <p>Connect with researchers, hospitals, and institutions across India for collaborative projects.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Secure & Compliant</h3>
+                        <p>GDPR & DPDP Act compliant with secure data handling and ethical governance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospitals Section -->
+    <section id="data-catalog" class="hospitals section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hospital Registry & Data Catalog</h2>
+                <p class="text-lead">Access multi-omics data from leading hospitals across India</p>
+            </div>
+            
+            <div class="section-tabs">
+                <button class="section-tab active" data-tab="all">All Hospitals (62)</button>
+                <button class="section-tab" data-tab="active">Active Collaborations (45)</button>
+                <button class="section-tab" data-tab="pending">Pending Requests (12)</button>
+                <button class="section-tab" data-tab="genomics">Genomics Data (38)</button>
+                <button class="section-tab" data-tab="multiomics">Multi-Omics (24)</button>
+            </div>
+            
+            <div class="hospitals-grid" id="hospitalsGrid">
+                <!-- Hospital cards will be populated by JavaScript -->
+            </div>
+            
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-plus"></i> Load More Hospitals
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis Tools Section -->
+    <section id="analysis" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Analysis & Visualization Tools</h2>
+                <p class="text-lead">Powerful tools for omics data analysis and interpretation</p>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card" onclick="launchTool('jupyter')">
+                    <div class="tool-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Jupyter Notebooks</h3>
+                    <p>Interactive Python/R environment with pre-loaded datasets and libraries.</p>
+                </div>
+                
+                <div class="tool-card" onclick="launchTool('gwas')">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-scatter"></i>
+                    </div>
+                    <h3>GWAS Analyzer</h3>
+                    <p>Genome-wide association studies with Indian population references.</p>
+                </div>
+                
+                <div class="tool-card" onclick="launchTool('pathway')">
+                    <div class="tool-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Pathway Analysis</h3>
+                    <p>KEGG, Reactome, and GO enrichment analysis for multi-omics data.</p>
+                </div>
+                
+                <div class="tool-card" onclick="launchTool('ml')">
+                    <div class="tool-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Machine Learning</h3>
+                    <p>Pre-trained models for disease prediction and biomarker discovery.</p>
+                </div>
+                
+                <div class="tool-card" onclick="launchTool('visualization')">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <h3>Visualization</h3>
+                    <p>Interactive heatmaps, volcano plots, and network visualizations.</p>
+                </div>
+                
+                <div class="tool-card" onclick="launchTool('workflow')">
+                    <div class="tool-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Workflow Builder</h3>
+                    <p>Drag-and-drop pipeline builder for complex analysis workflows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hospital Distribution Across India</h2>
+                <p class="text-lead">Visualize participating hospitals and research institutions</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="indiaMap"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Omics Bharat</h3>
+                    <p>India's premier multi-omics research platform accelerating precision medicine through open collaboration and data sharing.</p>
+                    <div class="flex gap-2 mt-2">
+                        <a href="#" class="btn btn-icon btn-secondary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="btn btn-icon btn-secondary"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="btn btn-icon btn-secondary"><i class="fab fa-github"></i></a>
+                        <a href="#" class="btn btn-icon btn-secondary"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Data Access Policy</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Ethics & Governance</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Publication Guidelines</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Training & Workshops</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> API Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Data Submission Guide</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Analysis Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Sample SOPs</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Consent Forms</a></li>
+                        <li><a href="#"><i class="fas fa-arrow-right"></i> Grant Writing Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> contact@omicsbharat.org</p>
+                    <p><i class="fas fa-phone"></i> +91-11-26588765 (Help Desk)</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ICMR Headquarters, New Delhi</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM IST</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Omics Bharat. All rights reserved. | Open Source under MIT License</p>
+                <p>GDPR & DPDP Act 2023 Compliant | ISO 27001 Certified</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mainNav = document.getElementById('mainNav');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const body = document.body;
-
-            // Force hamburger to be visible on mobile
-            function updateHamburgerVisibility() {
-                if (window.innerWidth <= 1024) {
-                    mobileMenuToggle.style.display = 'flex';
-                } else {
-                    mobileMenuToggle.style.display = 'none';
-                }
+        // Sample hospital data
+        const hospitals = [
+            {
+                id: 1,
+                name: "AIIMS New Delhi",
+                location: "New Delhi",
+                samples: 24500,
+                diseases: ["Oral Cancer", "Breast Cancer", "Diabetes"],
+                omics: ["Genomics", "Transcriptomics", "Proteomics"],
+                status: "active",
+                type: "public",
+                lat: 28.567,
+                lng: 77.209
+            },
+            {
+                id: 2,
+                name: "Tata Memorial Hospital",
+                location: "Mumbai",
+                samples: 18700,
+                diseases: ["Oral Cancer", "Cervical Cancer", "Lung Cancer"],
+                omics: ["Genomics", "Transcriptomics", "Metabolomics"],
+                status: "active",
+                type: "public",
+                lat: 19.003,
+                lng: 72.841
+            },
+            {
+                id: 3,
+                name: "SGPGIMS Lucknow",
+                location: "Lucknow",
+                samples: 9200,
+                diseases: ["Diabetes", "Cardiovascular"],
+                omics: ["Genomics", "Proteomics"],
+                status: "pending",
+                type: "public",
+                lat: 26.846,
+                lng: 80.946
+            },
+            {
+                id: 4,
+                name: "NIMHANS Bangalore",
+                location: "Bangalore",
+                samples: 15600,
+                diseases: ["Neurological", "Psychiatric"],
+                omics: ["Genomics", "Transcriptomics", "Epigenomics"],
+                status: "active",
+                type: "public",
+                lat: 12.943,
+                lng: 77.598
+            },
+            {
+                id: 5,
+                name: "Apollo Hospitals Chennai",
+                location: "Chennai",
+                samples: 13400,
+                diseases: ["Diabetes", "Breast Cancer", "Cardiovascular"],
+                omics: ["Genomics"],
+                status: "restricted",
+                type: "private",
+                lat: 13.041,
+                lng: 80.240
+            },
+            {
+                id: 6,
+                name: "PGIMER Chandigarh",
+                location: "Chandigarh",
+                samples: 18200,
+                diseases: ["Oral Cancer", "Tuberculosis", "Diabetes"],
+                omics: ["Genomics", "Transcriptomics", "Metabolomics"],
+                status: "active",
+                type: "public",
+                lat: 30.758,
+                lng: 76.768
             }
+        ];
 
-            // Initial check
-            updateHamburgerVisibility();
+        // DOM Elements
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        const userAvatar = document.getElementById('userAvatar');
+        const hospitalsGrid = document.getElementById('hospitalsGrid');
+        const searchTabs = document.querySelectorAll('.search-tab');
+        const sectionTabs = document.querySelectorAll('.section-tab');
+        let map;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setup event listeners
+            setupEventListeners();
             
-            // Update on resize
-            window.addEventListener('resize', updateHamburgerVisibility);
+            // Render hospitals
+            renderHospitals();
+            
+            // Initialize map
+            initMap();
+            
+            // Simulate live updates
+            simulateLiveUpdates();
+        });
 
-            // Toggle mobile menu with enhanced animation
-            mobileMenuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            mobileMenuToggle.addEventListener('click', () => {
                 mainNav.classList.toggle('active');
                 mobileMenuToggle.classList.toggle('active');
-                
-                // Prevent body scroll when menu is open
-                if (mainNav.classList.contains('active')) {
-                    body.style.overflow = 'hidden';
-                    // Add overlay
-                    if (!document.getElementById('navOverlay')) {
-                        const overlay = document.createElement('div');
-                        overlay.id = 'navOverlay';
-                        overlay.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background: rgba(0,0,0,0.5);
-                            backdrop-filter: blur(5px);
-                            z-index: 998;
-                            display: none;
-                            opacity: 0;
-                            transition: opacity 0.3s;
-                        `;
-                        overlay.addEventListener('click', closeMenu);
-                        document.body.appendChild(overlay);
-                    }
-                    const overlay = document.getElementById('navOverlay');
-                    overlay.style.display = 'block';
-                    setTimeout(() => overlay.style.opacity = '1', 10);
-                } else {
-                    closeMenu();
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                    mainNav.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
                 }
             });
 
-            function closeMenu() {
-                mainNav.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                body.style.overflow = '';
-                
-                const overlay = document.getElementById('navOverlay');
-                if (overlay) {
-                    overlay.style.opacity = '0';
-                    setTimeout(() => overlay.style.display = 'none', 300);
-                }
-            }
+            // User avatar click
+            userAvatar.addEventListener('click', () => {
+                alert('User profile menu would open here.');
+            });
 
-            // Close menu when clicking on a link
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 1024) {
-                        closeMenu();
-                    }
+            // Search tabs
+            searchTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    searchTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
                 });
             });
 
-            // Close menu on escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
-                    closeMenu();
-                }
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                        
-                        // Update active nav link
-                        document.querySelectorAll('.nav-link').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }
-                });
-            });
-
-            // Search tabs functionality
-            document.querySelectorAll('.search-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
+            // Section tabs
+            sectionTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    sectionTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const tabType = tab.getAttribute('data-tab');
+                    filterHospitals(tabType);
                 });
             });
 
             // Search functionality
-            const searchInput = document.querySelector('.search-input');
-            const searchButton = document.querySelector('.search-actions .btn-primary');
-            
-            function performSearch() {
-                const query = searchInput.value.trim();
-                const activeTab = document.querySelector('.search-tab.active').getAttribute('data-search');
-                
-                if (!query) {
-                    searchInput.focus();
-                    return;
-                }
-                
-                // Show search feedback
-                searchButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
-                searchButton.disabled = true;
-                
-                setTimeout(() => {
-                    alert(`Searching ${activeTab} for: "${query}"`);
-                    searchButton.innerHTML = '<i class="fas fa-search"></i> Search';
-                    searchButton.disabled = false;
-                }, 1000);
-            }
-            
-            searchInput.addEventListener('keypress', (e) => {
+            document.querySelector('.search-input').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') performSearch();
             });
-            
-            searchButton.addEventListener('click', performSearch);
 
-            // Simulate live updates
+            document.querySelector('.btn-primary').addEventListener('click', performSearch);
+        }
+
+        // Render hospitals
+        function renderHospitals(filteredHospitals = hospitals) {
+            hospitalsGrid.innerHTML = '';
+            
+            filteredHospitals.forEach(hospital => {
+                const card = document.createElement('div');
+                card.className = 'hospital-card';
+                
+                // Status color
+                let statusColor = '#28b463';
+                let statusText = 'Active';
+                if (hospital.status === 'pending') {
+                    statusColor = '#f39c12';
+                    statusText = 'Pending';
+                } else if (hospital.status === 'restricted') {
+                    statusColor = '#e74c3c';
+                    statusText = 'Restricted';
+                }
+                
+                card.innerHTML = `
+                    <div class="hospital-header">
+                        <div>
+                            <h3 class="hospital-name">${hospital.name}</h3>
+                            <p class="hospital-location">
+                                <i class="fas fa-map-marker-alt"></i> ${hospital.location}
+                            </p>
+                        </div>
+                        <span class="tag" style="background: ${statusColor}20; color: ${statusColor};">
+                            ${statusText}
+                        </span>
+                    </div>
+                    
+                    <div class="hospital-stats">
+                        <div class="hospital-stat">
+                            <div class="hospital-stat-value">${hospital.samples.toLocaleString()}</div>
+                            <div class="hospital-stat-label">Samples</div>
+                        </div>
+                        <div class="hospital-stat">
+                            <div class="hospital-stat-value">${hospital.omics.length}</div>
+                            <div class="hospital-stat-label">Omics Types</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hospital-tags">
+                        ${hospital.diseases.map(disease => 
+                            `<span class="tag">${disease}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="hospital-tags">
+                        ${hospital.omics.map(omic => 
+                            `<span class="tag" style="background: #e3f2fd; color: #1565c0;">${omic}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <div class="flex gap-1 mt-2">
+                        <button class="btn btn-sm btn-outline" onclick="viewHospital(${hospital.id})">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="requestAccess(${hospital.id})">
+                            <i class="fas fa-key"></i> Request Access
+                        </button>
+                    </div>
+                `;
+                
+                hospitalsGrid.appendChild(card);
+            });
+        }
+
+        // Filter hospitals
+        function filterHospitals(type) {
+            let filtered = hospitals;
+            
+            switch(type) {
+                case 'active':
+                    filtered = hospitals.filter(h => h.status === 'active');
+                    break;
+                case 'pending':
+                    filtered = hospitals.filter(h => h.status === 'pending');
+                    break;
+                case 'genomics':
+                    filtered = hospitals.filter(h => h.omics.includes('Genomics'));
+                    break;
+                case 'multiomics':
+                    filtered = hospitals.filter(h => h.omics.length >= 3);
+                    break;
+            }
+            
+            renderHospitals(filtered);
+        }
+
+        // Initialize map
+        function initMap() {
+            map = L.map('indiaMap').setView([22.0, 79.0], 5);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 8,
+                minZoom: 4
+            }).addTo(map);
+            
+            // Add hospital markers
+            hospitals.forEach(hospital => {
+                const markerColor = hospital.status === 'active' ? 'green' : 
+                                   hospital.status === 'pending' ? 'orange' : 'red';
+                
+                const marker = L.marker([hospital.lat, hospital.lng], {
+                    icon: L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background-color: ${markerColor}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.5);"></div>`,
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10]
+                    })
+                }).addTo(map);
+                
+                marker.bindPopup(`
+                    <b>${hospital.name}</b><br>
+                    <i class="fas fa-map-marker-alt"></i> ${hospital.location}<br>
+                    <i class="fas fa-vial"></i> ${hospital.samples.toLocaleString()} samples<br>
+                    <i class="fas fa-disease"></i> ${hospital.diseases.slice(0, 2).join(', ')}
+                `);
+            });
+        }
+
+        // Perform search
+        function performSearch() {
+            const query = document.querySelector('.search-input').value.trim();
+            const activeTab = document.querySelector('.search-tab.active').getAttribute('data-search');
+            
+            if (!query) return;
+            
+            alert(`Searching ${activeTab} for: "${query}"`);
+        }
+
+        // View hospital details
+        function viewHospital(id) {
+            const hospital = hospitals.find(h => h.id === id);
+            if (hospital) {
+                alert(`Viewing details for ${hospital.name}`);
+            }
+        }
+
+        // Request access
+        function requestAccess(id) {
+            const hospital = hospitals.find(h => h.id === id);
+            if (hospital) {
+                alert(`Requesting access to data from ${hospital.name}`);
+            }
+        }
+
+        // Launch tool
+        function launchTool(tool) {
+            const toolNames = {
+                'jupyter': 'Jupyter Notebooks',
+                'gwas': 'GWAS Analyzer',
+                'pathway': 'Pathway Analysis',
+                'ml': 'Machine Learning',
+                'visualization': 'Visualization Tools',
+                'workflow': 'Workflow Builder'
+            };
+            
+            alert(`Launching ${toolNames[tool]}...`);
+        }
+
+        // Simulate live updates
+        function simulateLiveUpdates() {
+            // Update sample count every 30 seconds
             setInterval(() => {
                 const sampleCount = document.getElementById('sampleCount');
                 const current = parseInt(sampleCount.textContent.replace(/,/g, ''));
                 const increment = Math.floor(Math.random() * 100) + 50;
                 sampleCount.textContent = (current + increment).toLocaleString();
             }, 30000);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 767) {
+                        mainNav.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
+                }
+            });
         });
     </script>
 </body>
