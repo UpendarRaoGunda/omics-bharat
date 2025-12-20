@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Multi-Omics Database (IMOD)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-menu button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .user-menu button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), 
+                        url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 180px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .btn-apply {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-apply:hover {
+            background-color: #2980b9;
+        }
+
+        /* Content Area */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            color: var(--secondary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .card-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hospital Registry */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        /* Table */
+        .table-container {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        td {
+            padding: 15px;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .status-restricted {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--accent);
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-right: 5px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background-color: #f0f0f0;
+        }
+
+        .action-btn.view {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .action-btn.edit {
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--secondary);
+        }
+
+        .tab.active {
+            color: var(--secondary);
+            border-bottom-color: var(--secondary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .footer-section p, .footer-section li {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>India Multi-Omics Database</h1>
+                        <p>Open Source | India-Specific | Collaborative</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Dashboard</a></li>
+                        <li><a href="#">Tissue Registry</a></li>
+                        <li><a href="#">Omics Data</a></li>
+                        <li><a href="#">Collaboration</a></li>
+                        <li><a href="#">Resources</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Researcher Login</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Advancing Precision Medicine for India</h2>
+            <p>A comprehensive, open-source database integrating multi-omics data with clinical information from Indian populations to enable early disease detection and personalized treatment.</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="hospitalCount">47</div>
+                    <div class="stat-label">Participating Hospitals</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="sampleCount">125,430</div>
+                    <div class="stat-label">Tissue Samples</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="omicsCount">8</div>
+                    <div class="stat-label">Omics Datatypes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="diseaseCount">24</div>
+                    <div class="stat-label">Diseases Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar with Filters -->
+            <aside class="sidebar">
+                <h3>Filter Database</h3>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="diseaseFilter">Disease Type</label>
+                        <select id="diseaseFilter">
+                            <option value="all">All Diseases</option>
+                            <option value="cancer">Cancer</option>
+                            <option value="diabetes">Diabetes</option>
+                            <option value="cvd">Cardiovascular</option>
+                            <option value="neuro">Neurological</option>
+                            <option value="infectious">Infectious</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="tissueFilter">Tissue Type</label>
+                        <select id="tissueFilter">
+                            <option value="all">All Tissues</option>
+                            <option value="ffpe">FFPE</option>
+                            <option value="frozen">Frozen</option>
+                            <option value="blood">Blood/Serum</option>
+                            <option value="rna">RNA-stabilized</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="regionFilter">Region</label>
+                        <select id="regionFilter">
+                            <option value="all">All India</option>
+                            <option value="north">North India</option>
+                            <option value="south">South India</option>
+                            <option value="east">East India</option>
+                            <option value="west">West India</option>
+                            <option value="central">Central India</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="omicsFilter">Omics Data Available</label>
+                        <select id="omicsFilter">
+                            <option value="all">Any Omics Data</option>
+                            <option value="genomics">Genomics</option>
+                            <option value="transcriptomics">Transcriptomics</option>
+                            <option value="proteomics">Proteomics</option>
+                            <option value="metabolomics">Metabolomics</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-apply" id="applyFilters">Apply Filters</button>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Cards -->
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Hospital Registry</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                        </div>
+                        <p>Browse participating hospitals and their tissue repositories across India.</p>
+                        <a href="#" class="card-link" id="viewRegistry">View Registry <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Submit New Data</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                        </div>
+                        <p>Contribute tissue samples or omics data to the IMOD consortium.</p>
+                        <a href="#" class="card-link" id="submitDataBtn">Submit Data <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Data Access Request</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                        </div>
+                        <p>Request access to de-identified omics data for research purposes.</p>
+                        <a href="#" class="card-link">Request Access <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Collaboration Portal</h3>
+                            <div class="card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <p>Connect with researchers and clinicians for collaborative projects.</p>
+                        <a href="#" class="card-link">Explore Collaborations <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Hospital Registry Section -->
+                <div class="section-header">
+                    <h2>Hospital Tissue Registry</h2>
+                    <button class="btn-primary" id="addHospitalBtn">
+                        <i class="fas fa-plus"></i> Add Hospital
+                    </button>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="all-hospitals">All Hospitals (47)</div>
+                    <div class="tab" data-tab="active-collaborations">Active Collaborations (32)</div>
+                    <div class="tab" data-tab="pending-requests">Pending Requests (8)</div>
+                    <div class="tab" data-tab="omics-complete">Omics Complete (19)</div>
+                </div>
+
+                <!-- Tab Contents -->
+                <div class="tab-content active" id="all-hospitals">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Hospital Name</th>
+                                    <th>Location</th>
+                                    <th>Tissue Samples</th>
+                                    <th>Disease Focus</th>
+                                    <th>Omics Data</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hospitalTableBody">
+                                <!-- Hospital data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="active-collaborations">
+                    <p>Displaying hospitals with active data sharing agreements and ongoing collaborations.</p>
+                    <!-- Content would be loaded dynamically -->
+                </div>
+
+                <div class="tab-content" id="pending-requests">
+                    <p>Hospitals that have expressed interest but are awaiting ethics approval or MOU finalization.</p>
+                    <!-- Content would be loaded dynamically -->
+                </div>
+
+                <div class="tab-content" id="omics-complete">
+                    <p>Hospitals with complete multi-omics data integrated into the IMOD platform.</p>
+                    <!-- Content would be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>India Multi-Omics Database</h3>
+                    <p>An open-source, collaborative platform for advancing precision medicine in India through integrated multi-omics and clinical data.</p>
+                    <p>Funded by: DBT, ICMR, and Wellcome Trust/DBT India Alliance</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Data Access Policy</a></li>
+                        <li><a href="#">Ethics & Governance</a></li>
+                        <li><a href="#">Collaboration Guidelines</a></li>
+                        <li><a href="#">Publication Policy</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>IMOD Consortium Secretariat</p>
+                    <p>Email: contact@imod-india.org</p>
+                    <p>Phone: +91-11-26588765</p>
+                    <p>Address: ICMR Headquarters, New Delhi</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 India Multi-Omics Database (IMOD). All rights reserved. | Open Source under MIT License</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Hospital Modal -->
+    <div class="modal" id="addHospitalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Hospital to Registry</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="hospitalForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hospitalName">Hospital/Institute Name *</label>
+                            <input type="text" id="hospitalName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospitalType">Type</label>
+                            <select id="hospitalType">
+                                <option value="public">Public Hospital</option>
+                                <option value="private">Private Hospital</option>
+                                <option value="research">Research Institute</option>
+                                <option value="medical_college">Medical College</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location (City, State) *</label>
+                            <input type="text" id="location" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPerson">Contact Person *</label>
+                            <input type="text" id="contactPerson" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" id="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="diseaseFocus">Primary Disease Focus *</label>
+                        <select id="diseaseFocus" multiple>
+                            <option value="oral_cancer">Oral Cancer</option>
+                            <option value="breast_cancer">Breast Cancer</option>
+                            <option value="cervical_cancer">Cervical Cancer</option>
+                            <option value="lung_cancer">Lung Cancer</option>
+                            <option value="diabetes">Diabetes</option>
+                            <option value="cvd">Cardiovascular Disease</option>
+                            <option value="tb">Tuberculosis</option>
+                            <option value="neuro">Neurological Disorders</option>
+                        </select>
+                        <small>Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tissueTypes">Tissue Types Available</label>
+                            <select id="tissueTypes" multiple>
+                                <option value="ffpe">FFPE</option>
+                                <option value="frozen">Frozen</option>
+                                <option value="blood">Blood/Serum</option>
+                                <option value="rna">RNA-stabilized</option>
+                                <option value="dna">DNA-extracted</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sampleCount">Approximate Sample Count</label>
+                            <input type="number" id="sampleCount" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="omicsAvailable">Omics Data Already Generated</label>
+                        <select id="omicsAvailable" multiple>
+                            <option value="genomics">Genomics (WGS/WES)</option>
+                            <option value="transcriptomics">Transcriptomics (RNA-seq)</option>
+                            <option value="proteomics">Proteomics</option>
+                            <option value="metabolomics">Metabolomics</option>
+                            <option value="epigenomics">Epigenomics</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consentType">Consent Type</label>
+                        <select id="consentType">
+                            <option value="broad">Broad Consent (Research Use)</option>
+                            <option value="disease_specific">Disease-Specific Consent</option>
+                            <option value="restricted">Restricted/Project-Specific</option>
+                            <option value="unknown">Not Documented</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalInfo">Additional Information</label>
+                        <textarea id="additionalInfo" placeholder="Any challenges, special resources, or collaboration interests..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn-primary" style="width: 100%;">
+                            <i class="fas fa-save"></i> Submit Hospital Details
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Data Modal -->
+    <div class="modal" id="submitDataModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Submit New Data to IMOD</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This form is for hospitals/researchers to submit metadata about available tissues or omics data for inclusion in the IMOD registry.</p>
+                <p>For actual data upload, please contact the IMOD data management team after metadata approval.</p>
+                
+                <div class="form-group">
+                    <label for="dataType">Type of Data Being Submitted</label>
+                    <select id="dataType">
+                        <option value="tissue_metadata">Tissue/Sample Metadata Only</option>
+                        <option value="omics_metadata">Omics Dataset Metadata</option>
+                        <option value="both">Both Tissue and Omics Metadata</option>
+                        <option value="full_data">Full Data for Upload</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="instituteName">Your Institute Name</label>
+                    <input type="text" id="instituteName">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dataDescription">Brief Description of Data</label>
+                    <textarea id="dataDescription" placeholder="Describe the samples, disease focus, omics methods, data volume, etc."></textarea>
+                </div>
+                
+                <button class="btn-primary" style="width: 100%;" onclick="alert('Thank you! The IMOD team will contact you within 5 working days.'); document.getElementById('submitDataModal').style.display = 'none';">
+                    <i class="fas fa-paper-plane"></i> Submit Metadata
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample hospital data
+        const hospitals = [
+            {
+                id: 1,
+                name: "AIIMS New Delhi",
+                location: "New Delhi",
+                samples: 24500,
+                diseases: ["Oral Cancer", "Breast Cancer", "Diabetes"],
+                omics: ["Genomics", "Transcriptomics", "Proteomics"],
+                status: "active",
+                type: "public"
+            },
+            {
+                id: 2,
+                name: "Tata Memorial Hospital",
+                location: "Mumbai",
+                samples: 18700,
+                diseases: ["Oral Cancer", "Cervical Cancer", "Lung Cancer"],
+                omics: ["Genomics", "Transcriptomics", "Metabolomics"],
+                status: "active",
+                type: "public"
+            },
+            {
+                id: 3,
+                name: "SGPGIMS Lucknow",
+                location: "Lucknow",
+                samples: 9200,
+                diseases: ["Diabetes", "Cardiovascular"],
+                omics: ["Genomics", "Proteomics"],
+                status: "pending",
+                type: "public"
+            },
+            {
+                id: 4,
+                name: "NIMHANS Bangalore",
+                location: "Bangalore",
+                samples: 15600,
+                diseases: ["Neurological", "Psychiatric"],
+                omics: ["Genomics", "Transcriptomics", "Epigenomics"],
+                status: "active",
+                type: "public"
+            },
+            {
+                id: 5,
+                name: "Apollo Hospitals Chennai",
+                location: "Chennai",
+                samples: 13400,
+                diseases: ["Diabetes", "Breast Cancer", "Cardiovascular"],
+                omics: ["Genomics"],
+                status: "restricted",
+                type: "private"
+            },
+            {
+                id: 6,
+                name: "PGIMER Chandigarh",
+                location: "Chandigarh",
+                samples: 18200,
+                diseases: ["Oral Cancer", "Tuberculosis", "Diabetes"],
+                omics: ["Genomics", "Transcriptomics", "Metabolomics"],
+                status: "active",
+                type: "public"
+            },
+            {
+                id: 7,
+                name: "KLE Hospital Belgaum",
+                location: "Belgaum",
+                samples: 6800,
+                diseases: ["Oral Cancer", "Diabetes"],
+                omics: ["Genomics"],
+                status: "pending",
+                type: "private"
+            },
+            {
+                id: 8,
+                name: "JIPMER Puducherry",
+                location: "Puducherry",
+                samples: 11500,
+                diseases: ["Cervical Cancer", "Breast Cancer"],
+                omics: ["Transcriptomics", "Proteomics"],
+                status: "active",
+                type: "public"
+            }
+        ];
+
+        // DOM Elements
+        const hospitalTableBody = document.getElementById('hospitalTableBody');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const addHospitalModal = document.getElementById('addHospitalModal');
+        const submitDataModal = document.getElementById('submitDataModal');
+        const addHospitalBtn = document.getElementById('addHospitalBtn');
+        const submitDataBtn = document.getElementById('submitDataBtn');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const hospitalForm = document.getElementById('hospitalForm');
+        const applyFiltersBtn = document.getElementById('applyFilters');
+        const viewRegistryBtn = document.getElementById('viewRegistry');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Initialize hospital table
+        function renderHospitalTable(filteredHospitals = hospitals) {
+            hospitalTableBody.innerHTML = '';
+            
+            filteredHospitals.forEach(hospital => {
+                const row = document.createElement('tr');
+                
+                // Status class
+                let statusClass = '';
+                let statusText = '';
+                if (hospital.status === 'active') {
+                    statusClass = 'status-active';
+                    statusText = 'Active';
+                } else if (hospital.status === 'pending') {
+                    statusClass = 'status-pending';
+                    statusText = 'Pending';
+                } else {
+                    statusClass = 'status-restricted';
+                    statusText = 'Restricted';
+                }
+                
+                // Omics badges
+                const omicsBadges = hospital.omics.map(omic => 
+                    `<span style="display: inline-block; background: #e3f2fd; color: #1565c0; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; margin: 2px;">${omic}</span>`
+                ).join('');
+                
+                row.innerHTML = `
+                    <td><strong>${hospital.name}</strong><br><small>${hospital.type === 'public' ? 'Public' : 'Private'}</small></td>
+                    <td>${hospital.location}</td>
+                    <td>${hospital.samples.toLocaleString()}</td>
+                    <td>${hospital.diseases.join(', ')}</td>
+                    <td>${omicsBadges}</td>
+                    <td><span class="status ${statusClass}">${statusText}</span></td>
+                    <td>
+                        <button class="action-btn view" onclick="viewHospital(${hospital.id})"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn edit" onclick="editHospital(${hospital.id})"><i class="fas fa-edit"></i></button>
+                    </td>
+                `;
+                
+                hospitalTableBody.appendChild(row);
+            });
+        }
+
+        // Tab functionality
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update table based on tab
+                let filteredHospitals = hospitals;
+                if (tabId === 'active-collaborations') {
+                    filteredHospitals = hospitals.filter(h => h.status === 'active');
+                } else if (tabId === 'pending-requests') {
+                    filteredHospitals = hospitals.filter(h => h.status === 'pending');
+                } else if (tabId === 'omics-complete') {
+                    filteredHospitals = hospitals.filter(h => h.omics.length >= 3);
+                }
+                
+                renderHospitalTable(filteredHospitals);
+            });
+        });
+
+        // Modal functionality
+        addHospitalBtn.addEventListener('click', () => {
+            addHospitalModal.style.display = 'flex';
+        });
+
+        submitDataBtn.addEventListener('click', () => {
+            submitDataModal.style.display = 'flex';
+        });
+
+        viewRegistryBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('[data-tab="all-hospitals"]').click();
+            window.scrollTo({
+                top: document.querySelector('.section-header').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        });
+
+        loginBtn.addEventListener('click', () => {
+            alert('Researcher login portal will be implemented in the backend phase.');
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                addHospitalModal.style.display = 'none';
+                submitDataModal.style.display = 'none';
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === addHospitalModal) {
+                addHospitalModal.style.display = 'none';
+            }
+            if (e.target === submitDataModal) {
+                submitDataModal.style.display = 'none';
+            }
+        });
+
+        // Hospital form submission
+        hospitalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('hospitalName').value;
+            const location = document.getElementById('location').value;
+            
+            // Create new hospital object (simplified)
+            const newHospital = {
+                id: hospitals.length + 1,
+                name: name,
+                location: location,
+                samples: Math.floor(Math.random() * 5000) + 1000,
+                diseases: ['Diabetes', 'Cancer'], // Simplified
+                omics: ['Genomics'],
+                status: 'pending',
+                type: document.getElementById('hospitalType').value
+            };
+            
+            // Add to hospitals array
+            hospitals.unshift(newHospital);
+            
+            // Update table
+            renderHospitalTable();
+            
+            // Update stats
+            document.getElementById('hospitalCount').textContent = hospitals.length;
+            document.getElementById('sampleCount').textContent = 
+                (parseInt(document.getElementById('sampleCount').textContent.replace(/,/g, '')) + newHospital.samples).toLocaleString();
+            
+            // Close modal and reset form
+            addHospitalModal.style.display = 'none';
+            hospitalForm.reset();
+            
+            // Show success message
+            alert(`Thank you! ${name} has been added to the registry with pending status. The IMOD team will contact you for verification.`);
+        });
+
+        // Filter functionality
+        applyFiltersBtn.addEventListener('click', () => {
+            const diseaseFilter = document.getElementById('diseaseFilter').value;
+            const tissueFilter = document.getElementById('tissueFilter').value;
+            const regionFilter = document.getElementById('regionFilter').value;
+            const omicsFilter = document.getElementById('omicsFilter').value;
+            
+            let filtered = hospitals;
+            
+            // Apply filters (simplified for frontend demo)
+            if (diseaseFilter !== 'all') {
+                // In real implementation, would filter by disease
+                filtered = filtered.filter(h => h.diseases.some(d => 
+                    d.toLowerCase().includes(diseaseFilter.toLowerCase())));
+            }
+            
+            if (omicsFilter !== 'all') {
+                filtered = filtered.filter(h => h.omics.some(o => 
+                    o.toLowerCase().includes(omicsFilter.toLowerCase())));
+            }
+            
+            renderHospitalTable(filtered);
+            
+            // Show filter result count
+            const activeTab = document.querySelector('.tab.active');
+            activeTab.textContent = activeTab.textContent.replace(/\d+/, filtered.length);
+        });
+
+        // Hospital actions
+        function viewHospital(id) {
+            const hospital = hospitals.find(h => h.id === id);
+            if (hospital) {
+                alert(`Viewing: ${hospital.name}\n\nLocation: ${hospital.location}\nSamples: ${hospital.samples.toLocaleString()}\nDiseases: ${hospital.diseases.join(', ')}\nOmics Data: ${hospital.omics.join(', ')}\nStatus: ${hospital.status}`);
+            }
+        }
+
+        function editHospital(id) {
+            const hospital = hospitals.find(h => h.id === id);
+            if (hospital) {
+                // In a real app, this would populate and show an edit form
+                alert(`Edit functionality for ${hospital.name} will be available in the backend implementation.`);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHospitalTable();
+            
+            // Update stats with actual counts
+            const totalSamples = hospitals.reduce((sum, h) => sum + h.samples, 0);
+            document.getElementById('sampleCount').textContent = totalSamples.toLocaleString();
+            document.getElementById('hospitalCount').textContent = hospitals.length;
+            
+            // Simulate loading
+            setTimeout(() => {
+                document.getElementById('diseaseCount').textContent = "28";
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
