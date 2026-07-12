@@ -14,17 +14,20 @@ async function withServer(run) {
   }
 }
 
-test('health and stats endpoints are operational', async () => {
+test('health and expanded catalog stats endpoints are operational', async () => {
   await withServer(async (base) => {
     const healthResponse = await fetch(`${base}/api/health`);
     assert.equal(healthResponse.status, 200);
     const health = await healthResponse.json();
     assert.equal(health.status, 'ok');
-    assert.equal(health.version, '2.0.0');
+    assert.equal(health.version, '2.1.0');
 
     const statsResponse = await fetch(`${base}/api/stats`);
     const stats = await statsResponse.json();
-    assert.ok(stats.curatedResources >= 20);
+    assert.ok(stats.curatedResources >= 100);
+    assert.ok(stats.indiaFocusedResources >= 10);
+    assert.ok(stats.apiEnabledResources >= 40);
+    assert.ok(stats.openSourceResources >= 15);
     assert.equal(stats.analysisTools, 4);
   });
 });
@@ -36,6 +39,39 @@ test('catalog can filter India resources', async () => {
     const data = await response.json();
     assert.ok(data.total > 0);
     assert.ok(data.results.every((item) => item.scope === 'India'));
+  });
+});
+
+test('catalog exposes all resources and capability filters', async () => {
+  await withServer(async (base) => {
+    const response = await fetch(`${base}/api/catalog`);
+    assert.equal(response.status, 200);
+    const data = await response.json();
+    assert.ok(data.total >= 100);
+    assert.equal(data.results.length, data.total);
+    assert.ok(data.results.every((item) => item.category));
+
+    const apiResponse = await fetch(`${base}/api/catalog?api=true`);
+    const apiData = await apiResponse.json();
+    assert.ok(apiData.total > 0);
+    assert.ok(apiData.results.every((item) => item.api === true));
+
+    const openSourceResponse = await fetch(`${base}/api/catalog?openSource=true`);
+    const openSourceData = await openSourceResponse.json();
+    assert.ok(openSourceData.total > 0);
+    assert.ok(openSourceData.results.every((item) => item.openSource === true));
+  });
+});
+
+test('catalog facets include categories and capability counts', async () => {
+  await withServer(async (base) => {
+    const response = await fetch(`${base}/api/facets`);
+    assert.equal(response.status, 200);
+    const facets = await response.json();
+    assert.ok(facets.categories.includes('Open-source software'));
+    assert.ok(facets.categories.includes('Sequence & genomes'));
+    assert.ok(facets.capabilities.api > 0);
+    assert.ok(facets.capabilities.openSource > 0);
   });
 });
 
