@@ -1,0 +1,12 @@
+{
+  "name": "Omics Bharat",
+  "short_name": "Omics Bharat",
+  "description": "Free public omics discovery and lightweight bioinformatics tools for India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f8f4",
+  "theme_color": "#0b3d2e",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
