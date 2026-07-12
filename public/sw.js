@@ -1,5 +1,5 @@
-const CACHE_NAME = 'omics-bharat-v2';
-const STATIC_ASSETS = ['/', '/styles.css', '/app.js', '/icon.svg', '/manifest.webmanifest'];
+const CACHE_NAME = 'omics-bharat-v3';
+const STATIC_ASSETS = ['/', '/styles.css', '/ui/premium-1.css', '/ui/premium-2.css', '/ui/premium-3.css', '/ui/premium-4.css', '/ui/premium-5.css', '/ui/premium-6.css', '/app.js', '/ux.js', '/icon.svg', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS)));

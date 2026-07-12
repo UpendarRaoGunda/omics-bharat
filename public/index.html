@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Omics Bharat is a free, evidence-linked platform for finding public omics resources, studies, publications and lightweight bioinformatics tools.">
-  <meta name="theme-color" content="#0b3d2e">
+  <meta name="theme-color" content="#092f27">
   <title>Omics Bharat — Open omics discovery for India</title>
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -13,20 +13,27 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
+  <div class="utility-bar">
+    <div class="shell utility-inner">
+      <p><span class="live-dot" aria-hidden="true"></span><strong>Free public infrastructure</strong><span class="utility-detail">No account · no tracking · no permanent file storage</span></p>
+      <a href="https://github.com/UpendarRaoGunda/omics-bharat" target="_blank" rel="noopener noreferrer">Open-source on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="Omics Bharat home">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 48 48" role="img"><path d="M14 6c14 7 6 29 20 36M34 6c-14 7-6 29-20 36M14 13h20M12 24h24M14 35h20"/></svg>
         </span>
-        <span><strong>Omics Bharat</strong><small>Open science, India-first context</small></span>
+        <span class="brand-copy"><strong>Omics Bharat</strong><small>Evidence discovery for India</small></span>
       </a>
 
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#explore">Explore</a>
-        <a href="#live-search">Live search</a>
-        <a href="#lab">Free lab</a>
-        <a href="#learn">Learn</a>
+        <a href="#explore" data-nav-section="explore">Resources</a>
+        <a href="#live-search" data-nav-section="live-search">Live evidence</a>
+        <a href="#lab" data-nav-section="lab">Free lab</a>
+        <a href="#learn" data-nav-section="learn">Guidance</a>
       </nav>
 
       <div class="header-actions">
@@ -36,79 +43,103 @@
           <option value="hi">हिन्दी</option>
           <option value="te">తెలుగు</option>
         </select>
-        <button id="compactToggle" class="icon-button" type="button" aria-pressed="false" title="Toggle compact mode">Aa</button>
-        <button id="menuToggle" class="menu-button" type="button" aria-expanded="false" aria-controls="mobileNav">Menu</button>
+        <button id="themeToggle" class="icon-button" type="button" aria-pressed="false" title="Use dark theme" aria-label="Use dark theme">◐</button>
+        <button id="compactToggle" class="icon-button density-button" type="button" aria-pressed="false" title="Toggle compact density" aria-label="Toggle compact density">≡</button>
+        <button id="menuToggle" class="menu-button" type="button" aria-expanded="false" aria-controls="mobileNav"><span>Menu</span><span class="menu-lines" aria-hidden="true"></span></button>
       </div>
     </div>
     <nav id="mobileNav" class="mobile-nav" aria-label="Mobile navigation" hidden>
-      <a href="#explore">Explore resources</a>
-      <a href="#live-search">Search public studies</a>
-      <a href="#lab">Use free tools</a>
-      <a href="#learn">Learn responsibly</a>
+      <a href="#explore"><span>01</span> Explore verified resources</a>
+      <a href="#live-search"><span>02</span> Search live public evidence</a>
+      <a href="#lab"><span>03</span> Check a local file</a>
+      <a href="#learn"><span>04</span> Learn responsible practice</a>
     </nav>
   </header>
 
   <main id="main">
     <section id="top" class="hero">
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
       <div class="shell hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow" data-i18n="eyebrow">Built for students, researchers and clinicians across India</p>
+          <div class="hero-label-row">
+            <p class="eyebrow" data-i18n="eyebrow">Built for students, researchers and clinicians across India</p>
+            <span class="hero-version">Community edition</span>
+          </div>
           <h1 data-i18n="heroTitle">Find public omics evidence. Understand it. Check your files.</h1>
           <p class="hero-lede" data-i18n="heroDescription">One free place to discover trusted repositories, search live studies and literature, and run privacy-conscious QC checks—without uploading data to a permanent store.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#explore" data-i18n="exploreButton">Explore public resources</a>
-            <a class="button secondary" href="#lab" data-i18n="labButton">Open the free lab</a>
+            <a class="button primary button-large" href="#explore" data-i18n="exploreButton">Explore public resources <span aria-hidden="true">→</span></a>
+            <a class="button secondary button-large" href="#lab" data-i18n="labButton">Open the free lab</a>
           </div>
-          <ul class="trust-list" aria-label="Platform principles">
-            <li><span aria-hidden="true">✓</span> No paid API key</li>
-            <li><span aria-hidden="true">✓</span> No fake hospital partnerships</li>
-            <li><span aria-hidden="true">✓</span> Inputs processed in memory</li>
-          </ul>
+          <div class="hero-trust" aria-label="Platform principles">
+            <div><span class="trust-icon">01</span><p><strong>Source linked</strong><small>Every record opens its origin</small></p></div>
+            <div><span class="trust-icon">02</span><p><strong>Live evidence</strong><small>NCBI and Europe PMC</small></p></div>
+            <div><span class="trust-icon">03</span><p><strong>Privacy restrained</strong><small>Inputs are not retained</small></p></div>
+          </div>
         </div>
 
-        <div class="hero-panel" aria-labelledby="quickSearchTitle">
-          <div class="panel-kicker">Discovery command centre</div>
-          <h2 id="quickSearchTitle">Search from one box</h2>
-          <div class="search-tabs" role="tablist" aria-label="Quick search type">
-            <button class="search-tab active" type="button" role="tab" aria-selected="true" data-quick-mode="catalog">Resources</button>
-            <button class="search-tab" type="button" role="tab" aria-selected="false" data-quick-mode="geo">GEO studies</button>
-            <button class="search-tab" type="button" role="tab" aria-selected="false" data-quick-mode="publications">Publications</button>
+        <div class="hero-workbench" aria-labelledby="quickSearchTitle">
+          <div class="workbench-topbar">
+            <div><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div>
+            <span>Discovery workspace</span>
+            <kbd>/</kbd>
           </div>
-          <form id="quickSearchForm" class="stack-form">
-            <label for="quickSearchInput">What are you looking for?</label>
-            <div class="search-row">
-              <input id="quickSearchInput" type="search" placeholder="Try: oral cancer RNA-seq" autocomplete="off" required>
-              <button class="button primary" type="submit">Search</button>
+          <div class="hero-panel">
+            <div class="panel-heading">
+              <div><p class="panel-kicker">One search, several paths</p><h2 id="quickSearchTitle">Start with a research question</h2></div>
+              <span class="privacy-mini">Public sources</span>
             </div>
-            <label class="check-row">
-              <input id="quickIndiaOnly" type="checkbox" checked>
-              Prioritise records mentioning India
-            </label>
-          </form>
-          <div class="example-chips" aria-label="Example searches">
-            <button type="button" data-example="oral cancer RNA-seq">Oral cancer</button>
-            <button type="button" data-example="type 2 diabetes proteomics">Diabetes proteomics</button>
-            <button type="button" data-example="tuberculosis transcriptomics">Tuberculosis</button>
+            <div class="search-tabs" role="tablist" aria-label="Quick search type">
+              <button class="search-tab active" type="button" role="tab" aria-selected="true" data-quick-mode="catalog"><span class="tab-symbol">⌘</span>Resources</button>
+              <button class="search-tab" type="button" role="tab" aria-selected="false" data-quick-mode="geo"><span class="tab-symbol">◫</span>GEO studies</button>
+              <button class="search-tab" type="button" role="tab" aria-selected="false" data-quick-mode="publications"><span class="tab-symbol">≡</span>Literature</button>
+            </div>
+            <form id="quickSearchForm" class="stack-form">
+              <label for="quickSearchInput">Disease, gene, assay, accession or topic</label>
+              <div class="command-input-wrap">
+                <span class="search-glyph" aria-hidden="true">⌕</span>
+                <input id="quickSearchInput" type="search" placeholder="Try: oral cancer RNA-seq" autocomplete="off" required>
+                <button class="button primary" type="submit">Search <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="form-options">
+                <label class="check-row"><input id="quickIndiaOnly" type="checkbox" checked><span>Prioritise records mentioning India</span></label>
+                <span class="keyboard-hint">Press <kbd>/</kbd> to focus</span>
+              </div>
+            </form>
+            <div class="example-chips" aria-label="Example searches">
+              <span>Try</span>
+              <button type="button" data-example="oral cancer RNA-seq">Oral cancer</button>
+              <button type="button" data-example="type 2 diabetes proteomics">Diabetes</button>
+              <button type="button" data-example="tuberculosis transcriptomics">Tuberculosis</button>
+            </div>
+            <div class="workflow-preview" aria-hidden="true">
+              <div class="workflow-node active"><span>1</span><p>Discover<small>catalog + live APIs</small></p></div>
+              <i></i>
+              <div class="workflow-node"><span>2</span><p>Inspect<small>source + access</small></p></div>
+              <i></i>
+              <div class="workflow-node"><span>3</span><p>Validate<small>lightweight QC</small></p></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="principles-bar" aria-label="Transparency statement">
-      <div class="shell principles-grid">
-        <div><strong>Curated, not fabricated</strong><span>Every catalog card links to the external source.</span></div>
-        <div><strong>Discovery, not diagnosis</strong><span>No clinical conclusions or treatment advice.</span></div>
-        <div><strong>Privacy by restraint</strong><span>No account, no raw-data repository, no tracking scripts.</span></div>
+    <section class="journey-strip" aria-label="Omics Bharat research workflow">
+      <div class="shell journey-grid">
+        <a href="#explore"><span class="journey-number">01</span><span class="journey-icon" aria-hidden="true">⌘</span><p><strong>Find the right source</strong><small>Curated India-focused and global starting points</small></p><b aria-hidden="true">→</b></a>
+        <a href="#live-search"><span class="journey-number">02</span><span class="journey-icon" aria-hidden="true">⌕</span><p><strong>Search current evidence</strong><small>Query public studies and literature in real time</small></p><b aria-hidden="true">→</b></a>
+        <a href="#lab"><span class="journey-number">03</span><span class="journey-icon" aria-hidden="true">◇</span><p><strong>Check before analysis</strong><small>Run transient structural checks on local text files</small></p><b aria-hidden="true">→</b></a>
       </div>
     </section>
 
     <section class="metrics-section" aria-labelledby="metricsTitle">
       <div class="shell">
         <div class="section-heading compact-heading">
-          <div><p class="eyebrow">What is actually available</p><h2 id="metricsTitle">Measured from this platform—not invented</h2></div>
+          <div class="heading-copy"><span class="section-index">Platform / 00</span><p class="eyebrow">What is actually available</p><h2 id="metricsTitle">Measured from the platform—not invented</h2></div>
           <span id="apiHealth" class="status-pill loading">Checking API…</span>
         </div>
-        <div id="metricsGrid" class="metrics-grid" aria-live="polite">
+        <div id="metricsGrid" class="metrics-grid" aria-live="polite" aria-busy="true">
           <article class="metric-card skeleton"></article>
           <article class="metric-card skeleton"></article>
           <article class="metric-card skeleton"></article>
@@ -120,76 +151,91 @@
     <section id="explore" class="section surface-section" aria-labelledby="exploreTitle">
       <div class="shell">
         <div class="section-heading">
-          <div>
+          <div class="heading-copy">
+            <span class="section-index">Workspace / 01</span>
             <p class="eyebrow" data-i18n="catalogEyebrow">Verified starting points</p>
             <h2 id="exploreTitle" data-i18n="catalogTitle">Explore public omics resources</h2>
             <p data-i18n="catalogDescription">Filter India-focused and global repositories, databases, standards, institutes and policies. Inclusion never implies a partnership.</p>
           </div>
-          <button id="resetCatalog" class="button ghost" type="button">Reset filters</button>
+          <div class="heading-actions"><span id="activeFilterCount" class="filter-summary">No active filters</span><button id="resetCatalog" class="button ghost" type="button">Reset filters</button></div>
         </div>
 
-        <form id="catalogFilters" class="filter-panel" aria-label="Catalog filters">
-          <label class="wide-field">Search catalog
-            <input id="catalogQuery" name="query" type="search" placeholder="Name, organisation, omics area or keyword">
-          </label>
-          <label>Type
-            <select id="kindFilter" name="kind"><option value="">All types</option></select>
-          </label>
-          <label>Omics
-            <select id="omicsFilter" name="omics"><option value="">All omics</option></select>
-          </label>
-          <label>Scope
-            <select id="scopeFilter" name="scope"><option value="">India + global</option></select>
-          </label>
-          <label>Access
-            <select id="accessFilter" name="access"><option value="">All access</option></select>
-          </label>
-        </form>
+        <div class="catalog-layout">
+          <aside class="catalog-sidebar">
+            <div class="sidebar-heading"><div><span class="sidebar-icon" aria-hidden="true">≡</span><h3>Refine catalog</h3></div><small>Filters update instantly</small></div>
+            <form id="catalogFilters" class="filter-panel" aria-label="Catalog filters">
+              <label class="wide-field">Search catalog
+                <span class="field-wrap"><span aria-hidden="true">⌕</span><input id="catalogQuery" name="query" type="search" placeholder="Name, organisation or keyword"></span>
+              </label>
+              <label>Resource type
+                <select id="kindFilter" name="kind"><option value="">All resource types</option></select>
+              </label>
+              <label>Omics area
+                <select id="omicsFilter" name="omics"><option value="">All omics areas</option></select>
+              </label>
+              <label>Geographic scope
+                <select id="scopeFilter" name="scope"><option value="">India + global</option></select>
+              </label>
+              <label>Access model
+                <select id="accessFilter" name="access"><option value="">All access models</option></select>
+              </label>
+            </form>
+            <div class="sidebar-note"><span aria-hidden="true">i</span><p><strong>Independent catalog</strong>Listing does not imply endorsement, partnership or data hosting.</p></div>
+          </aside>
 
-        <div class="results-toolbar">
-          <p id="catalogCount" aria-live="polite">Loading catalog…</p>
-          <div class="view-toggle" role="group" aria-label="Catalog view">
-            <button class="active" type="button" data-view="grid" aria-pressed="true">Grid</button>
-            <button type="button" data-view="list" aria-pressed="false">List</button>
+          <div class="catalog-main">
+            <div class="results-toolbar">
+              <div><span class="toolbar-label">Catalog results</span><p id="catalogCount" aria-live="polite">Loading catalog…</p></div>
+              <div class="view-toggle" role="group" aria-label="Catalog view">
+                <button class="active" type="button" data-view="grid" aria-pressed="true" title="Grid view"><span aria-hidden="true">▦</span> Grid</button>
+                <button type="button" data-view="list" aria-pressed="false" title="List view"><span aria-hidden="true">☷</span> List</button>
+              </div>
+            </div>
+            <div id="catalogResults" class="resource-grid" aria-live="polite" aria-busy="true"></div>
           </div>
         </div>
-        <div id="catalogResults" class="resource-grid" aria-live="polite"></div>
       </div>
     </section>
 
-    <section id="live-search" class="section" aria-labelledby="liveTitle">
+    <section id="live-search" class="section live-section" aria-labelledby="liveTitle">
       <div class="shell">
         <div class="section-heading">
-          <div>
+          <div class="heading-copy">
+            <span class="section-index">Workspace / 02</span>
             <p class="eyebrow">Live public evidence</p>
-            <h2 id="liveTitle">Search NCBI and Europe PMC</h2>
-            <p>Results are fetched at request time from the original public services. Omics Bharat does not mirror or claim ownership of them.</p>
+            <h2 id="liveTitle">Search the source, not a stale copy</h2>
+            <p>Results are fetched at request time from NCBI and Europe PMC. Omics Bharat does not mirror or claim ownership of them.</p>
           </div>
-          <button id="checkSources" class="button secondary" type="button">Check source status</button>
+          <button id="checkSources" class="button secondary" type="button"><span class="button-status-dot" aria-hidden="true"></span>Check source status</button>
         </div>
 
         <div class="live-layout">
           <aside class="source-selector" aria-label="Live source">
-            <button class="active" type="button" data-live-source="publications"><span>Literature</span><small>Europe PMC</small></button>
-            <button type="button" data-live-source="geo"><span>Expression studies</span><small>NCBI GEO</small></button>
-            <button type="button" data-live-source="sra"><span>Raw sequencing</span><small>NCBI SRA</small></button>
-            <button type="button" data-live-source="clinvar"><span>Clinical variants</span><small>NCBI ClinVar</small></button>
+            <div class="source-selector-heading"><span>Choose source</span><small>Public APIs</small></div>
+            <button class="active" type="button" data-live-source="publications"><span class="source-icon" aria-hidden="true">≡</span><span class="source-copy"><strong>Literature</strong><small>Europe PMC · papers and abstracts</small></span><b aria-hidden="true">→</b></button>
+            <button type="button" data-live-source="geo"><span class="source-icon" aria-hidden="true">◫</span><span class="source-copy"><strong>Expression studies</strong><small>NCBI GEO · series and datasets</small></span><b aria-hidden="true">→</b></button>
+            <button type="button" data-live-source="sra"><span class="source-icon" aria-hidden="true">⌁</span><span class="source-copy"><strong>Raw sequencing</strong><small>NCBI SRA · sequence archives</small></span><b aria-hidden="true">→</b></button>
+            <button type="button" data-live-source="clinvar"><span class="source-icon" aria-hidden="true">◇</span><span class="source-copy"><strong>Clinical variants</strong><small>NCBI ClinVar · variant assertions</small></span><b aria-hidden="true">→</b></button>
+            <div class="source-disclaimer"><span aria-hidden="true">↗</span><p>Every result opens the original public record in a new tab.</p></div>
           </aside>
 
           <div class="live-workspace">
+            <div class="workspace-topline"><div><span class="workspace-state"></span>Live query console</div><span>Maximum 15 results</span></div>
             <form id="liveSearchForm" class="live-search-form">
               <label for="liveQuery">Search the selected public source</label>
-              <div class="search-row">
+              <div class="search-row elevated-search">
+                <span class="search-glyph" aria-hidden="true">⌕</span>
                 <input id="liveQuery" type="search" placeholder="Example: breast cancer genomics" required>
-                <button class="button primary" type="submit">Run live search</button>
+                <button class="button primary" type="submit">Run live search <span aria-hidden="true">→</span></button>
               </div>
-              <label class="check-row"><input id="liveIndia" type="checkbox" checked> Add an India relevance filter</label>
+              <label class="check-row"><input id="liveIndia" type="checkbox" checked><span>Add an India relevance filter</span></label>
             </form>
             <div id="sourceStatus" class="source-status" hidden></div>
             <div id="liveResults" class="live-results empty-state">
-              <div class="empty-icon" aria-hidden="true">⌕</div>
-              <h3>Choose a source and search</h3>
-              <p>Try a disease, gene, assay or accession. India filtering can be switched off for broader results.</p>
+              <div class="empty-visual" aria-hidden="true"><span></span><i></i><b></b></div>
+              <h3>Your evidence results will appear here</h3>
+              <p>Choose a source, enter a disease, gene, assay or accession, then run a live search.</p>
+              <div class="empty-hints"><span>BRCA1</span><span>oral cancer</span><span>RNA-seq</span><span>GSE accession</span></div>
             </div>
           </div>
         </div>
@@ -199,77 +245,91 @@
     <section id="lab" class="section lab-section" aria-labelledby="labTitle">
       <div class="shell">
         <div class="section-heading light-heading">
-          <div>
+          <div class="heading-copy">
+            <span class="section-index">Workspace / 03</span>
             <p class="eyebrow">No-install bioinformatics</p>
-            <h2 id="labTitle">Free file-check laboratory</h2>
-            <p>Use lightweight structural QC before moving to validated pipelines. Text is processed transiently; it is not added to a database.</p>
+            <h2 id="labTitle">A private scratchpad for structural QC</h2>
+            <p>Use lightweight checks before moving to validated pipelines. Text is processed transiently and is never added to a database.</p>
           </div>
-          <span class="privacy-badge">5 MB maximum · no retention</span>
+          <div class="privacy-badge"><span class="shield-icon" aria-hidden="true">◇</span><span><strong>Privacy restrained</strong><small>5 MB maximum · no retention</small></span></div>
         </div>
 
         <div class="lab-card">
-          <div class="tool-tabs" role="tablist" aria-label="Analysis tools">
-            <button class="active" type="button" role="tab" aria-selected="true" data-tool="fasta">FASTA summary</button>
-            <button type="button" role="tab" aria-selected="false" data-tool="vcf">VCF QC</button>
-            <button type="button" role="tab" aria-selected="false" data-tool="table">CSV/TSV profile</button>
-            <button type="button" role="tab" aria-selected="false" data-tool="metadata">Metadata check</button>
+          <div class="lab-toolbar">
+            <div class="tool-tabs" role="tablist" aria-label="Analysis tools">
+              <button class="active" type="button" role="tab" aria-selected="true" data-tool="fasta"><span>01</span>FASTA summary</button>
+              <button type="button" role="tab" aria-selected="false" data-tool="vcf"><span>02</span>VCF QC</button>
+              <button type="button" role="tab" aria-selected="false" data-tool="table"><span>03</span>CSV / TSV</button>
+              <button type="button" role="tab" aria-selected="false" data-tool="metadata"><span>04</span>Metadata</button>
+            </div>
+            <div class="lab-security"><span class="live-dot"></span>Processed in memory</div>
           </div>
 
           <div class="tool-workspace">
             <div class="tool-input-panel">
               <div class="tool-copy">
+                <span class="tool-overline">Input configuration</span>
                 <h3 id="toolTitle">FASTA summary</h3>
                 <p id="toolDescription">Count sequences, identify molecule type, calculate lengths, N50 and GC percentage.</p>
               </div>
-              <label class="file-drop" for="toolFile">
+              <label id="fileDrop" class="file-drop" for="toolFile">
                 <input id="toolFile" type="file" accept=".fa,.fasta,.fna,.faa,.vcf,.csv,.tsv,.txt,.json,text/plain,text/csv,application/json">
-                <span><strong>Choose a local text file</strong><small>or paste content below</small></span>
+                <span class="upload-icon" aria-hidden="true">↑</span>
+                <span><strong>Drop a text file here</strong><small>or click to browse · maximum 5 MB</small></span>
+                <b id="fileName">No file selected</b>
               </label>
-              <label for="toolInput">Input</label>
+              <div class="input-label-row"><label for="toolInput">Or paste input</label><div><button id="loadExample" type="button" class="text-button">Load safe example</button><button id="clearTool" type="button" class="text-button muted-action">Clear</button></div></div>
               <textarea id="toolInput" rows="14" spellcheck="false" placeholder=">sample_1&#10;ATGCGCGTAA"></textarea>
-              <div class="input-meta"><span id="inputSize">0 bytes</span><button id="loadExample" type="button" class="text-button">Load safe example</button></div>
-              <button id="runTool" class="button primary full-width" type="button">Run FASTA summary</button>
+              <div class="input-meta"><span id="inputSize">0 bytes</span><span>5 MB limit</span></div>
+              <div class="input-meter" aria-hidden="true"><span id="inputMeterBar"></span></div>
+              <button id="runTool" class="button primary full-width run-button" type="button">Run FASTA summary <span aria-hidden="true">→</span></button>
+              <p class="input-warning"><span aria-hidden="true">!</span>Never paste participant names, clinical notes, secrets or identifiable human genomic data.</p>
             </div>
 
-            <div id="toolResult" class="tool-result empty-state" aria-live="polite">
-              <div class="empty-icon" aria-hidden="true">⌁</div>
-              <h3>Results appear here</h3>
-              <p>Do not paste identifiable participant data, clinical notes or secrets.</p>
+            <div class="tool-output-panel">
+              <div class="output-label"><span>Analysis output</span><small>Transient session</small></div>
+              <div id="toolResult" class="tool-result empty-state" aria-live="polite">
+                <div class="empty-visual lab-empty" aria-hidden="true"><span></span><i></i><b></b></div>
+                <h3>Results appear here</h3>
+                <p>Choose a file or paste safe text, then run the selected structural check.</p>
+                <ul class="output-expectations"><li>Readable summary metrics</li><li>Structural warnings</li><li>Suggested next checks</li></ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="learn" class="section" aria-labelledby="learnTitle">
+    <section id="learn" class="section learn-section" aria-labelledby="learnTitle">
       <div class="shell">
         <div class="section-heading">
-          <div>
+          <div class="heading-copy">
+            <span class="section-index">Guidance / 04</span>
             <p class="eyebrow">From data to responsible evidence</p>
-            <h2 id="learnTitle">Learn what to do next</h2>
-            <p>Practical pathways for learners and small research teams that cannot afford commercial platforms.</p>
+            <h2 id="learnTitle">A practical path for small research teams</h2>
+            <p>Clear next steps for learners and teams that cannot afford commercial discovery platforms.</p>
           </div>
         </div>
         <div class="learning-grid">
-          <article class="learning-card"><span class="step">01</span><h3>Find the right archive</h3><p>Match your assay to a domain repository, inspect access conditions, and search for comparable Indian studies before collecting new data.</p><a href="#explore">Open the resource catalog</a></article>
-          <article class="learning-card"><span class="step">02</span><h3>Protect people, not just files</h3><p>Use coded identifiers, minimise geography, document consent and data-use limits, and seek institutional ethics and legal review.</p><a href="#responsible-use">Read the safety guide</a></article>
-          <article class="learning-card"><span class="step">03</span><h3>Check before analysing</h3><p>Validate file structure, reference builds, sample metadata, missingness and reproducibility information before statistical modelling.</p><a href="#lab">Run a free check</a></article>
-          <article class="learning-card"><span class="step">04</span><h3>Report limitations honestly</h3><p>Indian populations are highly diverse. Never treat one cohort, state, caste, language group or broad ancestry label as representative of India.</p><a href="https://www.ga4gh.org/" target="_blank" rel="noopener noreferrer">Explore responsible standards</a></article>
+          <article class="learning-card"><div class="learning-top"><span class="step">01</span><span class="learning-icon" aria-hidden="true">⌘</span></div><h3>Find the right archive</h3><p>Match your assay to a domain repository, inspect access conditions, and search for comparable Indian studies before collecting new data.</p><a href="#explore">Open the resource catalog <span aria-hidden="true">→</span></a></article>
+          <article class="learning-card"><div class="learning-top"><span class="step">02</span><span class="learning-icon" aria-hidden="true">◇</span></div><h3>Protect people, not just files</h3><p>Use coded identifiers, minimise geography, document consent and data-use limits, and seek institutional ethics and legal review.</p><a href="#responsible-use">Read the safety guide <span aria-hidden="true">→</span></a></article>
+          <article class="learning-card"><div class="learning-top"><span class="step">03</span><span class="learning-icon" aria-hidden="true">⌁</span></div><h3>Check before analysing</h3><p>Validate file structure, reference builds, sample metadata, missingness and reproducibility information before statistical modelling.</p><a href="#lab">Run a free check <span aria-hidden="true">→</span></a></article>
+          <article class="learning-card"><div class="learning-top"><span class="step">04</span><span class="learning-icon" aria-hidden="true">≡</span></div><h3>Report limitations honestly</h3><p>Indian populations are highly diverse. Never treat one cohort, state, caste, language group or broad ancestry label as representative of India.</p><a href="https://www.ga4gh.org/" target="_blank" rel="noopener noreferrer">Explore responsible standards <span aria-hidden="true">↗</span></a></article>
         </div>
 
         <div id="responsible-use" class="responsible-panel">
-          <div>
-            <p class="eyebrow">Important boundary</p>
-            <h2>Omics data can identify families and communities.</h2>
+          <div class="responsible-heading">
+            <span class="responsible-symbol" aria-hidden="true">!</span>
+            <div><p class="eyebrow">Important boundary</p><h2>Omics data can identify families and communities.</h2></div>
           </div>
           <div class="responsible-content">
             <p>This platform is for public-resource discovery, education and lightweight technical checks. It is not a clinical interpretation service, an ethics committee, a legal opinion or a secure repository for human genomic data.</p>
-            <ul>
-              <li>Do not upload raw identifiable human data.</li>
-              <li>Do not use a QC summary to diagnose or treat anyone.</li>
-              <li>Verify consent, ethics approval, data-use conditions and applicable Indian law.</li>
-              <li>Use validated pipelines and expert review for research or clinical decisions.</li>
-            </ul>
+            <div class="boundary-grid">
+              <div><span>01</span><p>Do not upload raw identifiable human data.</p></div>
+              <div><span>02</span><p>Do not use a QC summary to diagnose or treat anyone.</p></div>
+              <div><span>03</span><p>Verify consent, ethics approval and applicable Indian law.</p></div>
+              <div><span>04</span><p>Use validated pipelines and expert review for decisions.</p></div>
+            </div>
           </div>
         </div>
       </div>
@@ -278,12 +338,15 @@
 
   <footer class="site-footer">
     <div class="shell footer-grid">
-      <div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">OB</span><span><strong>Omics Bharat</strong><small>Free and open-source</small></span></a><p>A community platform—not a government portal, hospital network or clinical service.</p></div>
-      <div><h2>Platform</h2><a href="/api/docs" target="_blank">API documentation</a><a href="https://github.com/UpendarRaoGunda/omics-bharat" target="_blank" rel="noopener noreferrer">Source code</a><a href="#responsible-use">Responsible use</a></div>
-      <div><h2>External sources</h2><a href="https://ibdc.dbt.gov.in/" target="_blank" rel="noopener noreferrer">IBDC</a><a href="https://www.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer">NCBI</a><a href="https://europepmc.org/" target="_blank" rel="noopener noreferrer">Europe PMC</a></div>
+      <div class="footer-about"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M14 6c14 7 6 29 20 36M34 6c-14 7-6 29-20 36M14 13h20M12 24h24M14 35h20"/></svg></span><span><strong>Omics Bharat</strong><small>Free and open-source</small></span></a><p>A community platform for equitable access to public omics evidence—not a government portal, hospital network or clinical service.</p><div class="footer-pills"><span>No account</span><span>No tracking</span><span>MIT licensed</span></div></div>
+      <div><h2>Platform</h2><a href="#explore">Resource catalog</a><a href="#live-search">Live evidence search</a><a href="#lab">Free file checks</a><a href="/api/docs" target="_blank">API documentation ↗</a></div>
+      <div><h2>Trust & governance</h2><a href="#responsible-use">Responsible use</a><a href="https://github.com/UpendarRaoGunda/omics-bharat" target="_blank" rel="noopener noreferrer">Source code ↗</a><a href="https://www.ga4gh.org/" target="_blank" rel="noopener noreferrer">GA4GH standards ↗</a></div>
+      <div><h2>Original sources</h2><a href="https://ibdc.dbt.gov.in/" target="_blank" rel="noopener noreferrer">IBDC ↗</a><a href="https://www.ncbi.nlm.nih.gov/" target="_blank" rel="noopener noreferrer">NCBI ↗</a><a href="https://europepmc.org/" target="_blank" rel="noopener noreferrer">Europe PMC ↗</a></div>
     </div>
-    <div class="shell footer-bottom"><span>MIT licensed · Built for equitable access to bioinformatics</span><span id="footerVersion">Version 2.0.0</span></div>
+    <div class="shell footer-bottom"><span>Built for equitable access to bioinformatics across India.</span><span id="footerVersion">Version 2.0.0</span></div>
   </footer>
+
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
 
   <dialog id="resourceDialog" class="resource-dialog">
     <button class="dialog-close" type="button" aria-label="Close dialog">×</button>
@@ -293,5 +356,6 @@
   <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
   <noscript><div class="noscript">JavaScript is required for search and analysis tools. The API remains available at <a href="/api/docs">/api/docs</a>.</div></noscript>
   <script src="/app.js" type="module"></script>
+  <script src="/ux.js" type="module"></script>
 </body>
 </html>
