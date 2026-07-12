@@ -115,10 +115,9 @@ function initCatalogUX() {
   const results = $('#catalogResults');
   if (!results) return;
   const decorate = () => {
-    $$('.resource-card', results).forEach((card, index) => {
+    $$('.resource-card', results).forEach((card) => {
       if (card.dataset.enhanced === 'true') return;
       card.dataset.enhanced = 'true';
-      card.style.setProperty('--card-index', String(index));
       const title = $('h3', card)?.textContent?.trim() || 'Resource';
       const initials = title.split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
       const topline = $('.resource-topline', card);
@@ -186,7 +185,10 @@ function initFileWorkbenchUX() {
   const updateMeter = () => {
     const bytes = new Blob([input.value]).size;
     const max = 5 * 1024 * 1024;
-    if (meter) meter.style.width = `${Math.min((bytes / max) * 100, 100)}%`;
+    const ratio = Math.min(bytes / max, 1);
+    if (meter) {
+      meter.dataset.level = ratio === 0 ? 'empty' : ratio < 0.25 ? 'low' : ratio < 0.5 ? 'medium' : ratio < 0.8 ? 'high' : 'limit';
+    }
     const counter = $('#inputSize');
     if (counter) counter.textContent = formatBytes(bytes);
     input.classList.toggle('near-limit', bytes > max * 0.8);
