@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: omics-bharat
+    runtime: node
+    plan: free
+    buildCommand: npm run check
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NCBI_TOOL
+        value: omics_bharat
