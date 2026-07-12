@@ -57,6 +57,13 @@ function safeEqualText(left, right) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+function apiKeyIsActive(record) {
+  if (!record || record.revokedAt) return false;
+  if (!record.expiresAt) return true;
+  const expiry = Date.parse(record.expiresAt);
+  return Number.isFinite(expiry) && expiry > Date.now();
+}
+
 export function hashPassword(password, salt = randomBytes(16).toString('base64url')) {
   const digest = pbkdf2Sync(String(password), salt, 210_000, 32, 'sha256').toString('base64url');
   return { salt, digest, algorithm: 'pbkdf2-sha256', iterations: 210_000 };
@@ -162,7 +169,7 @@ export async function authenticateRequest(req, store, config) {
   const apiKey = req.headers['x-api-key'];
   if (apiKey) {
     const digest = hashApiKey(apiKey);
-    const keyRecord = await store.find('apiKeys', (item) => item.hash === digest && item.revokedAt === undefined);
+    const keyRecord = await store.find('apiKeys', (item) => item.hash === digest && apiKeyIsActive(item));
     if (keyRecord) {
       const user = await store.get('users', keyRecord.userId);
       if (user?.active !== false) {
