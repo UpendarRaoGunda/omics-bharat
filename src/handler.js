@@ -91,7 +91,10 @@ export async function handler(req, res) {
 }
 
 async function routeApi(req, res, url, pathname, requestId) {
-  if (await routeCommercialApi(req, res, url, pathname, requestId)) return;
+  if (pathname.startsWith('/api/v1/')) {
+    await routeCommercialApi(req, res, url, pathname, requestId);
+    return;
+  }
 
   if (pathname === '/api/health') {
     if (req.method !== 'GET') return methodNotAllowed(res, ['GET']);
