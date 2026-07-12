@@ -291,6 +291,47 @@ function initQuickPolish() {
   language?.addEventListener('change', () => announce('Language updated', language.options[language.selectedIndex]?.text || ''));
 }
 
+function initCommercialEntryPoints() {
+  const href = '/enterprise';
+  const desktop = $('.desktop-nav');
+  if (desktop && !desktop.querySelector('[data-enterprise-link]')) {
+    const link = document.createElement('a');
+    link.href = href;
+    link.dataset.enterpriseLink = 'true';
+    link.textContent = 'Enterprise';
+    desktop.append(link);
+  }
+
+  const mobile = $('#mobileNav');
+  if (mobile && !mobile.querySelector('[data-enterprise-link]')) {
+    const link = document.createElement('a');
+    link.href = href;
+    link.dataset.enterpriseLink = 'true';
+    link.innerHTML = '<span>05</span> Open enterprise workspace';
+    mobile.append(link);
+  }
+
+  const heroActions = $('.hero-actions');
+  if (heroActions && !heroActions.querySelector('[data-enterprise-link]')) {
+    const link = document.createElement('a');
+    link.href = href;
+    link.className = 'button ghost button-large';
+    link.dataset.enterpriseLink = 'true';
+    link.innerHTML = 'Enterprise preview <span aria-hidden="true">↗</span>';
+    heroActions.append(link);
+  }
+
+  fetch('/api/v1/status')
+    .then((response) => response.ok ? response.json() : null)
+    .then((status) => {
+      if (!status?.enabled) return;
+      $$('[data-enterprise-link]').forEach((link) => {
+        link.title = `${status.product} · ${status.mode} mode · research-use only`;
+      });
+    })
+    .catch(() => {});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initKeyboardShortcuts();
@@ -301,4 +342,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initFileWorkbenchUX();
   initResultActions();
   initQuickPolish();
+  initCommercialEntryPoints();
 });

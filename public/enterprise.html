@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Omics Bharat Enterprise Preview: governed omics evidence workspaces, transparent dataset quality, harmonization, reproducible workflow manifests and decision-ready reports.">
+  <meta name="theme-color" content="#071c17">
+  <title>Omics Bharat Enterprise — Evidence-to-decision workspace</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/enterprise.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Omics Bharat community home">
+      <span class="brand-mark" aria-hidden="true">OB</span>
+      <span><strong>Omics Bharat</strong><small>Enterprise Preview</small></span>
+    </a>
+    <nav aria-label="Enterprise links">
+      <a href="/">Community</a>
+      <a href="/api/v1/openapi" target="_blank" rel="noopener">API</a>
+      <a href="https://github.com/UpendarRaoGunda/omics-bharat" target="_blank" rel="noopener noreferrer">Source ↗</a>
+    </nav>
+    <div class="top-actions">
+      <span id="deploymentBadge" class="status-badge loading">Checking deployment…</span>
+      <button id="sessionButton" class="button primary" type="button">Start safe demo</button>
+    </div>
+  </header>
+
+  <section class="enterprise-hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">India-first translational omics infrastructure</p>
+        <h1>From fragmented omics evidence to a reproducible decision package.</h1>
+        <p class="hero-lede">Discover evidence, organize private research projects, score dataset readiness transparently, harmonize metadata, draft pinned workflow manifests, and generate review-ready reports with complete provenance.</p>
+        <div class="hero-actions">
+          <button id="heroDemoButton" class="button primary large" type="button">Enter the enterprise demo</button>
+          <a class="button secondary large" href="#capabilities">See implemented capabilities</a>
+        </div>
+        <div class="boundary-row" aria-label="Product boundaries">
+          <span>Research-use only</span>
+          <span>No certification claimed</span>
+          <span>Demo accepts no sensitive data</span>
+        </div>
+      </div>
+      <aside class="hero-console" aria-label="Commercial platform workflow">
+        <div class="console-top"><span>Decision workflow</span><b>v3.0</b></div>
+        <ol>
+          <li><span>01</span><div><strong>Discover</strong><small>Public and organization evidence</small></div></li>
+          <li><span>02</span><div><strong>Qualify</strong><small>Transparent quality components</small></div></li>
+          <li><span>03</span><div><strong>Harmonize</strong><small>Original + normalized metadata</small></div></li>
+          <li><span>04</span><div><strong>Execute</strong><small>Pinned reproducible manifests</small></div></li>
+          <li><span>05</span><div><strong>Decide</strong><small>Cited evidence package + audit trail</small></div></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <div id="authPanel" class="auth-panel" hidden>
+    <div>
+      <strong>Production sign-in</strong>
+      <span>Used only when the deployment is configured with bootstrap credentials or an external identity adapter.</span>
+    </div>
+    <form id="loginForm">
+      <input id="loginEmail" type="email" placeholder="Email" autocomplete="username" required>
+      <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" required>
+      <button class="button primary" type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <main id="workspace" class="workspace-shell">
+    <aside class="workspace-nav" aria-label="Workspace navigation">
+      <div class="tenant-card">
+        <span class="tenant-icon">OB</span>
+        <div><strong id="tenantName">No active workspace</strong><small id="tenantRole">Start a demo session</small></div>
+      </div>
+      <button class="nav-item active" type="button" data-panel="overview"><span>01</span>Overview</button>
+      <button class="nav-item" type="button" data-panel="searches"><span>02</span>Evidence watchlists</button>
+      <button class="nav-item" type="button" data-panel="quality"><span>03</span>Dataset quality</button>
+      <button class="nav-item" type="button" data-panel="harmonize"><span>04</span>Harmonization</button>
+      <button class="nav-item" type="button" data-panel="workflows"><span>05</span>Workflow manifests</button>
+      <button class="nav-item" type="button" data-panel="reports"><span>06</span>Evidence packages</button>
+      <button class="nav-item" type="button" data-panel="governance"><span>07</span>Governance</button>
+      <button class="nav-item" type="button" data-panel="commercial"><span>08</span>Commercial model</button>
+      <div class="nav-note"><strong>Safety boundary</strong><p>Use accession IDs and non-sensitive metadata in this public preview. Never enter identifiable or restricted human data.</p></div>
+    </aside>
+
+    <section class="workspace-content">
+      <div class="workspace-header">
+        <div><p class="eyebrow">Commercial product foundation</p><h2 id="panelTitle">Workspace overview</h2></div>
+        <div class="workspace-controls">
+          <label for="organizationSelect">Organization</label>
+          <select id="organizationSelect" disabled><option>No session</option></select>
+          <button id="refreshButton" class="icon-button" type="button" title="Refresh current panel" aria-label="Refresh current panel">↻</button>
+        </div>
+      </div>
+
+      <div id="lockedState" class="locked-state">
+        <span class="lock-symbol">◇</span>
+        <h3>Start a safe demo session to use the commercial workspace</h3>
+        <p>The demo stores only ephemeral example records. It is designed to demonstrate product workflows—not to process confidential research or human genomic data.</p>
+        <button class="button primary" type="button" data-start-demo>Start demo session</button>
+      </div>
+
+      <div id="workspacePanels" hidden>
+        <section class="panel active" data-panel-content="overview">
+          <div class="metric-grid">
+            <article><span>Deployment</span><strong id="metricMode">—</strong><small id="metricPersistence">—</small></article>
+            <article><span>Plan</span><strong id="metricPlan">—</strong><small>Organization-scoped limits</small></article>
+            <article><span>Projects</span><strong id="metricProjects">0</strong><small>Research workspaces</small></article>
+            <article><span>Audit events</span><strong id="metricAudit">0</strong><small>Traceable actions</small></article>
+          </div>
+
+          <div class="two-column">
+            <article class="card">
+              <div class="card-heading"><div><p class="kicker">Project portfolio</p><h3>Create a governed research project</h3></div><span class="chip">RBAC scoped</span></div>
+              <form id="projectForm" class="form-grid">
+                <label>Project name<input id="projectName" required placeholder="Target evidence pilot"></label>
+                <label>Status<select id="projectStatus"><option value="active">Active</option><option value="planning">Planning</option><option value="archived">Archived</option></select></label>
+                <label class="full">Description<textarea id="projectDescription" rows="3" placeholder="Scientific objective, decision context and intended outputs"></textarea></label>
+                <label class="check full"><input id="projectRuo" type="checkbox" checked><span>Research-use only</span></label>
+                <button class="button primary" type="submit">Create project</button>
+              </form>
+              <div id="projectList" class="record-list empty"><p>No projects loaded.</p></div>
+            </article>
+
+            <article class="card">
+              <div class="card-heading"><div><p class="kicker">Gold-standard architecture</p><h3>What is implemented now</h3></div></div>
+              <ul class="capability-list">
+                <li><b>Identity</b><span>Signed sessions, scoped API keys and role permissions</span></li>
+                <li><b>Governance</b><span>Organization isolation and append-style audit events</span></li>
+                <li><b>Science</b><span>Transparent quality profiles and reversible harmonization</span></li>
+                <li><b>Reproducibility</b><span>Workflow pinning requirements and checksummed manifests</span></li>
+                <li><b>Decisions</b><span>Cited reports with contradictions, gaps and limitations</span></li>
+                <li><b>Deployment</b><span>Ephemeral demo, persistent volume or executor-webhook boundary</span></li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-content="searches">
+          <div class="panel-intro"><div><p class="kicker">Evidence monitoring</p><h3>Save repeatable searches and research questions</h3><p>Watchlists preserve the question, source and filters inside a project. Scheduled alerts require a production notification worker and are not fabricated in this preview.</p></div></div>
+          <div class="two-column">
+            <form id="searchForm" class="card form-grid">
+              <label>Watchlist name<input id="searchName" required placeholder="India oral cancer transcriptomics"></label>
+              <label>Source<select id="searchSource"><option value="catalog">Resource catalog</option><option value="publications">Europe PMC</option><option value="geo">NCBI GEO</option><option value="sra">NCBI SRA</option><option value="clinvar">ClinVar</option></select></label>
+              <label class="full">Query<input id="searchQuery" required placeholder="oral squamous cell carcinoma RNA-seq India"></label>
+              <label>Project<select id="searchProject"></select></label>
+              <label>Alert cadence<select id="searchCadence"><option value="manual">Manual</option><option value="daily">Daily (worker required)</option><option value="weekly">Weekly (worker required)</option></select></label>
+              <button class="button primary" type="submit">Save watchlist</button>
+            </form>
+            <div id="savedSearchList" class="card record-list empty"><p>No watchlists loaded.</p></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-content="quality">
+          <div class="panel-intro"><div><p class="kicker">Transparent evidence qualification</p><h3>Omics Bharat Dataset Quality Profile</h3><p>The score is deterministic and decomposed into metadata, provenance, cohort, assay, reproducibility and governance components. It is not a black-box AI confidence score.</p></div><span class="chip">No clinical validity claim</span></div>
+          <div class="split-workbench">
+            <form id="qualityForm" class="card form-grid dense">
+              <label>Dataset title<input id="qualityTitle" value="India oral cancer RNA-seq cohort"></label>
+              <label>Accession<input id="qualityAccession" value="GSE-DEMO"></label>
+              <label>Disease<input id="qualityDisease" value="oral squamous cell carcinoma"></label>
+              <label>Tissue<input id="qualityTissue" value="oral tumour tissue"></label>
+              <label>Species<input id="qualitySpecies" value="Homo sapiens"></label>
+              <label>Assay<input id="qualityAssay" value="RNA-seq"></label>
+              <label>Sample size<input id="qualitySampleSize" type="number" value="120" min="0"></label>
+              <label>Geography<input id="qualityGeography" value="India"></label>
+              <label>Access model<select id="qualityAccess"><option value="open">Open</option><option value="controlled">Controlled</option><option value="mixed">Mixed</option></select></label>
+              <label>Project<select id="qualityProject"></select></label>
+              <label class="check"><input id="qualityHuman" type="checkbox" checked><span>Human data</span></label>
+              <label class="check"><input id="qualityPersist" type="checkbox" checked><span>Save profile</span></label>
+              <label class="full">Quality control summary<textarea id="qualityQc" rows="3">Read quality, mapping, library complexity and batch effects reviewed.</textarea></label>
+              <label class="full">Governance notes<textarea id="qualityGovernance" rows="3" placeholder="Consent, ethics approval, data-use conditions and license"></textarea></label>
+              <button class="button primary" type="submit">Evaluate dataset</button>
+            </form>
+            <div id="qualityResult" class="result-card empty"><p>Run an evaluation to see the component scores, warnings and priority actions.</p></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-content="harmonize">
+          <div class="panel-intro"><div><p class="kicker">Ontology-ready metadata</p><h3>Preserve the original. Normalize transparently.</h3><p>Every mapping returns the original value, canonical label, identifier, confidence, mapping source and review requirement.</p></div></div>
+          <div class="split-workbench">
+            <form id="harmonizeForm" class="card">
+              <label>Metadata JSON<textarea id="harmonizeInput" class="code-input" rows="18">{
+  "disease": "oral cancer",
+  "tissue": "whole blood",
+  "species": "human",
+  "assay": "rnaseq",
+  "unit": "mg/dl"
+}</textarea></label>
+              <button class="button primary" type="submit">Harmonize metadata</button>
+            </form>
+            <pre id="harmonizeResult" class="code-result">Run harmonization to inspect reversible mappings.</pre>
+          </div>
+        </section>
+
+        <section class="panel" data-panel-content="workflows">
+          <div class="panel-intro"><div><p class="kicker">Reproducible execution</p><h3>Draft a fully pinned workflow manifest</h3><p>The public preview creates immutable, checksummed manifests. Actual compute dispatch is enabled only through an administrator-configured executor webhook.</p></div><span id="executorBadge" class="chip">Manifest only</span></div>
+          <div id="workflowGrid" class="workflow-grid"></div>
+          <form id="runForm" class="card form-grid">
+            <label>Workflow<select id="runWorkflow"></select></label>
+            <label>Project<select id="runProject"></select></label>
+            <label>Workflow version<input id="runVersion" placeholder="Pin a reviewed release"></label>
+            <label>Workflow commit<input id="runCommit" placeholder="Git commit SHA"></label>
+            <label>Reference bundle<input id="runReference" placeholder="Reference bundle identifier + checksum"></label>
+            <label>Container digest<input id="runContainer" placeholder="sha256:…"></label>
+            <label class="full">Inputs JSON<textarea id="runInputs" rows="4">[{"type":"accession","value":"GSE-DEMO"}]</textarea></label>
+            <label class="full">Parameters JSON<textarea id="runParameters" rows="4">{"genome":"GRCh38","outdir":"results"}</textarea></label>
+            <label class="check"><input id="runHuman" type="checkbox"><span>Contains private human data</span></label>
+            <label class="check"><input id="runDispatch" type="checkbox"><span>Dispatch to configured executor</span></label>
+            <button class="button primary" type="submit">Create run manifest</button>
+          </form>
+          <div id="runResult" class="result-card empty"><p>No workflow manifest created yet.</p></div>
+        </section>
+
+        <section class="panel" data-panel-content="reports">
+          <div class="panel-intro"><div><p class="kicker">Disease-to-evidence studio</p><h3>Generate a review-ready evidence package</h3><p>The generator records sources, user-supplied findings, contradictory evidence, quality gaps, limitations and a deterministic provenance checksum.</p></div></div>
+          <div class="catalog-picker card">
+            <label>Find supporting public resources<input id="reportResourceQuery" placeholder="Example: breast cancer single-cell"></label>
+            <button id="reportResourceSearch" class="button secondary" type="button">Search catalog</button>
+            <div id="reportResourceResults" class="picker-results"><p>Search the catalog and select evidence sources.</p></div>
+            <div id="selectedResources" class="selected-resources"><strong>Selected sources</strong><span>None selected</span></div>
+          </div>
+          <form id="reportForm" class="card form-grid">
+            <label class="full">Research question<textarea id="reportQuestion" rows="3" required>Which public transcriptomic and single-cell resources are suitable for evaluating a disease target in Indian or South Asian cohorts?</textarea></label>
+            <label>Disease/context<input id="reportDisease" value="oral squamous cell carcinoma"></label>
+            <label>Target/biomarker<input id="reportTarget" placeholder="Gene, pathway or biomarker"></label>
+            <label>Geography<input id="reportGeography" value="India and South Asia"></label>
+            <label>Project<select id="reportProject"></select></label>
+            <label class="full">Supporting findings<textarea id="reportFindings" rows="5" placeholder="One finding per line"></textarea></label>
+            <label class="full">Contradictory or uncertain evidence<textarea id="reportContradictions" rows="4" placeholder="One item per line"></textarea></label>
+            <label class="check"><input id="reportValidation" type="checkbox"><span>Independent validation documented</span></label>
+            <label class="check"><input id="reportPopulation" type="checkbox"><span>Population relevance documented</span></label>
+            <button class="button primary" type="submit">Generate evidence package</button>
+          </form>
+          <div id="reportResult" class="result-card empty"><p>No evidence package generated yet.</p></div>
+        </section>
+
+        <section class="panel" data-panel-content="governance">
+          <div class="panel-intro"><div><p class="kicker">Enterprise control plane</p><h3>Auditability, API access and deployment boundaries</h3><p>Every mutating workspace action creates an organization-scoped event. API key secrets are returned once and stored only as hashes.</p></div></div>
+          <div class="two-column">
+            <article class="card">
+              <div class="card-heading"><div><p class="kicker">Service accounts</p><h3>API keys</h3></div></div>
+              <form id="apiKeyForm" class="inline-form">
+                <input id="apiKeyName" required placeholder="CI evidence pipeline">
+                <select id="apiKeyRole"><option value="scientist">Scientist</option><option value="reviewer">Reviewer</option><option value="viewer">Viewer</option></select>
+                <button class="button primary" type="submit">Create key</button>
+              </form>
+              <div id="apiKeySecret" class="secret-box" hidden></div>
+              <div id="apiKeyList" class="record-list empty"><p>No API keys loaded.</p></div>
+            </article>
+            <article class="card">
+              <div class="card-heading"><div><p class="kicker">Traceability</p><h3>Audit ledger</h3></div><button id="auditRefresh" class="button ghost small" type="button">Refresh</button></div>
+              <div id="auditList" class="audit-list empty"><p>No audit events loaded.</p></div>
+            </article>
+          </div>
+          <article class="card boundary-card">
+            <h3>Operational controls still required before production</h3>
+            <div class="boundary-grid">
+              <div><b>Identity</b><span>Connect a managed OIDC/SAML provider and SCIM directory.</span></div>
+              <div><b>Storage</b><span>Use a managed database, object storage, backups and customer-approved encryption.</span></div>
+              <div><b>Security</b><span>Complete threat modelling, penetration testing, incident response and vendor review.</span></div>
+              <div><b>Validation</b><span>Qualify intended workflows and produce customer-specific validation evidence.</span></div>
+              <div><b>Compliance</b><span>Pursue certifications through audited organizational processes—not UI claims.</span></div>
+              <div><b>Clinical use</b><span>Requires separate analytical, clinical and regulatory validation.</span></div>
+            </div>
+          </article>
+        </section>
+
+        <section id="capabilities" class="panel" data-panel-content="commercial">
+          <div class="panel-intro"><div><p class="kicker">Free-to-commercial strategy</p><h3>Community acquisition engine + governed enterprise value</h3><p>Public discovery remains free. Customers pay for private collaboration, harmonization, reproducibility, governance, deployment and decision-ready outputs.</p></div></div>
+          <div id="planGrid" class="plan-grid"></div>
+          <article class="card roadmap-card">
+            <div><p class="kicker">Go-to-market</p><h3>Recommended first commercial wedge</h3></div>
+            <ol>
+              <li><span>01</span><p><strong>Recruit paid design partners</strong><small>Indian biotech, CRO and translational research teams.</small></p></li>
+              <li><span>02</span><p><strong>Focus on one repeated outcome</strong><small>Target evidence or biomarker evidence package.</small></p></li>
+              <li><span>03</span><p><strong>Measure time-to-decision</strong><small>From research question to review-ready, reproducible package.</small></p></li>
+              <li><span>04</span><p><strong>Harden enterprise operations</strong><small>Managed persistence, SSO, private storage, monitoring and support.</small></p></li>
+              <li><span>05</span><p><strong>Validate before regulated claims</strong><small>Build qualification evidence around a clearly defined intended use.</small></p></li>
+            </ol>
+          </article>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>Omics Bharat Enterprise Preview</strong><span>Evidence-to-decision infrastructure for research teams.</span></div>
+    <p>No certification, diagnosis, treatment recommendation or regulatory approval is claimed.</p>
+  </footer>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script src="/enterprise.js" type="module"></script>
+</body>
+</html>

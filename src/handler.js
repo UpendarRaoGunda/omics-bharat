@@ -6,6 +6,7 @@ import { methodNotAllowed, readBody, readJsonBody, sendJson, serveStatic, setSec
 import { probePublicSources, searchEuropePmc, searchNcbi } from './live.js';
 import { profileDelimited, summariseFasta, summariseVcf, validateMetadata } from './parsers.js';
 import { checkRateLimit } from './rate-limit.js';
+import { routeCommercialApi } from './commercial/router.js';
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const publicRoot = join(currentDir, '..', 'public');
@@ -27,8 +28,8 @@ export async function handler(req, res) {
       res.setHeader('X-RateLimit-Remaining', String(rate.remaining));
       res.setHeader('X-RateLimit-Reset', String(Math.ceil(rate.resetAt / 1000)));
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-API-Key, X-Organization-Id');
 
       if (req.method === 'OPTIONS') {
         res.writeHead(204);
@@ -55,7 +56,8 @@ export async function handler(req, res) {
 
     const served = await serveStatic(res, publicRoot, pathname);
     if (!served && !pathname.includes('.')) {
-      await serveStatic(res, publicRoot, '/index.html');
+      const fallback = pathname === '/enterprise' ? '/enterprise.html' : '/index.html';
+      await serveStatic(res, publicRoot, fallback);
     } else if (!served) {
       sendJson(res, 404, { error: 'not_found', message: 'File not found.', requestId });
     }
@@ -82,22 +84,32 @@ export async function handler(req, res) {
     sendJson(res, statusCode, {
       error: statusCode >= 500 ? 'service_error' : 'invalid_request',
       message: safeMessage,
-      detail: statusCode === 502 || statusCode === 504 ? error.message : undefined,
+      detail: statusCode === 502 || statusCode === 504 ? error.detail || error.message : undefined,
       requestId
     });
   }
 }
 
 async function routeApi(req, res, url, pathname, requestId) {
+  if (pathname.startsWith('/api/v1/')) {
+    await routeCommercialApi(req, res, url, pathname, requestId);
+    return;
+  }
+
   if (pathname === '/api/health') {
     if (req.method !== 'GET') return methodNotAllowed(res, ['GET']);
     sendJson(res, 200, {
       status: 'ok',
       service: 'omics-bharat',
-      version: '2.1.0',
+      version: '3.0.0',
       uptimeSeconds: Math.floor((Date.now() - startedAt) / 1000),
       timestamp: new Date().toISOString(),
-      principles: ['free access', 'no paid API key required', 'no uploaded sequence retention']
+      principles: [
+        'free community access remains available',
+        'commercial workspace is research-use only',
+        'no uploaded sequence retention in community tools',
+        'no unsupported certification or clinical claims'
+      ]
     });
     return;
   }
@@ -159,8 +171,9 @@ async function routeApi(req, res, url, pathname, requestId) {
       openSourceResources: resources.filter((item) => item.openSource).length,
       analysisTools: 4,
       liveConnectors: 2,
+      commercialWorkspaceModules: 8,
       generatedAt: new Date().toISOString(),
-      note: 'Counts describe this catalog and its tools, not hospitals, participants, samples or national coverage.'
+      note: 'Counts describe this catalog and its software capabilities, not hospitals, participants, samples, customers or national coverage.'
     });
     return;
   }
@@ -240,22 +253,31 @@ function clampInteger(value, minimum, maximum, fallback) {
 function apiDocumentation() {
   return {
     name: 'Omics Bharat API',
-    version: '2.1.0',
+    version: '3.0.0',
     basePath: '/api',
-    retention: 'Analysis endpoints process request bodies in memory and do not persist them.',
+    retention: 'Community analysis endpoints process request bodies in memory and do not persist them. Commercial workspace persistence depends on deployment configuration.',
     endpoints: [
       { method: 'GET', path: '/api/health', description: 'Service health and uptime.' },
       { method: 'GET', path: '/api/catalog', query: ['query', 'kind', 'category', 'omics', 'scope', 'region', 'access', 'api', 'openSource', 'limit', 'offset'], description: 'Search the curated public-resource catalog.' },
       { method: 'GET', path: '/api/catalog/:id', description: 'Read one curated resource.' },
       { method: 'GET', path: '/api/facets', description: 'Catalog filter values and capability counts.' },
-      { method: 'GET', path: '/api/stats', description: 'Honest platform counts based on the catalog.' },
+      { method: 'GET', path: '/api/stats', description: 'Honest platform counts based on the catalog and implemented modules.' },
       { method: 'GET', path: '/api/live/status', description: 'Check public connector availability.' },
       { method: 'GET', path: '/api/live/publications?q=diabetes&india=true', description: 'Search Europe PMC.' },
       { method: 'GET', path: '/api/live/studies?source=geo&q=oral+cancer&india=true', description: 'Search NCBI GEO, SRA or ClinVar through E-utilities.' },
       { method: 'POST', path: '/api/tools/fasta-summary', contentType: 'text/plain', description: 'FASTA structural summary.' },
       { method: 'POST', path: '/api/tools/vcf-summary', contentType: 'text/plain', description: 'VCF structural QC summary.' },
       { method: 'POST', path: '/api/tools/table-profile', contentType: 'text/plain', description: 'CSV/TSV profile.' },
-      { method: 'POST', path: '/api/tools/metadata-check', contentType: 'application/json', description: 'Research metadata completeness and privacy checks.' }
+      { method: 'POST', path: '/api/tools/metadata-check', contentType: 'application/json', description: 'Research metadata completeness and privacy checks.' },
+      { method: 'GET', path: '/api/v1/status', description: 'Commercial workspace capabilities and deployment boundaries.' },
+      { method: 'GET', path: '/api/v1/openapi', description: 'Commercial API OpenAPI document.' },
+      { method: 'POST', path: '/api/v1/auth/demo', description: 'Start a non-sensitive demo workspace session when enabled.' },
+      { method: 'GET/POST', path: '/api/v1/projects', description: 'Organization-scoped research projects.' },
+      { method: 'POST', path: '/api/v1/quality/evaluate', description: 'Transparent dataset quality profile.' },
+      { method: 'POST', path: '/api/v1/harmonize', description: 'Provenance-preserving metadata harmonization.' },
+      { method: 'GET/POST', path: '/api/v1/runs', description: 'Reproducible workflow manifests and optional executor dispatch.' },
+      { method: 'GET/POST', path: '/api/v1/reports', description: 'Decision-ready evidence packages.' },
+      { method: 'GET', path: '/api/v1/audit', description: 'Organization audit-event export.' }
     ]
   };
 }

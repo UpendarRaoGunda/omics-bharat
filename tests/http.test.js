@@ -20,7 +20,7 @@ test('health and expanded catalog stats endpoints are operational', async () => 
     assert.equal(healthResponse.status, 200);
     const health = await healthResponse.json();
     assert.equal(health.status, 'ok');
-    assert.equal(health.version, '2.1.0');
+    assert.equal(health.version, '3.0.0');
 
     const statsResponse = await fetch(`${base}/api/stats`);
     const stats = await statsResponse.json();
@@ -29,6 +29,7 @@ test('health and expanded catalog stats endpoints are operational', async () => 
     assert.ok(stats.apiEnabledResources >= 40);
     assert.ok(stats.openSourceResources >= 15);
     assert.equal(stats.analysisTools, 4);
+    assert.ok(stats.commercialWorkspaceModules >= 8);
   });
 });
 
