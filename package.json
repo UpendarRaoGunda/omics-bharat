@@ -11,7 +11,7 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "test": "node --test",
-    "check": "node --check server.js && node --check src/handler.js && node --check public/app.js && node --check public/ux.js"
+    "check": "node --check server.js && node --check src/catalog.js && node --check src/handler.js && node --check public/app.js && node --check public/ux.js"
   },
   "keywords": [
     "omics",
