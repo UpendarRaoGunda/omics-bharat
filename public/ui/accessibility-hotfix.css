@@ -1,0 +1,150 @@
+/* Readability and viewport-safe controls.
+   Added after the premium UI layers so these accessibility fixes win cleanly. */
+
+.resource-card h3 {
+  font-size: 1.16rem;
+  line-height: 1.3;
+}
+
+.resource-org {
+  font-size: .8rem;
+  line-height: 1.45;
+}
+
+.resource-description {
+  font-size: .92rem;
+  line-height: 1.7;
+}
+
+.resource-tags span {
+  font-size: .7rem;
+  line-height: 1.35;
+}
+
+.resource-actions button,
+.resource-actions a {
+  min-height: 42px;
+  font-size: .78rem;
+}
+
+html[data-theme="dark"] .resource-card {
+  background: #10231c;
+  border-color: #2e5447;
+}
+
+html[data-theme="dark"] .resource-card h3 {
+  color: #f6fff9;
+}
+
+html[data-theme="dark"] .resource-type {
+  color: #69e0b8;
+}
+
+html[data-theme="dark"] .resource-org {
+  color: #b8cec4;
+}
+
+html[data-theme="dark"] .resource-description {
+  color: #d9e9e2;
+  font-weight: 500;
+}
+
+html[data-theme="dark"] .resource-tags span {
+  color: #bed2c8;
+  background: #0d1d18;
+  border-color: #315548;
+}
+
+html[data-theme="dark"] .access-tag {
+  background: #29411f;
+  color: #daf7a1;
+}
+
+html[data-theme="dark"] .access-tag.controlled {
+  background: #432f1d;
+  color: #ffd397;
+}
+
+html[data-theme="dark"] .access-tag.mixed {
+  background: #173452;
+  color: #b9d8ff;
+}
+
+html[data-theme="dark"] .access-tag.information {
+  background: #2c411a;
+  color: #daf7a1;
+}
+
+html[data-theme="dark"] .resource-actions button {
+  color: #93e6ca;
+  background: #0d1d18;
+  border-color: #315548;
+}
+
+html[data-theme="dark"] .resource-actions button:hover {
+  color: #c9f7e7;
+  background: #173228;
+  border-color: #4a7d6b;
+}
+
+html[data-theme="dark"] .resource-actions a {
+  color: #06251c;
+  background: #6ed9b7;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .24);
+}
+
+html[data-theme="dark"] .resource-actions a:hover {
+  color: #041b15;
+  background: #8be7ca;
+}
+
+.back-to-top {
+  right: calc(24px + env(safe-area-inset-right, 0px));
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  z-index: 4800;
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+  border-radius: 16px;
+  font-size: 0;
+  line-height: 1;
+  background: #69d8b5;
+  color: #06251c;
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: 0 14px 38px rgba(0,0,0,.28);
+}
+
+.back-to-top::before {
+  content: "↑";
+  display: block;
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 900;
+  transform: translateY(-1px);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: #8be7ca;
+  transform: translateY(-2px);
+}
+
+.back-to-top.visible {
+  transform: none;
+}
+
+.back-to-top.visible:hover,
+.back-to-top.visible:focus-visible {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 580px) {
+  .resource-card h3 { font-size: 1.08rem; }
+  .resource-description { font-size: .88rem; }
+  .back-to-top {
+    right: calc(14px + env(safe-area-inset-right, 0px));
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+  }
+}
