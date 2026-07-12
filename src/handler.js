@@ -94,7 +94,7 @@ async function routeApi(req, res, url, pathname, requestId) {
     sendJson(res, 200, {
       status: 'ok',
       service: 'omics-bharat',
-      version: '2.0.0',
+      version: '2.1.0',
       uptimeSeconds: Math.floor((Date.now() - startedAt) / 1000),
       timestamp: new Date().toISOString(),
       principles: ['free access', 'no paid API key required', 'no uploaded sequence retention']
@@ -112,7 +112,7 @@ async function routeApi(req, res, url, pathname, requestId) {
     if (req.method !== 'GET') return methodNotAllowed(res, ['GET']);
     const resources = await getResources();
     const filtered = filterResources(resources, Object.fromEntries(url.searchParams));
-    const limit = clampInteger(url.searchParams.get('limit'), 1, 100, 50);
+    const limit = clampInteger(url.searchParams.get('limit'), 1, 500, 250);
     const offset = clampInteger(url.searchParams.get('offset'), 0, Math.max(0, filtered.length), 0);
     sendJson(res, 200, {
       total: filtered.length,
@@ -154,6 +154,9 @@ async function routeApi(req, res, url, pathname, requestId) {
       indiaFocusedResources: indiaResources.length,
       globalPublicResources: globalResources.length,
       omicsAreas: new Set(resources.flatMap((item) => item.omics || [])).size,
+      categories: new Set(resources.map((item) => item.category)).size,
+      apiEnabledResources: resources.filter((item) => item.api).length,
+      openSourceResources: resources.filter((item) => item.openSource).length,
       analysisTools: 4,
       liveConnectors: 2,
       generatedAt: new Date().toISOString(),
@@ -237,14 +240,14 @@ function clampInteger(value, minimum, maximum, fallback) {
 function apiDocumentation() {
   return {
     name: 'Omics Bharat API',
-    version: '2.0.0',
+    version: '2.1.0',
     basePath: '/api',
     retention: 'Analysis endpoints process request bodies in memory and do not persist them.',
     endpoints: [
       { method: 'GET', path: '/api/health', description: 'Service health and uptime.' },
-      { method: 'GET', path: '/api/catalog', query: ['query', 'kind', 'omics', 'scope', 'region', 'access', 'limit', 'offset'], description: 'Search the curated public-resource catalog.' },
+      { method: 'GET', path: '/api/catalog', query: ['query', 'kind', 'category', 'omics', 'scope', 'region', 'access', 'api', 'openSource', 'limit', 'offset'], description: 'Search the curated public-resource catalog.' },
       { method: 'GET', path: '/api/catalog/:id', description: 'Read one curated resource.' },
-      { method: 'GET', path: '/api/facets', description: 'Catalog filter values.' },
+      { method: 'GET', path: '/api/facets', description: 'Catalog filter values and capability counts.' },
       { method: 'GET', path: '/api/stats', description: 'Honest platform counts based on the catalog.' },
       { method: 'GET', path: '/api/live/status', description: 'Check public connector availability.' },
       { method: 'GET', path: '/api/live/publications?q=diabetes&india=true', description: 'Search Europe PMC.' },
